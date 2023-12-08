@@ -1,3 +1,5 @@
+github.com/airenas/go-tf-serving-protogen v0.0.0-20231208221030-3233e8bfb345 h1:zHci8Nnd2XvZubnG+EIUIc+blOy68ZIBcaSJ7SEVf5c=
+github.com/airenas/go-tf-serving-protogen v0.0.0-20231208221030-3233e8bfb345/go.mod h1:L2c6aQ9w+FZ2VK/0W7sIwdIZGtsaCVpg8ZVblIzf6WM=
 github.com/golang/protobuf v1.5.0/go.mod h1:FsONVRAS9T7sI+LIUmWTfcYkHO4aIWwzhcaSAoJOfIk=
 github.com/golang/protobuf v1.5.3 h1:KhyjKVUg7Usr/dYsdSqoFveMYd5ko72D+zANwlG1mmg=
 github.com/golang/protobuf v1.5.3/go.mod h1:XVQd3VNwM+JqD3oG2Ue2ip4fOMUkwXdXDdiuN0vRsmY=
