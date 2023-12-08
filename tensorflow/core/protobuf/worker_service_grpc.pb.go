@@ -43,6 +43,7 @@ const (
 	WorkerService_CleanupGraph_FullMethodName        = "/tensorflow.grpc.WorkerService/CleanupGraph"
 	WorkerService_CleanupAll_FullMethodName          = "/tensorflow.grpc.WorkerService/CleanupAll"
 	WorkerService_RecvTensor_FullMethodName          = "/tensorflow.grpc.WorkerService/RecvTensor"
+	WorkerService_MarkRecvFinished_FullMethodName    = "/tensorflow.grpc.WorkerService/MarkRecvFinished"
 	WorkerService_Logging_FullMethodName             = "/tensorflow.grpc.WorkerService/Logging"
 	WorkerService_Tracing_FullMethodName             = "/tensorflow.grpc.WorkerService/Tracing"
 	WorkerService_RecvBuf_FullMethodName             = "/tensorflow.grpc.WorkerService/RecvBuf"
@@ -73,6 +74,8 @@ type WorkerServiceClient interface {
 	CleanupAll(ctx context.Context, in *CleanupAllRequest, opts ...grpc.CallOption) (*CleanupAllResponse, error)
 	// See worker.proto for details.
 	RecvTensor(ctx context.Context, in *RecvTensorRequest, opts ...grpc.CallOption) (*RecvTensorResponse, error)
+	// See worker.proto for details.
+	MarkRecvFinished(ctx context.Context, in *MarkRecvFinishedRequest, opts ...grpc.CallOption) (*MarkRecvFinishedResponse, error)
 	// See worker.proto for details.
 	Logging(ctx context.Context, in *LoggingRequest, opts ...grpc.CallOption) (*LoggingResponse, error)
 	// See worker.proto for details.
@@ -176,6 +179,15 @@ func (c *workerServiceClient) RecvTensor(ctx context.Context, in *RecvTensorRequ
 	return out, nil
 }
 
+func (c *workerServiceClient) MarkRecvFinished(ctx context.Context, in *MarkRecvFinishedRequest, opts ...grpc.CallOption) (*MarkRecvFinishedResponse, error) {
+	out := new(MarkRecvFinishedResponse)
+	err := c.cc.Invoke(ctx, WorkerService_MarkRecvFinished_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *workerServiceClient) Logging(ctx context.Context, in *LoggingRequest, opts ...grpc.CallOption) (*LoggingResponse, error) {
 	out := new(LoggingResponse)
 	err := c.cc.Invoke(ctx, WorkerService_Logging_FullMethodName, in, out, opts...)
@@ -253,6 +265,8 @@ type WorkerServiceServer interface {
 	// See worker.proto for details.
 	RecvTensor(context.Context, *RecvTensorRequest) (*RecvTensorResponse, error)
 	// See worker.proto for details.
+	MarkRecvFinished(context.Context, *MarkRecvFinishedRequest) (*MarkRecvFinishedResponse, error)
+	// See worker.proto for details.
 	Logging(context.Context, *LoggingRequest) (*LoggingResponse, error)
 	// See worker.proto for details.
 	Tracing(context.Context, *TracingRequest) (*TracingResponse, error)
@@ -297,6 +311,9 @@ func (UnimplementedWorkerServiceServer) CleanupAll(context.Context, *CleanupAllR
 }
 func (UnimplementedWorkerServiceServer) RecvTensor(context.Context, *RecvTensorRequest) (*RecvTensorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RecvTensor not implemented")
+}
+func (UnimplementedWorkerServiceServer) MarkRecvFinished(context.Context, *MarkRecvFinishedRequest) (*MarkRecvFinishedResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MarkRecvFinished not implemented")
 }
 func (UnimplementedWorkerServiceServer) Logging(context.Context, *LoggingRequest) (*LoggingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Logging not implemented")
@@ -491,6 +508,24 @@ func _WorkerService_RecvTensor_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkerService_MarkRecvFinished_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MarkRecvFinishedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkerServiceServer).MarkRecvFinished(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkerService_MarkRecvFinished_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkerServiceServer).MarkRecvFinished(ctx, req.(*MarkRecvFinishedRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _WorkerService_Logging_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LoggingRequest)
 	if err := dec(in); err != nil {
@@ -641,6 +676,10 @@ var WorkerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RecvTensor",
 			Handler:    _WorkerService_RecvTensor_Handler,
+		},
+		{
+			MethodName: "MarkRecvFinished",
+			Handler:    _WorkerService_MarkRecvFinished_Handler,
 		},
 		{
 			MethodName: "Logging",

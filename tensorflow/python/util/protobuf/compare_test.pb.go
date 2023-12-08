@@ -428,6 +428,210 @@ func (x *WithMap) GetValueString() map[string]string {
 	return nil
 }
 
+type Floats struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Float_  *float32 `protobuf:"fixed32,1,opt,name=float_,json=float" json:"float_,omitempty"`
+	Double_ *float64 `protobuf:"fixed64,2,opt,name=double_,json=double" json:"double_,omitempty"`
+}
+
+func (x *Floats) Reset() {
+	*x = Floats{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Floats) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Floats) ProtoMessage() {}
+
+func (x *Floats) ProtoReflect() protoreflect.Message {
+	mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Floats.ProtoReflect.Descriptor instead.
+func (*Floats) Descriptor() ([]byte, []int) {
+	return file_tensorflow_python_util_protobuf_compare_test_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *Floats) GetFloat_() float32 {
+	if x != nil && x.Float_ != nil {
+		return *x.Float_
+	}
+	return 0
+}
+
+func (x *Floats) GetDouble_() float64 {
+	if x != nil && x.Double_ != nil {
+		return *x.Double_
+	}
+	return 0
+}
+
+type RepeatedFloats struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Float_  []float32 `protobuf:"fixed32,1,rep,packed,name=float_,json=float" json:"float_,omitempty"`
+	Double_ []float64 `protobuf:"fixed64,2,rep,packed,name=double_,json=double" json:"double_,omitempty"`
+}
+
+func (x *RepeatedFloats) Reset() {
+	*x = RepeatedFloats{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RepeatedFloats) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RepeatedFloats) ProtoMessage() {}
+
+func (x *RepeatedFloats) ProtoReflect() protoreflect.Message {
+	mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RepeatedFloats.ProtoReflect.Descriptor instead.
+func (*RepeatedFloats) Descriptor() ([]byte, []int) {
+	return file_tensorflow_python_util_protobuf_compare_test_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *RepeatedFloats) GetFloat_() []float32 {
+	if x != nil {
+		return x.Float_
+	}
+	return nil
+}
+
+func (x *RepeatedFloats) GetDouble_() []float64 {
+	if x != nil {
+		return x.Double_
+	}
+	return nil
+}
+
+type NestedFloats struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Floats *Floats `protobuf:"bytes,1,opt,name=floats" json:"floats,omitempty"`
+}
+
+func (x *NestedFloats) Reset() {
+	*x = NestedFloats{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *NestedFloats) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NestedFloats) ProtoMessage() {}
+
+func (x *NestedFloats) ProtoReflect() protoreflect.Message {
+	mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NestedFloats.ProtoReflect.Descriptor instead.
+func (*NestedFloats) Descriptor() ([]byte, []int) {
+	return file_tensorflow_python_util_protobuf_compare_test_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *NestedFloats) GetFloats() *Floats {
+	if x != nil {
+		return x.Floats
+	}
+	return nil
+}
+
+type MapFloats struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	IntToFloats map[int64]*Floats `protobuf:"bytes,1,rep,name=int_to_floats,json=intToFloats" json:"int_to_floats,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+}
+
+func (x *MapFloats) Reset() {
+	*x = MapFloats{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MapFloats) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MapFloats) ProtoMessage() {}
+
+func (x *MapFloats) ProtoReflect() protoreflect.Message {
+	mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MapFloats.ProtoReflect.Descriptor instead.
+func (*MapFloats) Descriptor() ([]byte, []int) {
+	return file_tensorflow_python_util_protobuf_compare_test_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *MapFloats) GetIntToFloats() map[int64]*Floats {
+	if x != nil {
+		return x.IntToFloats
+	}
+	return nil
+}
+
 type Medium_GroupA struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -439,7 +643,7 @@ type Medium_GroupA struct {
 func (x *Medium_GroupA) Reset() {
 	*x = Medium_GroupA{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[5]
+		mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -452,7 +656,7 @@ func (x *Medium_GroupA) String() string {
 func (*Medium_GroupA) ProtoMessage() {}
 
 func (x *Medium_GroupA) ProtoReflect() protoreflect.Message {
-	mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[5]
+	mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -486,7 +690,7 @@ type Medium_GroupA_GroupB struct {
 func (x *Medium_GroupA_GroupB) Reset() {
 	*x = Medium_GroupA_GroupB{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[6]
+		mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -499,7 +703,7 @@ func (x *Medium_GroupA_GroupB) String() string {
 func (*Medium_GroupA_GroupB) ProtoMessage() {}
 
 func (x *Medium_GroupA_GroupB) ProtoReflect() protoreflect.Message {
-	mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[6]
+	mi := &file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -592,21 +796,44 @@ var file_tensorflow_python_util_protobuf_compare_test_proto_rawDesc = []byte{
 	0x72, 0x69, 0x6e, 0x67, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79,
 	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x76,
 	0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75,
-	0x65, 0x3a, 0x02, 0x38, 0x01, 0x2a, 0x1b, 0x0a, 0x04, 0x45, 0x6e, 0x75, 0x6d, 0x12, 0x05, 0x0a,
-	0x01, 0x41, 0x10, 0x00, 0x12, 0x05, 0x0a, 0x01, 0x42, 0x10, 0x01, 0x12, 0x05, 0x0a, 0x01, 0x43,
-	0x10, 0x02, 0x42, 0xbe, 0x01, 0x0a, 0x10, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x6f, 0x6d, 0x70, 0x61,
-	0x72, 0x65, 0x5f, 0x74, 0x65, 0x73, 0x74, 0x42, 0x10, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x72, 0x65,
-	0x54, 0x65, 0x73, 0x74, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x49, 0x67, 0x69, 0x74,
-	0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x61, 0x69, 0x72, 0x65, 0x6e, 0x61, 0x73, 0x2f,
-	0x67, 0x6f, 0x2d, 0x74, 0x66, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x6e, 0x67, 0x2d, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x67, 0x65, 0x6e, 0x2f, 0x74, 0x65, 0x6e, 0x73, 0x6f, 0x72, 0x66, 0x6c, 0x6f,
-	0x77, 0x2f, 0x70, 0x79, 0x74, 0x68, 0x6f, 0x6e, 0x2f, 0x75, 0x74, 0x69, 0x6c, 0x2f, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0xf8, 0x01, 0x01, 0xa2, 0x02, 0x03, 0x43, 0x58, 0x58, 0xaa,
-	0x02, 0x0b, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x72, 0x65, 0x54, 0x65, 0x73, 0x74, 0xca, 0x02, 0x0b,
-	0x43, 0x6f, 0x6d, 0x70, 0x61, 0x72, 0x65, 0x54, 0x65, 0x73, 0x74, 0xe2, 0x02, 0x17, 0x43, 0x6f,
-	0x6d, 0x70, 0x61, 0x72, 0x65, 0x54, 0x65, 0x73, 0x74, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74,
-	0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x0b, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x72, 0x65, 0x54,
-	0x65, 0x73, 0x74,
+	0x65, 0x3a, 0x02, 0x38, 0x01, 0x22, 0x38, 0x0a, 0x06, 0x46, 0x6c, 0x6f, 0x61, 0x74, 0x73, 0x12,
+	0x15, 0x0a, 0x06, 0x66, 0x6c, 0x6f, 0x61, 0x74, 0x5f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x02, 0x52,
+	0x05, 0x66, 0x6c, 0x6f, 0x61, 0x74, 0x12, 0x17, 0x0a, 0x07, 0x64, 0x6f, 0x75, 0x62, 0x6c, 0x65,
+	0x5f, 0x18, 0x02, 0x20, 0x01, 0x28, 0x01, 0x52, 0x06, 0x64, 0x6f, 0x75, 0x62, 0x6c, 0x65, 0x22,
+	0x48, 0x0a, 0x0e, 0x52, 0x65, 0x70, 0x65, 0x61, 0x74, 0x65, 0x64, 0x46, 0x6c, 0x6f, 0x61, 0x74,
+	0x73, 0x12, 0x19, 0x0a, 0x06, 0x66, 0x6c, 0x6f, 0x61, 0x74, 0x5f, 0x18, 0x01, 0x20, 0x03, 0x28,
+	0x02, 0x42, 0x02, 0x10, 0x01, 0x52, 0x05, 0x66, 0x6c, 0x6f, 0x61, 0x74, 0x12, 0x1b, 0x0a, 0x07,
+	0x64, 0x6f, 0x75, 0x62, 0x6c, 0x65, 0x5f, 0x18, 0x02, 0x20, 0x03, 0x28, 0x01, 0x42, 0x02, 0x10,
+	0x01, 0x52, 0x06, 0x64, 0x6f, 0x75, 0x62, 0x6c, 0x65, 0x22, 0x3c, 0x0a, 0x0c, 0x4e, 0x65, 0x73,
+	0x74, 0x65, 0x64, 0x46, 0x6c, 0x6f, 0x61, 0x74, 0x73, 0x12, 0x2c, 0x0a, 0x06, 0x66, 0x6c, 0x6f,
+	0x61, 0x74, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x63, 0x6f, 0x6d, 0x70,
+	0x61, 0x72, 0x65, 0x5f, 0x74, 0x65, 0x73, 0x74, 0x2e, 0x46, 0x6c, 0x6f, 0x61, 0x74, 0x73, 0x52,
+	0x06, 0x66, 0x6c, 0x6f, 0x61, 0x74, 0x73, 0x22, 0xaf, 0x01, 0x0a, 0x09, 0x4d, 0x61, 0x70, 0x46,
+	0x6c, 0x6f, 0x61, 0x74, 0x73, 0x12, 0x4c, 0x0a, 0x0d, 0x69, 0x6e, 0x74, 0x5f, 0x74, 0x6f, 0x5f,
+	0x66, 0x6c, 0x6f, 0x61, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x28, 0x2e, 0x63,
+	0x6f, 0x6d, 0x70, 0x61, 0x72, 0x65, 0x5f, 0x74, 0x65, 0x73, 0x74, 0x2e, 0x4d, 0x61, 0x70, 0x46,
+	0x6c, 0x6f, 0x61, 0x74, 0x73, 0x2e, 0x49, 0x6e, 0x74, 0x54, 0x6f, 0x46, 0x6c, 0x6f, 0x61, 0x74,
+	0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52, 0x0b, 0x69, 0x6e, 0x74, 0x54, 0x6f, 0x46, 0x6c, 0x6f,
+	0x61, 0x74, 0x73, 0x1a, 0x54, 0x0a, 0x10, 0x49, 0x6e, 0x74, 0x54, 0x6f, 0x46, 0x6c, 0x6f, 0x61,
+	0x74, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x2a, 0x0a, 0x05, 0x76, 0x61, 0x6c,
+	0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x63, 0x6f, 0x6d, 0x70, 0x61,
+	0x72, 0x65, 0x5f, 0x74, 0x65, 0x73, 0x74, 0x2e, 0x46, 0x6c, 0x6f, 0x61, 0x74, 0x73, 0x52, 0x05,
+	0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38, 0x01, 0x2a, 0x1b, 0x0a, 0x04, 0x45, 0x6e, 0x75,
+	0x6d, 0x12, 0x05, 0x0a, 0x01, 0x41, 0x10, 0x00, 0x12, 0x05, 0x0a, 0x01, 0x42, 0x10, 0x01, 0x12,
+	0x05, 0x0a, 0x01, 0x43, 0x10, 0x02, 0x42, 0xbe, 0x01, 0x0a, 0x10, 0x63, 0x6f, 0x6d, 0x2e, 0x63,
+	0x6f, 0x6d, 0x70, 0x61, 0x72, 0x65, 0x5f, 0x74, 0x65, 0x73, 0x74, 0x42, 0x10, 0x43, 0x6f, 0x6d,
+	0x70, 0x61, 0x72, 0x65, 0x54, 0x65, 0x73, 0x74, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a,
+	0x49, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x61, 0x69, 0x72, 0x65,
+	0x6e, 0x61, 0x73, 0x2f, 0x67, 0x6f, 0x2d, 0x74, 0x66, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x6e,
+	0x67, 0x2d, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x67, 0x65, 0x6e, 0x2f, 0x74, 0x65, 0x6e, 0x73, 0x6f,
+	0x72, 0x66, 0x6c, 0x6f, 0x77, 0x2f, 0x70, 0x79, 0x74, 0x68, 0x6f, 0x6e, 0x2f, 0x75, 0x74, 0x69,
+	0x6c, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0xf8, 0x01, 0x01, 0xa2, 0x02, 0x03,
+	0x43, 0x58, 0x58, 0xaa, 0x02, 0x0b, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x72, 0x65, 0x54, 0x65, 0x73,
+	0x74, 0xca, 0x02, 0x0b, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x72, 0x65, 0x54, 0x65, 0x73, 0x74, 0xe2,
+	0x02, 0x17, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x72, 0x65, 0x54, 0x65, 0x73, 0x74, 0x5c, 0x47, 0x50,
+	0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x0b, 0x43, 0x6f, 0x6d, 0x70,
+	0x61, 0x72, 0x65, 0x54, 0x65, 0x73, 0x74,
 }
 
 var (
@@ -622,7 +849,7 @@ func file_tensorflow_python_util_protobuf_compare_test_proto_rawDescGZIP() []byt
 }
 
 var file_tensorflow_python_util_protobuf_compare_test_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_tensorflow_python_util_protobuf_compare_test_proto_goTypes = []interface{}{
 	(Enum)(0),                    // 0: compare_test.Enum
 	(*Small)(nil),                // 1: compare_test.Small
@@ -630,27 +857,35 @@ var file_tensorflow_python_util_protobuf_compare_test_proto_goTypes = []interfac
 	(*Large)(nil),                // 3: compare_test.Large
 	(*Labeled)(nil),              // 4: compare_test.Labeled
 	(*WithMap)(nil),              // 5: compare_test.WithMap
-	(*Medium_GroupA)(nil),        // 6: compare_test.Medium.GroupA
-	(*Medium_GroupA_GroupB)(nil), // 7: compare_test.Medium.GroupA.GroupB
-	nil,                          // 8: compare_test.WithMap.ValueMessageEntry
-	nil,                          // 9: compare_test.WithMap.ValueStringEntry
+	(*Floats)(nil),               // 6: compare_test.Floats
+	(*RepeatedFloats)(nil),       // 7: compare_test.RepeatedFloats
+	(*NestedFloats)(nil),         // 8: compare_test.NestedFloats
+	(*MapFloats)(nil),            // 9: compare_test.MapFloats
+	(*Medium_GroupA)(nil),        // 10: compare_test.Medium.GroupA
+	(*Medium_GroupA_GroupB)(nil), // 11: compare_test.Medium.GroupA.GroupB
+	nil,                          // 12: compare_test.WithMap.ValueMessageEntry
+	nil,                          // 13: compare_test.WithMap.ValueStringEntry
+	nil,                          // 14: compare_test.MapFloats.IntToFloatsEntry
 }
 var file_tensorflow_python_util_protobuf_compare_test_proto_depIdxs = []int32{
 	1,  // 0: compare_test.Medium.smalls:type_name -> compare_test.Small
-	6,  // 1: compare_test.Medium.groupa:type_name -> compare_test.Medium.GroupA
+	10, // 1: compare_test.Medium.groupa:type_name -> compare_test.Medium.GroupA
 	0,  // 2: compare_test.Large.enum_:type_name -> compare_test.Enum
 	2,  // 3: compare_test.Large.medium:type_name -> compare_test.Medium
 	1,  // 4: compare_test.Large.small:type_name -> compare_test.Small
 	5,  // 5: compare_test.Large.with_map:type_name -> compare_test.WithMap
-	8,  // 6: compare_test.WithMap.value_message:type_name -> compare_test.WithMap.ValueMessageEntry
-	9,  // 7: compare_test.WithMap.value_string:type_name -> compare_test.WithMap.ValueStringEntry
-	7,  // 8: compare_test.Medium.GroupA.groupb:type_name -> compare_test.Medium.GroupA.GroupB
-	1,  // 9: compare_test.WithMap.ValueMessageEntry.value:type_name -> compare_test.Small
-	10, // [10:10] is the sub-list for method output_type
-	10, // [10:10] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	12, // 6: compare_test.WithMap.value_message:type_name -> compare_test.WithMap.ValueMessageEntry
+	13, // 7: compare_test.WithMap.value_string:type_name -> compare_test.WithMap.ValueStringEntry
+	6,  // 8: compare_test.NestedFloats.floats:type_name -> compare_test.Floats
+	14, // 9: compare_test.MapFloats.int_to_floats:type_name -> compare_test.MapFloats.IntToFloatsEntry
+	11, // 10: compare_test.Medium.GroupA.groupb:type_name -> compare_test.Medium.GroupA.GroupB
+	1,  // 11: compare_test.WithMap.ValueMessageEntry.value:type_name -> compare_test.Small
+	6,  // 12: compare_test.MapFloats.IntToFloatsEntry.value:type_name -> compare_test.Floats
+	13, // [13:13] is the sub-list for method output_type
+	13, // [13:13] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_tensorflow_python_util_protobuf_compare_test_proto_init() }
@@ -720,7 +955,7 @@ func file_tensorflow_python_util_protobuf_compare_test_proto_init() {
 			}
 		}
 		file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Medium_GroupA); i {
+			switch v := v.(*Floats); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -732,6 +967,54 @@ func file_tensorflow_python_util_protobuf_compare_test_proto_init() {
 			}
 		}
 		file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RepeatedFloats); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*NestedFloats); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MapFloats); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Medium_GroupA); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_tensorflow_python_util_protobuf_compare_test_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Medium_GroupA_GroupB); i {
 			case 0:
 				return &v.state
@@ -750,7 +1033,7 @@ func file_tensorflow_python_util_protobuf_compare_test_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_tensorflow_python_util_protobuf_compare_test_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   9,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

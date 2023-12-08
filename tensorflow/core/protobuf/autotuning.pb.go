@@ -37,6 +37,7 @@ type ComputeCapability = protobuf.ComputeCapability
 type AutotuneResult = protobuf.AutotuneResult
 type AutotuneResult_Conv = protobuf.AutotuneResult_Conv
 type AutotuneResult_Gemm = protobuf.AutotuneResult_Gemm
+type AutotuneResult_Triton = protobuf.AutotuneResult_Triton
 type AutotuneResult_CudaConvPlan = protobuf.AutotuneResult_CudaConvPlan
 type AutotuneResult_Algorithm = protobuf.AutotuneResult_Algorithm
 type AutotuningLog = protobuf.AutotuningLog
@@ -48,6 +49,7 @@ type AutotuneResult_FailureResult_ReferenceAlgorithm = protobuf.AutotuneResult_F
 type AutotuneResult_ConvKey = protobuf.AutotuneResult_ConvKey
 type AutotuneResult_GemmKey = protobuf.AutotuneResult_GemmKey
 type AutotuneResult_CudaConvPlanKey = protobuf.AutotuneResult_CudaConvPlanKey
+type AutotuneResult_TritonGemmKey = protobuf.AutotuneResult_TritonGemmKey
 
 var File_tensorflow_core_protobuf_autotuning_proto protoreflect.FileDescriptor
 

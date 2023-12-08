@@ -71,7 +71,7 @@ const (
 	// is specified in the compatibility failure message.
 	// For more details on each operator version see
 	// the GetBuiltinOperatorVersion function in
-	// third_party/tensorflow/lite/tools/versioning/op_version.cc.
+	// tensorflow/lite/tools/versioning/op_version.cc.
 	// Applied DDC(s): NNAPI
 	CompatibilityFailureType_DCC_UNSUPPORTED_OPERATOR_VERSION CompatibilityFailureType = 7
 	// The given input operand type is not supported for the current

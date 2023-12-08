@@ -58,6 +58,7 @@ const FilterLayout_kOutputInputYX = protobuf.FilterLayout_kOutputInputYX
 const FilterLayout_kOutputYXInput = protobuf.FilterLayout_kOutputYXInput
 const FilterLayout_kOutputInputYX4 = protobuf.FilterLayout_kOutputInputYX4
 const FilterLayout_kOutputInputYX32 = protobuf.FilterLayout_kOutputInputYX32
+const FilterLayout_kOutputInputYX32_CudnnReordered = protobuf.FilterLayout_kOutputInputYX32_CudnnReordered
 const FilterLayout_kInputYXOutput = protobuf.FilterLayout_kInputYXOutput
 const FilterLayout_kYXInputOutput = protobuf.FilterLayout_kYXInputOutput
 
@@ -98,6 +99,15 @@ const ConvolutionKind_FORWARD_BIAS_ACTIVATION = protobuf.ConvolutionKind_FORWARD
 
 var ConvolutionKind_name = protobuf.ConvolutionKind_name
 var ConvolutionKind_value = protobuf.ConvolutionKind_value
+
+type FusedMHAKind = protobuf.FusedMHAKind
+
+const FusedMHAKind_BMM1_OUTPUT_UNKNOWN = protobuf.FusedMHAKind_BMM1_OUTPUT_UNKNOWN
+const FusedMHAKind_BMM1_OUTPUT_INPUT_TYPE = protobuf.FusedMHAKind_BMM1_OUTPUT_INPUT_TYPE
+const FusedMHAKind_BMM1_OUTPUT_FLOAT = protobuf.FusedMHAKind_BMM1_OUTPUT_FLOAT
+
+var FusedMHAKind_name = protobuf.FusedMHAKind_name
+var FusedMHAKind_value = protobuf.FusedMHAKind_value
 
 type AlgorithmProto_MathType = protobuf.AlgorithmProto_MathType
 
