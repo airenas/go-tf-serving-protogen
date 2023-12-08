@@ -42,6 +42,7 @@ const Delegate_XNNPACK = configuration.Delegate_XNNPACK
 const Delegate_EDGETPU = configuration.Delegate_EDGETPU
 const Delegate_EDGETPU_CORAL = configuration.Delegate_EDGETPU_CORAL
 const Delegate_CORE_ML = configuration.Delegate_CORE_ML
+const Delegate_ARMNN = configuration.Delegate_ARMNN
 
 var Delegate_name = configuration.Delegate_name
 var Delegate_value = configuration.Delegate_value
@@ -242,6 +243,7 @@ const Default_GoogleEdgeTpuSettings_ModelIdentifier = configuration.Default_Goog
 const Default_GoogleEdgeTpuSettings_UseAsyncApi = configuration.Default_GoogleEdgeTpuSettings_UseAsyncApi
 const Default_GoogleEdgeTpuSettings_DelegateShouldManageCacheForInputs = configuration.Default_GoogleEdgeTpuSettings_DelegateShouldManageCacheForInputs
 const Default_GoogleEdgeTpuSettings_DelegateShouldManageCacheForOutputs = configuration.Default_GoogleEdgeTpuSettings_DelegateShouldManageCacheForOutputs
+const Default_GoogleEdgeTpuSettings_AllowFp16PrecisionForFp32 = configuration.Default_GoogleEdgeTpuSettings_AllowFp16PrecisionForFp32
 
 type CoralSettings = configuration.CoralSettings
 
@@ -251,6 +253,7 @@ type CPUSettings = configuration.CPUSettings
 
 const Default_CPUSettings_NumThreads = configuration.Default_CPUSettings_NumThreads
 
+type ArmNNSettings = configuration.ArmNNSettings
 type TFLiteSettings = configuration.TFLiteSettings
 type FallbackSettings = configuration.FallbackSettings
 type BenchmarkMetric = configuration.BenchmarkMetric

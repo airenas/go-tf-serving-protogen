@@ -21,6 +21,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// LINT.IfChange
 type CppShapeInferenceResult struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

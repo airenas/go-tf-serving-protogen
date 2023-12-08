@@ -36,6 +36,9 @@ const DataType_kComplexDouble = protobuf.DataType_kComplexDouble
 const DataType_kBF16 = protobuf.DataType_kBF16
 const DataType_kF8E5M2 = protobuf.DataType_kF8E5M2
 const DataType_kF8E4M3FN = protobuf.DataType_kF8E4M3FN
+const DataType_kF8E5M2FNUZ = protobuf.DataType_kF8E5M2FNUZ
+const DataType_kF8E4M3FNUZ = protobuf.DataType_kF8E4M3FNUZ
+const DataType_kInt64 = protobuf.DataType_kInt64
 
 var DataType_name = protobuf.DataType_name
 var DataType_value = protobuf.DataType_value
@@ -96,6 +99,7 @@ const ConvolutionKind_FORWARD = protobuf.ConvolutionKind_FORWARD
 const ConvolutionKind_BACKWARD_FILTER = protobuf.ConvolutionKind_BACKWARD_FILTER
 const ConvolutionKind_BACKWARD_DATA = protobuf.ConvolutionKind_BACKWARD_DATA
 const ConvolutionKind_FORWARD_BIAS_ACTIVATION = protobuf.ConvolutionKind_FORWARD_BIAS_ACTIVATION
+const ConvolutionKind_FORWARD_GRAPH = protobuf.ConvolutionKind_FORWARD_GRAPH
 
 var ConvolutionKind_name = protobuf.ConvolutionKind_name
 var ConvolutionKind_value = protobuf.ConvolutionKind_value

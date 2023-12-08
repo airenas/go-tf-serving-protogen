@@ -38,55 +38,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type TPUHostTransferProto_TransferDirection int32
-
-const (
-	TPUHostTransferProto_NONE           TPUHostTransferProto_TransferDirection = 0
-	TPUHostTransferProto_DEVICE_TO_HOST TPUHostTransferProto_TransferDirection = 1
-	TPUHostTransferProto_HOST_TO_DEVICE TPUHostTransferProto_TransferDirection = 2
-)
-
-// Enum value maps for TPUHostTransferProto_TransferDirection.
-var (
-	TPUHostTransferProto_TransferDirection_name = map[int32]string{
-		0: "NONE",
-		1: "DEVICE_TO_HOST",
-		2: "HOST_TO_DEVICE",
-	}
-	TPUHostTransferProto_TransferDirection_value = map[string]int32{
-		"NONE":           0,
-		"DEVICE_TO_HOST": 1,
-		"HOST_TO_DEVICE": 2,
-	}
-)
-
-func (x TPUHostTransferProto_TransferDirection) Enum() *TPUHostTransferProto_TransferDirection {
-	p := new(TPUHostTransferProto_TransferDirection)
-	*p = x
-	return p
-}
-
-func (x TPUHostTransferProto_TransferDirection) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (TPUHostTransferProto_TransferDirection) Descriptor() protoreflect.EnumDescriptor {
-	return file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_enumTypes[0].Descriptor()
-}
-
-func (TPUHostTransferProto_TransferDirection) Type() protoreflect.EnumType {
-	return &file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_enumTypes[0]
-}
-
-func (x TPUHostTransferProto_TransferDirection) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use TPUHostTransferProto_TransferDirection.Descriptor instead.
-func (TPUHostTransferProto_TransferDirection) EnumDescriptor() ([]byte, []int) {
-	return file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_rawDescGZIP(), []int{1, 0}
-}
-
 // A serialization of TPUExecutable. Only includes fields necessary to load
 // and execute a program on a worker node.
 type TPUExecutableInfoProto struct {
@@ -195,131 +146,19 @@ func (x *TPUExecutableInfoProto) GetDeviceAssignment() *data.DeviceAssignmentPro
 	return nil
 }
 
-// Metadata for a data transfer between device and host.
-type TPUHostTransferProto struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// Channel identifier assigned by compiler and used in host commands.
-	Channel int64 `protobuf:"varint,1,opt,name=channel,proto3" json:"channel,omitempty"`
-	// Direction of the transfer operation.
-	Direction TPUHostTransferProto_TransferDirection `protobuf:"varint,2,opt,name=direction,proto3,enum=tensorflow.TPUHostTransferProto_TransferDirection" json:"direction,omitempty"`
-	// Channel identifier prodided by XLA client.
-	Key string `protobuf:"bytes,3,opt,name=key,proto3" json:"key,omitempty"`
-	// Shape of the data to be transferred (including layout).
-	Shape *data.ShapeProto `protobuf:"bytes,5,opt,name=shape,proto3" json:"shape,omitempty"`
-	// Address of the device buffer in HBM (byte offset).
-	BufferOffset int64 `protobuf:"varint,6,opt,name=buffer_offset,json=bufferOffset,proto3" json:"buffer_offset,omitempty"`
-	// Original data type for this host transfer before X64 rewrite.
-	OriginalType data.PrimitiveType `protobuf:"varint,7,opt,name=original_type,json=originalType,proto3,enum=xla.PrimitiveType" json:"original_type,omitempty"`
-	// If this host transfer is a splitted X64 transfer, specifies whether this
-	// transfer is for lower bits.
-	IsLowerBits bool `protobuf:"varint,8,opt,name=is_lower_bits,json=isLowerBits,proto3" json:"is_lower_bits,omitempty"`
-	// The name of host side command handler.
-	HostHandlerName string `protobuf:"bytes,9,opt,name=host_handler_name,json=hostHandlerName,proto3" json:"host_handler_name,omitempty"`
-}
-
-func (x *TPUHostTransferProto) Reset() {
-	*x = TPUHostTransferProto{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[1]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *TPUHostTransferProto) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*TPUHostTransferProto) ProtoMessage() {}
-
-func (x *TPUHostTransferProto) ProtoReflect() protoreflect.Message {
-	mi := &file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[1]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use TPUHostTransferProto.ProtoReflect.Descriptor instead.
-func (*TPUHostTransferProto) Descriptor() ([]byte, []int) {
-	return file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *TPUHostTransferProto) GetChannel() int64 {
-	if x != nil {
-		return x.Channel
-	}
-	return 0
-}
-
-func (x *TPUHostTransferProto) GetDirection() TPUHostTransferProto_TransferDirection {
-	if x != nil {
-		return x.Direction
-	}
-	return TPUHostTransferProto_NONE
-}
-
-func (x *TPUHostTransferProto) GetKey() string {
-	if x != nil {
-		return x.Key
-	}
-	return ""
-}
-
-func (x *TPUHostTransferProto) GetShape() *data.ShapeProto {
-	if x != nil {
-		return x.Shape
-	}
-	return nil
-}
-
-func (x *TPUHostTransferProto) GetBufferOffset() int64 {
-	if x != nil {
-		return x.BufferOffset
-	}
-	return 0
-}
-
-func (x *TPUHostTransferProto) GetOriginalType() data.PrimitiveType {
-	if x != nil {
-		return x.OriginalType
-	}
-	return data.PrimitiveType(0)
-}
-
-func (x *TPUHostTransferProto) GetIsLowerBits() bool {
-	if x != nil {
-		return x.IsLowerBits
-	}
-	return false
-}
-
-func (x *TPUHostTransferProto) GetHostHandlerName() string {
-	if x != nil {
-		return x.HostHandlerName
-	}
-	return ""
-}
-
 type TPUHostTransferInfoProto struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	HostTransfers []*TPUHostTransferProto `protobuf:"bytes,1,rep,name=host_transfers,json=hostTransfers,proto3" json:"host_transfers,omitempty"`
+	// Serialized metadata for a data transfer between device and host.
+	SerializedTransfers [][]byte `protobuf:"bytes,2,rep,name=serialized_transfers,json=serializedTransfers,proto3" json:"serialized_transfers,omitempty"`
 }
 
 func (x *TPUHostTransferInfoProto) Reset() {
 	*x = TPUHostTransferInfoProto{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[2]
+		mi := &file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -332,7 +171,7 @@ func (x *TPUHostTransferInfoProto) String() string {
 func (*TPUHostTransferInfoProto) ProtoMessage() {}
 
 func (x *TPUHostTransferInfoProto) ProtoReflect() protoreflect.Message {
-	mi := &file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[2]
+	mi := &file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -345,12 +184,12 @@ func (x *TPUHostTransferInfoProto) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TPUHostTransferInfoProto.ProtoReflect.Descriptor instead.
 func (*TPUHostTransferInfoProto) Descriptor() ([]byte, []int) {
-	return file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_rawDescGZIP(), []int{2}
+	return file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *TPUHostTransferInfoProto) GetHostTransfers() []*TPUHostTransferProto {
+func (x *TPUHostTransferInfoProto) GetSerializedTransfers() [][]byte {
 	if x != nil {
-		return x.HostTransfers
+		return x.SerializedTransfers
 	}
 	return nil
 }
@@ -367,7 +206,7 @@ type TPUExecutableInfoProto_UpdateIndexPair struct {
 func (x *TPUExecutableInfoProto_UpdateIndexPair) Reset() {
 	*x = TPUExecutableInfoProto_UpdateIndexPair{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[3]
+		mi := &file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -380,7 +219,7 @@ func (x *TPUExecutableInfoProto_UpdateIndexPair) String() string {
 func (*TPUExecutableInfoProto_UpdateIndexPair) ProtoMessage() {}
 
 func (x *TPUExecutableInfoProto_UpdateIndexPair) ProtoReflect() protoreflect.Message {
-	mi := &file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[3]
+	mi := &file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -421,7 +260,7 @@ type TPUExecutableInfoProto_ShapeIndex struct {
 func (x *TPUExecutableInfoProto_ShapeIndex) Reset() {
 	*x = TPUExecutableInfoProto_ShapeIndex{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[4]
+		mi := &file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -434,7 +273,7 @@ func (x *TPUExecutableInfoProto_ShapeIndex) String() string {
 func (*TPUExecutableInfoProto_ShapeIndex) ProtoMessage() {}
 
 func (x *TPUExecutableInfoProto_ShapeIndex) ProtoReflect() protoreflect.Message {
-	mi := &file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[4]
+	mi := &file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -513,53 +352,25 @@ var file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_rawDesc = []byte{
 	0x1a, 0x22, 0x0a, 0x0a, 0x53, 0x68, 0x61, 0x70, 0x65, 0x49, 0x6e, 0x64, 0x65, 0x78, 0x12, 0x14,
 	0x0a, 0x05, 0x69, 0x6e, 0x64, 0x65, 0x78, 0x18, 0x01, 0x20, 0x03, 0x28, 0x05, 0x52, 0x05, 0x69,
 	0x6e, 0x64, 0x65, 0x78, 0x4a, 0x04, 0x08, 0x01, 0x10, 0x02, 0x4a, 0x04, 0x08, 0x07, 0x10, 0x08,
-	0x4a, 0x04, 0x08, 0x04, 0x10, 0x05, 0x22, 0xbc, 0x03, 0x0a, 0x14, 0x54, 0x50, 0x55, 0x48, 0x6f,
-	0x73, 0x74, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x12,
-	0x18, 0x0a, 0x07, 0x63, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03,
-	0x52, 0x07, 0x63, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x12, 0x50, 0x0a, 0x09, 0x64, 0x69, 0x72,
-	0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x32, 0x2e, 0x74,
-	0x65, 0x6e, 0x73, 0x6f, 0x72, 0x66, 0x6c, 0x6f, 0x77, 0x2e, 0x54, 0x50, 0x55, 0x48, 0x6f, 0x73,
-	0x74, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54,
-	0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x44, 0x69, 0x72, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e,
-	0x52, 0x09, 0x64, 0x69, 0x72, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x10, 0x0a, 0x03, 0x6b,
-	0x65, 0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x25, 0x0a,
-	0x05, 0x73, 0x68, 0x61, 0x70, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x78,
-	0x6c, 0x61, 0x2e, 0x53, 0x68, 0x61, 0x70, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x52, 0x05, 0x73,
-	0x68, 0x61, 0x70, 0x65, 0x12, 0x23, 0x0a, 0x0d, 0x62, 0x75, 0x66, 0x66, 0x65, 0x72, 0x5f, 0x6f,
-	0x66, 0x66, 0x73, 0x65, 0x74, 0x18, 0x06, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0c, 0x62, 0x75, 0x66,
-	0x66, 0x65, 0x72, 0x4f, 0x66, 0x66, 0x73, 0x65, 0x74, 0x12, 0x37, 0x0a, 0x0d, 0x6f, 0x72, 0x69,
-	0x67, 0x69, 0x6e, 0x61, 0x6c, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0e,
-	0x32, 0x12, 0x2e, 0x78, 0x6c, 0x61, 0x2e, 0x50, 0x72, 0x69, 0x6d, 0x69, 0x74, 0x69, 0x76, 0x65,
-	0x54, 0x79, 0x70, 0x65, 0x52, 0x0c, 0x6f, 0x72, 0x69, 0x67, 0x69, 0x6e, 0x61, 0x6c, 0x54, 0x79,
-	0x70, 0x65, 0x12, 0x22, 0x0a, 0x0d, 0x69, 0x73, 0x5f, 0x6c, 0x6f, 0x77, 0x65, 0x72, 0x5f, 0x62,
-	0x69, 0x74, 0x73, 0x18, 0x08, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0b, 0x69, 0x73, 0x4c, 0x6f, 0x77,
-	0x65, 0x72, 0x42, 0x69, 0x74, 0x73, 0x12, 0x2a, 0x0a, 0x11, 0x68, 0x6f, 0x73, 0x74, 0x5f, 0x68,
-	0x61, 0x6e, 0x64, 0x6c, 0x65, 0x72, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x09, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x0f, 0x68, 0x6f, 0x73, 0x74, 0x48, 0x61, 0x6e, 0x64, 0x6c, 0x65, 0x72, 0x4e, 0x61,
-	0x6d, 0x65, 0x22, 0x45, 0x0a, 0x11, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x44, 0x69,
-	0x72, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x08, 0x0a, 0x04, 0x4e, 0x4f, 0x4e, 0x45, 0x10,
-	0x00, 0x12, 0x12, 0x0a, 0x0e, 0x44, 0x45, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x54, 0x4f, 0x5f, 0x48,
-	0x4f, 0x53, 0x54, 0x10, 0x01, 0x12, 0x12, 0x0a, 0x0e, 0x48, 0x4f, 0x53, 0x54, 0x5f, 0x54, 0x4f,
-	0x5f, 0x44, 0x45, 0x56, 0x49, 0x43, 0x45, 0x10, 0x02, 0x4a, 0x04, 0x08, 0x04, 0x10, 0x05, 0x4a,
-	0x04, 0x08, 0x0a, 0x10, 0x0b, 0x22, 0x63, 0x0a, 0x18, 0x54, 0x50, 0x55, 0x48, 0x6f, 0x73, 0x74,
-	0x54, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x50, 0x72, 0x6f, 0x74,
-	0x6f, 0x12, 0x47, 0x0a, 0x0e, 0x68, 0x6f, 0x73, 0x74, 0x5f, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x66,
-	0x65, 0x72, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x74, 0x65, 0x6e, 0x73,
-	0x6f, 0x72, 0x66, 0x6c, 0x6f, 0x77, 0x2e, 0x54, 0x50, 0x55, 0x48, 0x6f, 0x73, 0x74, 0x54, 0x72,
-	0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x52, 0x0d, 0x68, 0x6f, 0x73,
-	0x74, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x73, 0x42, 0xb7, 0x01, 0x0a, 0x0e, 0x63,
-	0x6f, 0x6d, 0x2e, 0x74, 0x65, 0x6e, 0x73, 0x6f, 0x72, 0x66, 0x6c, 0x6f, 0x77, 0x42, 0x16, 0x54,
-	0x70, 0x75, 0x45, 0x78, 0x65, 0x63, 0x75, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f,
-	0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x45, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
-	0x63, 0x6f, 0x6d, 0x2f, 0x61, 0x69, 0x72, 0x65, 0x6e, 0x61, 0x73, 0x2f, 0x67, 0x6f, 0x2d, 0x74,
-	0x66, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x6e, 0x67, 0x2d, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x67,
-	0x65, 0x6e, 0x2f, 0x74, 0x65, 0x6e, 0x73, 0x6f, 0x72, 0x66, 0x6c, 0x6f, 0x77, 0x2f, 0x63, 0x6f,
-	0x72, 0x65, 0x2f, 0x74, 0x70, 0x75, 0x2f, 0x6b, 0x65, 0x72, 0x6e, 0x65, 0x6c, 0x73, 0xa2, 0x02,
-	0x03, 0x54, 0x58, 0x58, 0xaa, 0x02, 0x0a, 0x54, 0x65, 0x6e, 0x73, 0x6f, 0x72, 0x66, 0x6c, 0x6f,
-	0x77, 0xca, 0x02, 0x0a, 0x54, 0x65, 0x6e, 0x73, 0x6f, 0x72, 0x66, 0x6c, 0x6f, 0x77, 0xe2, 0x02,
-	0x16, 0x54, 0x65, 0x6e, 0x73, 0x6f, 0x72, 0x66, 0x6c, 0x6f, 0x77, 0x5c, 0x47, 0x50, 0x42, 0x4d,
-	0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x0a, 0x54, 0x65, 0x6e, 0x73, 0x6f, 0x72,
-	0x66, 0x6c, 0x6f, 0x77, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x4a, 0x04, 0x08, 0x04, 0x10, 0x05, 0x22, 0x57, 0x0a, 0x18, 0x54, 0x50, 0x55, 0x48, 0x6f, 0x73,
+	0x74, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x50, 0x72, 0x6f,
+	0x74, 0x6f, 0x12, 0x35, 0x0a, 0x14, 0x73, 0x65, 0x72, 0x69, 0x61, 0x6c, 0x69, 0x7a, 0x65, 0x64,
+	0x5f, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0c,
+	0x42, 0x02, 0x08, 0x01, 0x52, 0x13, 0x73, 0x65, 0x72, 0x69, 0x61, 0x6c, 0x69, 0x7a, 0x65, 0x64,
+	0x54, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x73, 0x4a, 0x04, 0x08, 0x01, 0x10, 0x02, 0x42,
+	0xb7, 0x01, 0x0a, 0x0e, 0x63, 0x6f, 0x6d, 0x2e, 0x74, 0x65, 0x6e, 0x73, 0x6f, 0x72, 0x66, 0x6c,
+	0x6f, 0x77, 0x42, 0x16, 0x54, 0x70, 0x75, 0x45, 0x78, 0x65, 0x63, 0x75, 0x74, 0x61, 0x62, 0x6c,
+	0x65, 0x49, 0x6e, 0x66, 0x6f, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x45, 0x67, 0x69,
+	0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x61, 0x69, 0x72, 0x65, 0x6e, 0x61, 0x73,
+	0x2f, 0x67, 0x6f, 0x2d, 0x74, 0x66, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x6e, 0x67, 0x2d, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x67, 0x65, 0x6e, 0x2f, 0x74, 0x65, 0x6e, 0x73, 0x6f, 0x72, 0x66, 0x6c,
+	0x6f, 0x77, 0x2f, 0x63, 0x6f, 0x72, 0x65, 0x2f, 0x74, 0x70, 0x75, 0x2f, 0x6b, 0x65, 0x72, 0x6e,
+	0x65, 0x6c, 0x73, 0xa2, 0x02, 0x03, 0x54, 0x58, 0x58, 0xaa, 0x02, 0x0a, 0x54, 0x65, 0x6e, 0x73,
+	0x6f, 0x72, 0x66, 0x6c, 0x6f, 0x77, 0xca, 0x02, 0x0a, 0x54, 0x65, 0x6e, 0x73, 0x6f, 0x72, 0x66,
+	0x6c, 0x6f, 0x77, 0xe2, 0x02, 0x16, 0x54, 0x65, 0x6e, 0x73, 0x6f, 0x72, 0x66, 0x6c, 0x6f, 0x77,
+	0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x0a, 0x54,
+	0x65, 0x6e, 0x73, 0x6f, 0x72, 0x66, 0x6c, 0x6f, 0x77, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -574,38 +385,30 @@ func file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_rawDescGZIP() []
 	return file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_rawDescData
 }
 
-var file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_goTypes = []interface{}{
-	(TPUHostTransferProto_TransferDirection)(0),    // 0: tensorflow.TPUHostTransferProto.TransferDirection
-	(*TPUExecutableInfoProto)(nil),                 // 1: tensorflow.TPUExecutableInfoProto
-	(*TPUHostTransferProto)(nil),                   // 2: tensorflow.TPUHostTransferProto
-	(*TPUHostTransferInfoProto)(nil),               // 3: tensorflow.TPUHostTransferInfoProto
-	(*TPUExecutableInfoProto_UpdateIndexPair)(nil), // 4: tensorflow.TPUExecutableInfoProto.UpdateIndexPair
-	(*TPUExecutableInfoProto_ShapeIndex)(nil),      // 5: tensorflow.TPUExecutableInfoProto.ShapeIndex
-	(*data.ShapeProto)(nil),                        // 6: xla.ShapeProto
-	(*framework.TensorShapeProto)(nil),             // 7: tensorflow.TensorShapeProto
-	(*service.HloSnapshot)(nil),                    // 8: xla.HloSnapshot
-	(*data.DeviceAssignmentProto)(nil),             // 9: xla.DeviceAssignmentProto
-	(data.PrimitiveType)(0),                        // 10: xla.PrimitiveType
+	(*TPUExecutableInfoProto)(nil),                 // 0: tensorflow.TPUExecutableInfoProto
+	(*TPUHostTransferInfoProto)(nil),               // 1: tensorflow.TPUHostTransferInfoProto
+	(*TPUExecutableInfoProto_UpdateIndexPair)(nil), // 2: tensorflow.TPUExecutableInfoProto.UpdateIndexPair
+	(*TPUExecutableInfoProto_ShapeIndex)(nil),      // 3: tensorflow.TPUExecutableInfoProto.ShapeIndex
+	(*data.ShapeProto)(nil),                        // 4: xla.ShapeProto
+	(*framework.TensorShapeProto)(nil),             // 5: tensorflow.TensorShapeProto
+	(*service.HloSnapshot)(nil),                    // 6: xla.HloSnapshot
+	(*data.DeviceAssignmentProto)(nil),             // 7: xla.DeviceAssignmentProto
 }
 var file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_depIdxs = []int32{
-	6,  // 0: tensorflow.TPUExecutableInfoProto.input_shapes:type_name -> xla.ShapeProto
-	6,  // 1: tensorflow.TPUExecutableInfoProto.output_shape:type_name -> xla.ShapeProto
-	5,  // 2: tensorflow.TPUExecutableInfoProto.dynamic_output_indices:type_name -> tensorflow.TPUExecutableInfoProto.ShapeIndex
-	4,  // 3: tensorflow.TPUExecutableInfoProto.variable_indices:type_name -> tensorflow.TPUExecutableInfoProto.UpdateIndexPair
-	7,  // 4: tensorflow.TPUExecutableInfoProto.output_tensor_shapes:type_name -> tensorflow.TensorShapeProto
-	8,  // 5: tensorflow.TPUExecutableInfoProto.session_module:type_name -> xla.HloSnapshot
-	9,  // 6: tensorflow.TPUExecutableInfoProto.device_assignment:type_name -> xla.DeviceAssignmentProto
-	0,  // 7: tensorflow.TPUHostTransferProto.direction:type_name -> tensorflow.TPUHostTransferProto.TransferDirection
-	6,  // 8: tensorflow.TPUHostTransferProto.shape:type_name -> xla.ShapeProto
-	10, // 9: tensorflow.TPUHostTransferProto.original_type:type_name -> xla.PrimitiveType
-	2,  // 10: tensorflow.TPUHostTransferInfoProto.host_transfers:type_name -> tensorflow.TPUHostTransferProto
-	11, // [11:11] is the sub-list for method output_type
-	11, // [11:11] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	4, // 0: tensorflow.TPUExecutableInfoProto.input_shapes:type_name -> xla.ShapeProto
+	4, // 1: tensorflow.TPUExecutableInfoProto.output_shape:type_name -> xla.ShapeProto
+	3, // 2: tensorflow.TPUExecutableInfoProto.dynamic_output_indices:type_name -> tensorflow.TPUExecutableInfoProto.ShapeIndex
+	2, // 3: tensorflow.TPUExecutableInfoProto.variable_indices:type_name -> tensorflow.TPUExecutableInfoProto.UpdateIndexPair
+	5, // 4: tensorflow.TPUExecutableInfoProto.output_tensor_shapes:type_name -> tensorflow.TensorShapeProto
+	6, // 5: tensorflow.TPUExecutableInfoProto.session_module:type_name -> xla.HloSnapshot
+	7, // 6: tensorflow.TPUExecutableInfoProto.device_assignment:type_name -> xla.DeviceAssignmentProto
+	7, // [7:7] is the sub-list for method output_type
+	7, // [7:7] is the sub-list for method input_type
+	7, // [7:7] is the sub-list for extension type_name
+	7, // [7:7] is the sub-list for extension extendee
+	0, // [0:7] is the sub-list for field type_name
 }
 
 func init() { file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_init() }
@@ -627,18 +430,6 @@ func file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_init() {
 			}
 		}
 		file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TPUHostTransferProto); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*TPUHostTransferInfoProto); i {
 			case 0:
 				return &v.state
@@ -650,7 +441,7 @@ func file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_init() {
 				return nil
 			}
 		}
-		file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*TPUExecutableInfoProto_UpdateIndexPair); i {
 			case 0:
 				return &v.state
@@ -662,7 +453,7 @@ func file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_init() {
 				return nil
 			}
 		}
-		file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*TPUExecutableInfoProto_ShapeIndex); i {
 			case 0:
 				return &v.state
@@ -680,14 +471,13 @@ func file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_rawDesc,
-			NumEnums:      1,
-			NumMessages:   5,
+			NumEnums:      0,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_goTypes,
 		DependencyIndexes: file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_depIdxs,
-		EnumInfos:         file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_enumTypes,
 		MessageInfos:      file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_msgTypes,
 	}.Build()
 	File_tensorflow_core_tpu_kernels_tpu_executable_info_proto = out.File

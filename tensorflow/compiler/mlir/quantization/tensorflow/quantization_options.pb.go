@@ -543,7 +543,7 @@ type QuantizationOptions struct {
 	// exists, this default one will become the quantization configuration for
 	// units that are not specified in unit-wise configurations.
 	QuantizationMethod    *QuantizationMethod   `protobuf:"bytes,1,opt,name=quantization_method,json=quantizationMethod,proto3" json:"quantization_method,omitempty"`
-	OpSet                 OpSet                 `protobuf:"varint,2,opt,name=op_set,json=opSet,proto3,enum=tensorflow.quantization.OpSet" json:"op_set,omitempty"` // If not specified, it defaults to `TF`.
+	OpSet                 OpSet                 `protobuf:"varint,2,opt,name=op_set,json=opSet,proto3,enum=tensorflow.quantization.OpSet" json:"op_set,omitempty"` // If not specified, it defaults to `XLA`.
 	QuantizationPrecision QuantizationPrecision `protobuf:"varint,3,opt,name=quantization_precision,json=quantizationPrecision,proto3,enum=tensorflow.quantization.QuantizationPrecision" json:"quantization_precision,omitempty"`
 	// Quantization precision for each unit. Units can become either
 	// nodes or ops, and the mixture of those different units are allowed.
