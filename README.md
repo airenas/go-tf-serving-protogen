@@ -12,9 +12,12 @@ Here's a simple compatibility matrix to help you choose the right version based 
 
 | Library Version | TensorFlow/Serving Compatibility  |
 | --------------- | ------------------------ |
+| v2.14.1         | 2.14.1                   |
+| v2.14.0         | 2.14.0                   |
+| v2.13.0         | 2.13.0                   |
+| v2.12.0         | 2.12.0                   |
 | v2.11.0         | 2.11.0                   |
 | v2.10.0         | 2.10.0                   |
-| ...             | ...                      |
 
 ## Installation
 
@@ -38,7 +41,7 @@ When preparing for a new TensorFlow version, follow these steps:
 
 ```bash
 ## select version
-export tfserving_version=2.15.0
+export tfserving_version=2.14.0
 
 ## generate code
 make clean generate tf=${tfserving_version}
