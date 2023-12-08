@@ -51,7 +51,7 @@ git push origin v${tfserving_version}
 
 ## Examples
 
-Explore the library usage by checking out the examples in the "examples" folder. 
+Explore the library usage by checking out the [examples](examples) folder. 
 
 ## Contributing
 
