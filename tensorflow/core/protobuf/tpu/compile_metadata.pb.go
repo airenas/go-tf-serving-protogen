@@ -8,6 +8,7 @@ package tpu
 
 import (
 	xla "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla"
+	data "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/data"
 	framework "github.com/airenas/go-tf-serving-protogen/tensorflow/core/framework"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -192,9 +193,9 @@ type TPUCompileMetadataProto struct {
 	// TODO(b/140721404): it may not be necessary to state the number of cores per
 	// replica here. Reconsider when replicated model-parallelism is implemented
 	// in XLA.
-	NumReplicas        int32                      `protobuf:"varint,3,opt,name=num_replicas,json=numReplicas,proto3" json:"num_replicas,omitempty"`
-	NumCoresPerReplica int32                      `protobuf:"varint,4,opt,name=num_cores_per_replica,json=numCoresPerReplica,proto3" json:"num_cores_per_replica,omitempty"`
-	DeviceAssignment   *xla.DeviceAssignmentProto `protobuf:"bytes,8,opt,name=device_assignment,json=deviceAssignment,proto3" json:"device_assignment,omitempty"`
+	NumReplicas        int32                       `protobuf:"varint,3,opt,name=num_replicas,json=numReplicas,proto3" json:"num_replicas,omitempty"`
+	NumCoresPerReplica int32                       `protobuf:"varint,4,opt,name=num_cores_per_replica,json=numCoresPerReplica,proto3" json:"num_cores_per_replica,omitempty"`
+	DeviceAssignment   *data.DeviceAssignmentProto `protobuf:"bytes,8,opt,name=device_assignment,json=deviceAssignment,proto3" json:"device_assignment,omitempty"`
 	// A fingerprint of the function library. Ensures that any functions called
 	// by the computation have matching definitions.
 	FunctionLibraryFingerprint uint64 `protobuf:"varint,6,opt,name=function_library_fingerprint,json=functionLibraryFingerprint,proto3" json:"function_library_fingerprint,omitempty"`
@@ -291,7 +292,7 @@ func (x *TPUCompileMetadataProto) GetNumCoresPerReplica() int32 {
 	return 0
 }
 
-func (x *TPUCompileMetadataProto) GetDeviceAssignment() *xla.DeviceAssignmentProto {
+func (x *TPUCompileMetadataProto) GetDeviceAssignment() *data.DeviceAssignmentProto {
 	if x != nil {
 		return x.DeviceAssignment
 	}
@@ -451,7 +452,7 @@ type TPUCompileMetadataProto_Arg struct {
 	Kind  TPUCompileMetadataProto_Arg_Kind `protobuf:"varint,3,opt,name=kind,proto3,enum=tensorflow.tpu.TPUCompileMetadataProto_Arg_Kind" json:"kind,omitempty"`
 	// The cross-core sharding of this input within each replica, e.g.,
 	// assigning to one core, or replicate across all cores.
-	Sharding *xla.OpSharding `protobuf:"bytes,4,opt,name=sharding,proto3" json:"sharding,omitempty"`
+	Sharding *data.OpSharding `protobuf:"bytes,4,opt,name=sharding,proto3" json:"sharding,omitempty"`
 	// Whether this argument will receive the same data across all replicas.
 	IsSameDataAcrossReplicas bool `protobuf:"varint,5,opt,name=is_same_data_across_replicas,json=isSameDataAcrossReplicas,proto3" json:"is_same_data_across_replicas,omitempty"`
 	// Whether to allow XLA to produce separate programs to shard/unshard this
@@ -529,7 +530,7 @@ func (x *TPUCompileMetadataProto_Arg) GetKind() TPUCompileMetadataProto_Arg_Kind
 	return TPUCompileMetadataProto_Arg_INVALID
 }
 
-func (x *TPUCompileMetadataProto_Arg) GetSharding() *xla.OpSharding {
+func (x *TPUCompileMetadataProto_Arg) GetSharding() *data.OpSharding {
 	if x != nil {
 		return x.Sharding
 	}
@@ -593,7 +594,7 @@ type TPUCompileMetadataProto_Retval struct {
 
 	// The cross-core sharding of this return value within each replica, e.g.,
 	// assigning to one core, or replicate across all cores.
-	Sharding *xla.OpSharding `protobuf:"bytes,1,opt,name=sharding,proto3" json:"sharding,omitempty"`
+	Sharding *data.OpSharding `protobuf:"bytes,1,opt,name=sharding,proto3" json:"sharding,omitempty"`
 }
 
 func (x *TPUCompileMetadataProto_Retval) Reset() {
@@ -628,7 +629,7 @@ func (*TPUCompileMetadataProto_Retval) Descriptor() ([]byte, []int) {
 	return file_tensorflow_core_protobuf_tpu_compile_metadata_proto_rawDescGZIP(), []int{0, 1}
 }
 
-func (x *TPUCompileMetadataProto_Retval) GetSharding() *xla.OpSharding {
+func (x *TPUCompileMetadataProto_Retval) GetSharding() *data.OpSharding {
 	if x != nil {
 		return x.Sharding
 	}
@@ -829,12 +830,12 @@ var file_tensorflow_core_protobuf_tpu_compile_metadata_proto_goTypes = []interfa
 	(*TPUCompileOptions)(nil),                          // 4: tensorflow.tpu.TPUCompileOptions
 	(*TPUCompileMetadataProto_Arg)(nil),                // 5: tensorflow.tpu.TPUCompileMetadataProto.Arg
 	(*TPUCompileMetadataProto_Retval)(nil),             // 6: tensorflow.tpu.TPUCompileMetadataProto.Retval
-	(*xla.DeviceAssignmentProto)(nil),                  // 7: xla.DeviceAssignmentProto
+	(*data.DeviceAssignmentProto)(nil),                 // 7: xla.DeviceAssignmentProto
 	(*PaddingMap)(nil),                                 // 8: tensorflow.tpu.PaddingMap
 	(xla.DebugOptions_StepMarkerLocation)(0),           // 9: xla.DebugOptions.StepMarkerLocation
 	(framework.DataType)(0),                            // 10: tensorflow.DataType
 	(*framework.TensorShapeProto)(nil),                 // 11: tensorflow.TensorShapeProto
-	(*xla.OpSharding)(nil),                             // 12: xla.OpSharding
+	(*data.OpSharding)(nil),                            // 12: xla.OpSharding
 }
 var file_tensorflow_core_protobuf_tpu_compile_metadata_proto_depIdxs = []int32{
 	5,  // 0: tensorflow.tpu.TPUCompileMetadataProto.args:type_name -> tensorflow.tpu.TPUCompileMetadataProto.Arg

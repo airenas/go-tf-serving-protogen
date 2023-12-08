@@ -7,7 +7,7 @@
 package tools
 
 import (
-	xla "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla"
+	data "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/data"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -27,11 +27,11 @@ type RunHloModuleIterationLiterals struct {
 	unknownFields protoimpl.UnknownFields
 
 	// Arguments used by the iteration.
-	Arguments []*xla.LiteralProto `protobuf:"bytes,2,rep,name=arguments,proto3" json:"arguments,omitempty"`
+	Arguments []*data.LiteralProto `protobuf:"bytes,2,rep,name=arguments,proto3" json:"arguments,omitempty"`
 	// Ressult of the iteration on the target platform.
-	Result *xla.LiteralProto `protobuf:"bytes,3,opt,name=result,proto3" json:"result,omitempty"`
+	Result *data.LiteralProto `protobuf:"bytes,3,opt,name=result,proto3" json:"result,omitempty"`
 	// Result of the iteration on the reference platform.
-	ReferenceResult *xla.LiteralProto `protobuf:"bytes,4,opt,name=reference_result,json=referenceResult,proto3" json:"reference_result,omitempty"`
+	ReferenceResult *data.LiteralProto `protobuf:"bytes,4,opt,name=reference_result,json=referenceResult,proto3" json:"reference_result,omitempty"`
 }
 
 func (x *RunHloModuleIterationLiterals) Reset() {
@@ -66,21 +66,21 @@ func (*RunHloModuleIterationLiterals) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_tools_run_hlo_module_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *RunHloModuleIterationLiterals) GetArguments() []*xla.LiteralProto {
+func (x *RunHloModuleIterationLiterals) GetArguments() []*data.LiteralProto {
 	if x != nil {
 		return x.Arguments
 	}
 	return nil
 }
 
-func (x *RunHloModuleIterationLiterals) GetResult() *xla.LiteralProto {
+func (x *RunHloModuleIterationLiterals) GetResult() *data.LiteralProto {
 	if x != nil {
 		return x.Result
 	}
 	return nil
 }
 
-func (x *RunHloModuleIterationLiterals) GetReferenceResult() *xla.LiteralProto {
+func (x *RunHloModuleIterationLiterals) GetReferenceResult() *data.LiteralProto {
 	if x != nil {
 		return x.ReferenceResult
 	}
@@ -190,7 +190,7 @@ var file_tensorflow_compiler_xla_tools_run_hlo_module_proto_msgTypes = make([]pr
 var file_tensorflow_compiler_xla_tools_run_hlo_module_proto_goTypes = []interface{}{
 	(*RunHloModuleIterationLiterals)(nil), // 0: xla.RunHloModuleIterationLiterals
 	(*RunHloModuleLiterals)(nil),          // 1: xla.RunHloModuleLiterals
-	(*xla.LiteralProto)(nil),              // 2: xla.LiteralProto
+	(*data.LiteralProto)(nil),             // 2: xla.LiteralProto
 }
 var file_tensorflow_compiler_xla_tools_run_hlo_module_proto_depIdxs = []int32{
 	2, // 0: xla.RunHloModuleIterationLiterals.arguments:type_name -> xla.LiteralProto

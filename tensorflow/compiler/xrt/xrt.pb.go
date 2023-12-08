@@ -9,6 +9,7 @@ package xrt
 import (
 	tf2xla "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/tf2xla"
 	xla "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla"
+	data "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/data"
 	service "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/service"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -139,11 +140,11 @@ type XLAComputationConfig struct {
 	// Optional metadata about host sends and recvs.
 	HostComputeMetadata *tf2xla.HostComputeMetadata `protobuf:"bytes,3,opt,name=host_compute_metadata,json=hostComputeMetadata,proto3" json:"host_compute_metadata,omitempty"`
 	// The arg/result shapes for the whole computation.
-	ProgramShape *xla.ProgramShapeProto `protobuf:"bytes,4,opt,name=program_shape,json=programShape,proto3" json:"program_shape,omitempty"`
+	ProgramShape *data.ProgramShapeProto `protobuf:"bytes,4,opt,name=program_shape,json=programShape,proto3" json:"program_shape,omitempty"`
 	// The arg/result shapes for each core of a model-parallel
 	// computation. per_core_args_and_result_shapes is optional for a
 	// single-core computation.
-	PerCoreProgramShape []*xla.ProgramShapeProto `protobuf:"bytes,5,rep,name=per_core_program_shape,json=perCoreProgramShape,proto3" json:"per_core_program_shape,omitempty"`
+	PerCoreProgramShape []*data.ProgramShapeProto `protobuf:"bytes,5,rep,name=per_core_program_shape,json=perCoreProgramShape,proto3" json:"per_core_program_shape,omitempty"`
 	// Describes how replicated computation instances should be assigned to
 	// devices. There are num_cores_per_replica computations, and each one will be
 	// sent and executed to the set of replica device numbers described in the
@@ -207,14 +208,14 @@ func (x *XLAComputationConfig) GetHostComputeMetadata() *tf2xla.HostComputeMetad
 	return nil
 }
 
-func (x *XLAComputationConfig) GetProgramShape() *xla.ProgramShapeProto {
+func (x *XLAComputationConfig) GetProgramShape() *data.ProgramShapeProto {
 	if x != nil {
 		return x.ProgramShape
 	}
 	return nil
 }
 
-func (x *XLAComputationConfig) GetPerCoreProgramShape() []*xla.ProgramShapeProto {
+func (x *XLAComputationConfig) GetPerCoreProgramShape() []*data.ProgramShapeProto {
 	if x != nil {
 		return x.PerCoreProgramShape
 	}
@@ -304,7 +305,7 @@ type XLAAllocation struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Value *xla.LiteralProto `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	Value *data.LiteralProto `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
 }
 
 func (x *XLAAllocation) Reset() {
@@ -339,7 +340,7 @@ func (*XLAAllocation) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xrt_xrt_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *XLAAllocation) GetValue() *xla.LiteralProto {
+func (x *XLAAllocation) GetValue() *data.LiteralProto {
 	if x != nil {
 		return x.Value
 	}
@@ -1906,10 +1907,10 @@ var file_tensorflow_compiler_xrt_xrt_proto_goTypes = []interface{}{
 	(*XRTChainedExecuteOp_Output)(nil),                               // 21: xrt.XRTChainedExecuteOp.Output
 	(*Percentiles_Point)(nil),                                        // 22: xrt.Percentiles.Point
 	(*tf2xla.HostComputeMetadata)(nil),                               // 23: tensorflow.tf2xla.HostComputeMetadata
-	(*xla.ProgramShapeProto)(nil),                                    // 24: xla.ProgramShapeProto
+	(*data.ProgramShapeProto)(nil),                                   // 24: xla.ProgramShapeProto
 	(*xla.DebugOptions)(nil),                                         // 25: xla.DebugOptions
 	(*service.HloSnapshot)(nil),                                      // 26: xla.HloSnapshot
-	(*xla.LiteralProto)(nil),                                         // 27: xla.LiteralProto
+	(*data.LiteralProto)(nil),                                        // 27: xla.LiteralProto
 }
 var file_tensorflow_compiler_xrt_xrt_proto_depIdxs = []int32{
 	16, // 0: xrt.DeviceAssignment.computation_devices:type_name -> xrt.DeviceAssignment.ComputationDevice

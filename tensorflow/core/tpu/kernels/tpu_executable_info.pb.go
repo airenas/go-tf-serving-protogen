@@ -22,7 +22,7 @@
 package kernels
 
 import (
-	xla "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla"
+	data "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/data"
 	service "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/service"
 	framework "github.com/airenas/go-tf-serving-protogen/tensorflow/core/framework"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -95,8 +95,8 @@ type TPUExecutableInfoProto struct {
 	unknownFields protoimpl.UnknownFields
 
 	// The shapes of the inputs and outputs.
-	InputShapes []*xla.ShapeProto `protobuf:"bytes,2,rep,name=input_shapes,json=inputShapes,proto3" json:"input_shapes,omitempty"`
-	OutputShape *xla.ShapeProto   `protobuf:"bytes,3,opt,name=output_shape,json=outputShape,proto3" json:"output_shape,omitempty"`
+	InputShapes []*data.ShapeProto `protobuf:"bytes,2,rep,name=input_shapes,json=inputShapes,proto3" json:"input_shapes,omitempty"`
+	OutputShape *data.ShapeProto   `protobuf:"bytes,3,opt,name=output_shape,json=outputShape,proto3" json:"output_shape,omitempty"`
 	// Dynamic output indices indicate which outputs have dynamic dimensions.
 	DynamicOutputIndices []*TPUExecutableInfoProto_ShapeIndex `protobuf:"bytes,11,rep,name=dynamic_output_indices,json=dynamicOutputIndices,proto3" json:"dynamic_output_indices,omitempty"`
 	// For each resource variable output, what was the index of the corresponding
@@ -111,7 +111,7 @@ type TPUExecutableInfoProto struct {
 	// --xla_dump_hlo_snapshots flag.
 	SessionModule *service.HloSnapshot `protobuf:"bytes,5,opt,name=session_module,json=sessionModule,proto3" json:"session_module,omitempty"`
 	// The physical device ids assigned to the replicated cores.
-	DeviceAssignment *xla.DeviceAssignmentProto `protobuf:"bytes,6,opt,name=device_assignment,json=deviceAssignment,proto3" json:"device_assignment,omitempty"`
+	DeviceAssignment *data.DeviceAssignmentProto `protobuf:"bytes,6,opt,name=device_assignment,json=deviceAssignment,proto3" json:"device_assignment,omitempty"`
 }
 
 func (x *TPUExecutableInfoProto) Reset() {
@@ -146,14 +146,14 @@ func (*TPUExecutableInfoProto) Descriptor() ([]byte, []int) {
 	return file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *TPUExecutableInfoProto) GetInputShapes() []*xla.ShapeProto {
+func (x *TPUExecutableInfoProto) GetInputShapes() []*data.ShapeProto {
 	if x != nil {
 		return x.InputShapes
 	}
 	return nil
 }
 
-func (x *TPUExecutableInfoProto) GetOutputShape() *xla.ShapeProto {
+func (x *TPUExecutableInfoProto) GetOutputShape() *data.ShapeProto {
 	if x != nil {
 		return x.OutputShape
 	}
@@ -188,7 +188,7 @@ func (x *TPUExecutableInfoProto) GetSessionModule() *service.HloSnapshot {
 	return nil
 }
 
-func (x *TPUExecutableInfoProto) GetDeviceAssignment() *xla.DeviceAssignmentProto {
+func (x *TPUExecutableInfoProto) GetDeviceAssignment() *data.DeviceAssignmentProto {
 	if x != nil {
 		return x.DeviceAssignment
 	}
@@ -208,11 +208,11 @@ type TPUHostTransferProto struct {
 	// Channel identifier prodided by XLA client.
 	Key string `protobuf:"bytes,3,opt,name=key,proto3" json:"key,omitempty"`
 	// Shape of the data to be transferred (including layout).
-	Shape *xla.ShapeProto `protobuf:"bytes,5,opt,name=shape,proto3" json:"shape,omitempty"`
+	Shape *data.ShapeProto `protobuf:"bytes,5,opt,name=shape,proto3" json:"shape,omitempty"`
 	// Address of the device buffer in HBM (byte offset).
 	BufferOffset int64 `protobuf:"varint,6,opt,name=buffer_offset,json=bufferOffset,proto3" json:"buffer_offset,omitempty"`
 	// Original data type for this host transfer before X64 rewrite.
-	OriginalType xla.PrimitiveType `protobuf:"varint,7,opt,name=original_type,json=originalType,proto3,enum=xla.PrimitiveType" json:"original_type,omitempty"`
+	OriginalType data.PrimitiveType `protobuf:"varint,7,opt,name=original_type,json=originalType,proto3,enum=xla.PrimitiveType" json:"original_type,omitempty"`
 	// If this host transfer is a splitted X64 transfer, specifies whether this
 	// transfer is for lower bits.
 	IsLowerBits bool `protobuf:"varint,8,opt,name=is_lower_bits,json=isLowerBits,proto3" json:"is_lower_bits,omitempty"`
@@ -273,7 +273,7 @@ func (x *TPUHostTransferProto) GetKey() string {
 	return ""
 }
 
-func (x *TPUHostTransferProto) GetShape() *xla.ShapeProto {
+func (x *TPUHostTransferProto) GetShape() *data.ShapeProto {
 	if x != nil {
 		return x.Shape
 	}
@@ -287,11 +287,11 @@ func (x *TPUHostTransferProto) GetBufferOffset() int64 {
 	return 0
 }
 
-func (x *TPUHostTransferProto) GetOriginalType() xla.PrimitiveType {
+func (x *TPUHostTransferProto) GetOriginalType() data.PrimitiveType {
 	if x != nil {
 		return x.OriginalType
 	}
-	return xla.PrimitiveType(0)
+	return data.PrimitiveType(0)
 }
 
 func (x *TPUHostTransferProto) GetIsLowerBits() bool {
@@ -583,11 +583,11 @@ var file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_goTypes = []inter
 	(*TPUHostTransferInfoProto)(nil),               // 3: tensorflow.TPUHostTransferInfoProto
 	(*TPUExecutableInfoProto_UpdateIndexPair)(nil), // 4: tensorflow.TPUExecutableInfoProto.UpdateIndexPair
 	(*TPUExecutableInfoProto_ShapeIndex)(nil),      // 5: tensorflow.TPUExecutableInfoProto.ShapeIndex
-	(*xla.ShapeProto)(nil),                         // 6: xla.ShapeProto
+	(*data.ShapeProto)(nil),                        // 6: xla.ShapeProto
 	(*framework.TensorShapeProto)(nil),             // 7: tensorflow.TensorShapeProto
 	(*service.HloSnapshot)(nil),                    // 8: xla.HloSnapshot
-	(*xla.DeviceAssignmentProto)(nil),              // 9: xla.DeviceAssignmentProto
-	(xla.PrimitiveType)(0),                         // 10: xla.PrimitiveType
+	(*data.DeviceAssignmentProto)(nil),             // 9: xla.DeviceAssignmentProto
+	(data.PrimitiveType)(0),                        // 10: xla.PrimitiveType
 }
 var file_tensorflow_core_tpu_kernels_tpu_executable_info_proto_depIdxs = []int32{
 	6,  // 0: tensorflow.TPUExecutableInfoProto.input_shapes:type_name -> xla.ShapeProto

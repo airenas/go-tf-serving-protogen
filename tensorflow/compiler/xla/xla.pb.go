@@ -22,6 +22,7 @@
 package xla
 
 import (
+	data "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/data"
 	service "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/service"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -1136,7 +1137,7 @@ type ExecutionOptions struct {
 	// may be faster when using this layout.
 	//
 	// We use a Shape here to accommodate computations that return a tuple.
-	ShapeWithOutputLayout *ShapeProto `protobuf:"bytes,2,opt,name=shape_with_output_layout,json=shapeWithOutputLayout,proto3" json:"shape_with_output_layout,omitempty"`
+	ShapeWithOutputLayout *data.ShapeProto `protobuf:"bytes,2,opt,name=shape_with_output_layout,json=shapeWithOutputLayout,proto3" json:"shape_with_output_layout,omitempty"`
 	// Used to seed random-number generators used in this computation.  If this is
 	// 0, we generate a seed ourselves.
 	//
@@ -1146,13 +1147,13 @@ type ExecutionOptions struct {
 	// This optional field specifies a particular set of devices to run the
 	// computation on. The computation will be partitioned across these devices.
 	// If not provided, the default device will be chosen.
-	DeviceHandles []*DeviceHandle `protobuf:"bytes,5,rep,name=device_handles,json=deviceHandles,proto3" json:"device_handles,omitempty"`
+	DeviceHandles []*data.DeviceHandle `protobuf:"bytes,5,rep,name=device_handles,json=deviceHandles,proto3" json:"device_handles,omitempty"`
 	// Number of replicas of the computation to run. If zero, uses the default
 	// number of replicas for the XLA service.
 	NumReplicas int32 `protobuf:"varint,6,opt,name=num_replicas,json=numReplicas,proto3" json:"num_replicas,omitempty"`
 	// This optional field specifies the device assignment if known at compile
 	// time.
-	DeviceAssignment *DeviceAssignmentProto `protobuf:"bytes,7,opt,name=device_assignment,json=deviceAssignment,proto3" json:"device_assignment,omitempty"`
+	DeviceAssignment *data.DeviceAssignmentProto `protobuf:"bytes,7,opt,name=device_assignment,json=deviceAssignment,proto3" json:"device_assignment,omitempty"`
 	// Alias input and output buffers for parameters that are passed-through XLA
 	// modules without being changed.
 	AliasPassthroughParams bool `protobuf:"varint,8,opt,name=alias_passthrough_params,json=aliasPassthroughParams,proto3" json:"alias_passthrough_params,omitempty"`
@@ -1217,7 +1218,7 @@ func (*ExecutionOptions) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *ExecutionOptions) GetShapeWithOutputLayout() *ShapeProto {
+func (x *ExecutionOptions) GetShapeWithOutputLayout() *data.ShapeProto {
 	if x != nil {
 		return x.ShapeWithOutputLayout
 	}
@@ -1238,7 +1239,7 @@ func (x *ExecutionOptions) GetDebugOptions() *DebugOptions {
 	return nil
 }
 
-func (x *ExecutionOptions) GetDeviceHandles() []*DeviceHandle {
+func (x *ExecutionOptions) GetDeviceHandles() []*data.DeviceHandle {
 	if x != nil {
 		return x.DeviceHandles
 	}
@@ -1252,7 +1253,7 @@ func (x *ExecutionOptions) GetNumReplicas() int32 {
 	return 0
 }
 
-func (x *ExecutionOptions) GetDeviceAssignment() *DeviceAssignmentProto {
+func (x *ExecutionOptions) GetDeviceAssignment() *data.DeviceAssignmentProto {
 	if x != nil {
 		return x.DeviceAssignment
 	}
@@ -1374,7 +1375,7 @@ type GetDeviceHandlesResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	DeviceHandles []*DeviceHandle `protobuf:"bytes,1,rep,name=device_handles,json=deviceHandles,proto3" json:"device_handles,omitempty"`
+	DeviceHandles []*data.DeviceHandle `protobuf:"bytes,1,rep,name=device_handles,json=deviceHandles,proto3" json:"device_handles,omitempty"`
 }
 
 func (x *GetDeviceHandlesResponse) Reset() {
@@ -1409,7 +1410,7 @@ func (*GetDeviceHandlesResponse) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *GetDeviceHandlesResponse) GetDeviceHandles() []*DeviceHandle {
+func (x *GetDeviceHandlesResponse) GetDeviceHandles() []*data.DeviceHandle {
 	if x != nil {
 		return x.DeviceHandles
 	}
@@ -1421,10 +1422,10 @@ type TransferToClientRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Data *GlobalDataHandle `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+	Data *data.GlobalDataHandle `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
 	// This optional field directs the service to return the literal in this
 	// layout. A shape is used to hold the layout to accommodate tuples.
-	ShapeWithLayout *ShapeProto `protobuf:"bytes,2,opt,name=shape_with_layout,json=shapeWithLayout,proto3" json:"shape_with_layout,omitempty"`
+	ShapeWithLayout *data.ShapeProto `protobuf:"bytes,2,opt,name=shape_with_layout,json=shapeWithLayout,proto3" json:"shape_with_layout,omitempty"`
 }
 
 func (x *TransferToClientRequest) Reset() {
@@ -1459,14 +1460,14 @@ func (*TransferToClientRequest) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *TransferToClientRequest) GetData() *GlobalDataHandle {
+func (x *TransferToClientRequest) GetData() *data.GlobalDataHandle {
 	if x != nil {
 		return x.Data
 	}
 	return nil
 }
 
-func (x *TransferToClientRequest) GetShapeWithLayout() *ShapeProto {
+func (x *TransferToClientRequest) GetShapeWithLayout() *data.ShapeProto {
 	if x != nil {
 		return x.ShapeWithLayout
 	}
@@ -1478,7 +1479,7 @@ type TransferToClientResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Literal *LiteralProto `protobuf:"bytes,1,opt,name=literal,proto3" json:"literal,omitempty"`
+	Literal *data.LiteralProto `protobuf:"bytes,1,opt,name=literal,proto3" json:"literal,omitempty"`
 }
 
 func (x *TransferToClientResponse) Reset() {
@@ -1513,7 +1514,7 @@ func (*TransferToClientResponse) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *TransferToClientResponse) GetLiteral() *LiteralProto {
+func (x *TransferToClientResponse) GetLiteral() *data.LiteralProto {
 	if x != nil {
 		return x.Literal
 	}
@@ -1525,8 +1526,8 @@ type TransferToServerRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Literal      *LiteralProto `protobuf:"bytes,1,opt,name=literal,proto3" json:"literal,omitempty"`
-	DeviceHandle *DeviceHandle `protobuf:"bytes,2,opt,name=device_handle,json=deviceHandle,proto3" json:"device_handle,omitempty"`
+	Literal      *data.LiteralProto `protobuf:"bytes,1,opt,name=literal,proto3" json:"literal,omitempty"`
+	DeviceHandle *data.DeviceHandle `protobuf:"bytes,2,opt,name=device_handle,json=deviceHandle,proto3" json:"device_handle,omitempty"`
 }
 
 func (x *TransferToServerRequest) Reset() {
@@ -1561,14 +1562,14 @@ func (*TransferToServerRequest) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *TransferToServerRequest) GetLiteral() *LiteralProto {
+func (x *TransferToServerRequest) GetLiteral() *data.LiteralProto {
 	if x != nil {
 		return x.Literal
 	}
 	return nil
 }
 
-func (x *TransferToServerRequest) GetDeviceHandle() *DeviceHandle {
+func (x *TransferToServerRequest) GetDeviceHandle() *data.DeviceHandle {
 	if x != nil {
 		return x.DeviceHandle
 	}
@@ -1580,7 +1581,7 @@ type TransferToServerResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Data *GlobalDataHandle `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+	Data *data.GlobalDataHandle `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
 }
 
 func (x *TransferToServerResponse) Reset() {
@@ -1615,7 +1616,7 @@ func (*TransferToServerResponse) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *TransferToServerResponse) GetData() *GlobalDataHandle {
+func (x *TransferToServerResponse) GetData() *data.GlobalDataHandle {
 	if x != nil {
 		return x.Data
 	}
@@ -1627,9 +1628,9 @@ type TransferToInfeedRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Literal      *LiteralProto `protobuf:"bytes,1,opt,name=literal,proto3" json:"literal,omitempty"`
-	ReplicaId    int64         `protobuf:"varint,2,opt,name=replica_id,json=replicaId,proto3" json:"replica_id,omitempty"`
-	DeviceHandle *DeviceHandle `protobuf:"bytes,3,opt,name=device_handle,json=deviceHandle,proto3" json:"device_handle,omitempty"`
+	Literal      *data.LiteralProto `protobuf:"bytes,1,opt,name=literal,proto3" json:"literal,omitempty"`
+	ReplicaId    int64              `protobuf:"varint,2,opt,name=replica_id,json=replicaId,proto3" json:"replica_id,omitempty"`
+	DeviceHandle *data.DeviceHandle `protobuf:"bytes,3,opt,name=device_handle,json=deviceHandle,proto3" json:"device_handle,omitempty"`
 }
 
 func (x *TransferToInfeedRequest) Reset() {
@@ -1664,7 +1665,7 @@ func (*TransferToInfeedRequest) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{8}
 }
 
-func (x *TransferToInfeedRequest) GetLiteral() *LiteralProto {
+func (x *TransferToInfeedRequest) GetLiteral() *data.LiteralProto {
 	if x != nil {
 		return x.Literal
 	}
@@ -1678,7 +1679,7 @@ func (x *TransferToInfeedRequest) GetReplicaId() int64 {
 	return 0
 }
 
-func (x *TransferToInfeedRequest) GetDeviceHandle() *DeviceHandle {
+func (x *TransferToInfeedRequest) GetDeviceHandle() *data.DeviceHandle {
 	if x != nil {
 		return x.DeviceHandle
 	}
@@ -1730,9 +1731,9 @@ type TransferFromOutfeedRequest struct {
 
 	// This optional field directs the service to return the literal in this
 	// layout. A shape is used to hold the layout to accommodate tuples.
-	ShapeWithLayout *ShapeProto   `protobuf:"bytes,1,opt,name=shape_with_layout,json=shapeWithLayout,proto3" json:"shape_with_layout,omitempty"`
-	ReplicaId       int64         `protobuf:"varint,2,opt,name=replica_id,json=replicaId,proto3" json:"replica_id,omitempty"`
-	DeviceHandle    *DeviceHandle `protobuf:"bytes,3,opt,name=device_handle,json=deviceHandle,proto3" json:"device_handle,omitempty"`
+	ShapeWithLayout *data.ShapeProto   `protobuf:"bytes,1,opt,name=shape_with_layout,json=shapeWithLayout,proto3" json:"shape_with_layout,omitempty"`
+	ReplicaId       int64              `protobuf:"varint,2,opt,name=replica_id,json=replicaId,proto3" json:"replica_id,omitempty"`
+	DeviceHandle    *data.DeviceHandle `protobuf:"bytes,3,opt,name=device_handle,json=deviceHandle,proto3" json:"device_handle,omitempty"`
 }
 
 func (x *TransferFromOutfeedRequest) Reset() {
@@ -1767,7 +1768,7 @@ func (*TransferFromOutfeedRequest) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{10}
 }
 
-func (x *TransferFromOutfeedRequest) GetShapeWithLayout() *ShapeProto {
+func (x *TransferFromOutfeedRequest) GetShapeWithLayout() *data.ShapeProto {
 	if x != nil {
 		return x.ShapeWithLayout
 	}
@@ -1781,7 +1782,7 @@ func (x *TransferFromOutfeedRequest) GetReplicaId() int64 {
 	return 0
 }
 
-func (x *TransferFromOutfeedRequest) GetDeviceHandle() *DeviceHandle {
+func (x *TransferFromOutfeedRequest) GetDeviceHandle() *data.DeviceHandle {
 	if x != nil {
 		return x.DeviceHandle
 	}
@@ -1793,7 +1794,7 @@ type TransferFromOutfeedResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Literal *LiteralProto `protobuf:"bytes,1,opt,name=literal,proto3" json:"literal,omitempty"`
+	Literal *data.LiteralProto `protobuf:"bytes,1,opt,name=literal,proto3" json:"literal,omitempty"`
 }
 
 func (x *TransferFromOutfeedResponse) Reset() {
@@ -1828,7 +1829,7 @@ func (*TransferFromOutfeedResponse) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{11}
 }
 
-func (x *TransferFromOutfeedResponse) GetLiteral() *LiteralProto {
+func (x *TransferFromOutfeedResponse) GetLiteral() *data.LiteralProto {
 	if x != nil {
 		return x.Literal
 	}
@@ -1840,7 +1841,7 @@ type ResetDeviceRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	DeviceHandle *DeviceHandle `protobuf:"bytes,1,opt,name=device_handle,json=deviceHandle,proto3" json:"device_handle,omitempty"`
+	DeviceHandle *data.DeviceHandle `protobuf:"bytes,1,opt,name=device_handle,json=deviceHandle,proto3" json:"device_handle,omitempty"`
 }
 
 func (x *ResetDeviceRequest) Reset() {
@@ -1875,7 +1876,7 @@ func (*ResetDeviceRequest) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{12}
 }
 
-func (x *ResetDeviceRequest) GetDeviceHandle() *DeviceHandle {
+func (x *ResetDeviceRequest) GetDeviceHandle() *data.DeviceHandle {
 	if x != nil {
 		return x.DeviceHandle
 	}
@@ -1980,7 +1981,7 @@ type ComputationStatsResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Stats *ComputationStats `protobuf:"bytes,1,opt,name=stats,proto3" json:"stats,omitempty"`
+	Stats *data.ComputationStats `protobuf:"bytes,1,opt,name=stats,proto3" json:"stats,omitempty"`
 }
 
 func (x *ComputationStatsResponse) Reset() {
@@ -2015,7 +2016,7 @@ func (*ComputationStatsResponse) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{15}
 }
 
-func (x *ComputationStatsResponse) GetStats() *ComputationStats {
+func (x *ComputationStatsResponse) GetStats() *data.ComputationStats {
 	if x != nil {
 		return x.Stats
 	}
@@ -2027,7 +2028,7 @@ type CreateChannelHandleRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ChannelType ChannelHandle_ChannelType `protobuf:"varint,1,opt,name=channel_type,json=channelType,proto3,enum=xla.ChannelHandle_ChannelType" json:"channel_type,omitempty"`
+	ChannelType data.ChannelHandle_ChannelType `protobuf:"varint,1,opt,name=channel_type,json=channelType,proto3,enum=xla.ChannelHandle_ChannelType" json:"channel_type,omitempty"`
 }
 
 func (x *CreateChannelHandleRequest) Reset() {
@@ -2062,11 +2063,11 @@ func (*CreateChannelHandleRequest) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{16}
 }
 
-func (x *CreateChannelHandleRequest) GetChannelType() ChannelHandle_ChannelType {
+func (x *CreateChannelHandleRequest) GetChannelType() data.ChannelHandle_ChannelType {
 	if x != nil {
 		return x.ChannelType
 	}
-	return ChannelHandle_CHANNEL_TYPE_INVALID
+	return data.ChannelHandle_ChannelType(0)
 }
 
 type CreateChannelHandleResponse struct {
@@ -2074,7 +2075,7 @@ type CreateChannelHandleResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Channel *ChannelHandle `protobuf:"bytes,1,opt,name=channel,proto3" json:"channel,omitempty"`
+	Channel *data.ChannelHandle `protobuf:"bytes,1,opt,name=channel,proto3" json:"channel,omitempty"`
 }
 
 func (x *CreateChannelHandleResponse) Reset() {
@@ -2109,7 +2110,7 @@ func (*CreateChannelHandleResponse) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{17}
 }
 
-func (x *CreateChannelHandleResponse) GetChannel() *ChannelHandle {
+func (x *CreateChannelHandleResponse) GetChannel() *data.ChannelHandle {
 	if x != nil {
 		return x.Channel
 	}
@@ -2121,7 +2122,7 @@ type UnregisterRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Data []*GlobalDataHandle `protobuf:"bytes,1,rep,name=data,proto3" json:"data,omitempty"`
+	Data []*data.GlobalDataHandle `protobuf:"bytes,1,rep,name=data,proto3" json:"data,omitempty"`
 }
 
 func (x *UnregisterRequest) Reset() {
@@ -2156,7 +2157,7 @@ func (*UnregisterRequest) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{18}
 }
 
-func (x *UnregisterRequest) GetData() []*GlobalDataHandle {
+func (x *UnregisterRequest) GetData() []*data.GlobalDataHandle {
 	if x != nil {
 		return x.Data
 	}
@@ -2213,7 +2214,7 @@ type CompileRequest struct {
 	// The layouts of the input arguments. If not set, the default layout will be
 	// used. Although the real arguments are not needed in compilation, the
 	// layouts of the arguments can affect the compilation.
-	InputShapeWithLayout []*ShapeProto `protobuf:"bytes,3,rep,name=input_shape_with_layout,json=inputShapeWithLayout,proto3" json:"input_shape_with_layout,omitempty"`
+	InputShapeWithLayout []*data.ShapeProto `protobuf:"bytes,3,rep,name=input_shape_with_layout,json=inputShapeWithLayout,proto3" json:"input_shape_with_layout,omitempty"`
 }
 
 func (x *CompileRequest) Reset() {
@@ -2262,7 +2263,7 @@ func (x *CompileRequest) GetExecutionOptions() *ExecutionOptions {
 	return nil
 }
 
-func (x *CompileRequest) GetInputShapeWithLayout() []*ShapeProto {
+func (x *CompileRequest) GetInputShapeWithLayout() []*data.ShapeProto {
 	if x != nil {
 		return x.InputShapeWithLayout
 	}
@@ -2275,7 +2276,7 @@ type CompileResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// The handle to the executable.
-	Handle *ExecutionHandle `protobuf:"bytes,1,opt,name=handle,proto3" json:"handle,omitempty"`
+	Handle *data.ExecutionHandle `protobuf:"bytes,1,opt,name=handle,proto3" json:"handle,omitempty"`
 }
 
 func (x *CompileResponse) Reset() {
@@ -2310,7 +2311,7 @@ func (*CompileResponse) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{21}
 }
 
-func (x *CompileResponse) GetHandle() *ExecutionHandle {
+func (x *CompileResponse) GetHandle() *data.ExecutionHandle {
 	if x != nil {
 		return x.Handle
 	}
@@ -2322,10 +2323,10 @@ type ExecuteRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Handle *ExecutionHandle `protobuf:"bytes,1,opt,name=handle,proto3" json:"handle,omitempty"`
+	Handle *data.ExecutionHandle `protobuf:"bytes,1,opt,name=handle,proto3" json:"handle,omitempty"`
 	// The shape and layout of the arguments must be the same as the those of the
 	// executable's parameters.
-	Arguments []*GlobalDataHandle `protobuf:"bytes,2,rep,name=arguments,proto3" json:"arguments,omitempty"`
+	Arguments []*data.GlobalDataHandle `protobuf:"bytes,2,rep,name=arguments,proto3" json:"arguments,omitempty"`
 }
 
 func (x *ExecuteRequest) Reset() {
@@ -2360,14 +2361,14 @@ func (*ExecuteRequest) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{22}
 }
 
-func (x *ExecuteRequest) GetHandle() *ExecutionHandle {
+func (x *ExecuteRequest) GetHandle() *data.ExecutionHandle {
 	if x != nil {
 		return x.Handle
 	}
 	return nil
 }
 
-func (x *ExecuteRequest) GetArguments() []*GlobalDataHandle {
+func (x *ExecuteRequest) GetArguments() []*data.GlobalDataHandle {
 	if x != nil {
 		return x.Arguments
 	}
@@ -2381,8 +2382,8 @@ type ExecuteGraphRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Computation *service.HloModuleProto `protobuf:"bytes,1,opt,name=computation,proto3" json:"computation,omitempty"`
-	Arguments   []*GlobalDataHandle     `protobuf:"bytes,2,rep,name=arguments,proto3" json:"arguments,omitempty"`
+	Computation *service.HloModuleProto  `protobuf:"bytes,1,opt,name=computation,proto3" json:"computation,omitempty"`
+	Arguments   []*data.GlobalDataHandle `protobuf:"bytes,2,rep,name=arguments,proto3" json:"arguments,omitempty"`
 	// Options that affect how XLA compiles and runs code to service this request.
 	ExecutionOptions *ExecutionOptions `protobuf:"bytes,3,opt,name=execution_options,json=executionOptions,proto3" json:"execution_options,omitempty"`
 }
@@ -2426,7 +2427,7 @@ func (x *ExecuteGraphRequest) GetComputation() *service.HloModuleProto {
 	return nil
 }
 
-func (x *ExecuteGraphRequest) GetArguments() []*GlobalDataHandle {
+func (x *ExecuteGraphRequest) GetArguments() []*data.GlobalDataHandle {
 	if x != nil {
 		return x.Arguments
 	}
@@ -2492,8 +2493,8 @@ type ExecuteResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Output  *GlobalDataHandle `protobuf:"bytes,1,opt,name=output,proto3" json:"output,omitempty"`
-	Profile *ExecutionProfile `protobuf:"bytes,2,opt,name=profile,proto3" json:"profile,omitempty"`
+	Output  *data.GlobalDataHandle `protobuf:"bytes,1,opt,name=output,proto3" json:"output,omitempty"`
+	Profile *data.ExecutionProfile `protobuf:"bytes,2,opt,name=profile,proto3" json:"profile,omitempty"`
 }
 
 func (x *ExecuteResponse) Reset() {
@@ -2528,14 +2529,14 @@ func (*ExecuteResponse) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{25}
 }
 
-func (x *ExecuteResponse) GetOutput() *GlobalDataHandle {
+func (x *ExecuteResponse) GetOutput() *data.GlobalDataHandle {
 	if x != nil {
 		return x.Output
 	}
 	return nil
 }
 
-func (x *ExecuteResponse) GetProfile() *ExecutionProfile {
+func (x *ExecuteResponse) GetProfile() *data.ExecutionProfile {
 	if x != nil {
 		return x.Profile
 	}
@@ -2594,7 +2595,7 @@ type WaitForExecutionRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Execution *ExecutionHandle `protobuf:"bytes,1,opt,name=execution,proto3" json:"execution,omitempty"`
+	Execution *data.ExecutionHandle `protobuf:"bytes,1,opt,name=execution,proto3" json:"execution,omitempty"`
 }
 
 func (x *WaitForExecutionRequest) Reset() {
@@ -2629,7 +2630,7 @@ func (*WaitForExecutionRequest) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{27}
 }
 
-func (x *WaitForExecutionRequest) GetExecution() *ExecutionHandle {
+func (x *WaitForExecutionRequest) GetExecution() *data.ExecutionHandle {
 	if x != nil {
 		return x.Execution
 	}
@@ -2641,8 +2642,8 @@ type WaitForExecutionResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Output  *GlobalDataHandle `protobuf:"bytes,1,opt,name=output,proto3" json:"output,omitempty"`
-	Profile *ExecutionProfile `protobuf:"bytes,2,opt,name=profile,proto3" json:"profile,omitempty"`
+	Output  *data.GlobalDataHandle `protobuf:"bytes,1,opt,name=output,proto3" json:"output,omitempty"`
+	Profile *data.ExecutionProfile `protobuf:"bytes,2,opt,name=profile,proto3" json:"profile,omitempty"`
 }
 
 func (x *WaitForExecutionResponse) Reset() {
@@ -2677,14 +2678,14 @@ func (*WaitForExecutionResponse) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{28}
 }
 
-func (x *WaitForExecutionResponse) GetOutput() *GlobalDataHandle {
+func (x *WaitForExecutionResponse) GetOutput() *data.GlobalDataHandle {
 	if x != nil {
 		return x.Output
 	}
 	return nil
 }
 
-func (x *WaitForExecutionResponse) GetProfile() *ExecutionProfile {
+func (x *WaitForExecutionResponse) GetProfile() *data.ExecutionProfile {
 	if x != nil {
 		return x.Profile
 	}
@@ -2697,7 +2698,7 @@ type ComputeConstantGraphRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	Computation  *service.HloModuleProto `protobuf:"bytes,1,opt,name=computation,proto3" json:"computation,omitempty"`
-	OutputLayout *LayoutProto            `protobuf:"bytes,2,opt,name=output_layout,json=outputLayout,proto3" json:"output_layout,omitempty"`
+	OutputLayout *data.LayoutProto       `protobuf:"bytes,2,opt,name=output_layout,json=outputLayout,proto3" json:"output_layout,omitempty"`
 }
 
 func (x *ComputeConstantGraphRequest) Reset() {
@@ -2739,7 +2740,7 @@ func (x *ComputeConstantGraphRequest) GetComputation() *service.HloModuleProto {
 	return nil
 }
 
-func (x *ComputeConstantGraphRequest) GetOutputLayout() *LayoutProto {
+func (x *ComputeConstantGraphRequest) GetOutputLayout() *data.LayoutProto {
 	if x != nil {
 		return x.OutputLayout
 	}
@@ -2752,7 +2753,7 @@ type ComputeConstantResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// A LiteralProto is returned directly for this request.
-	Literal *LiteralProto `protobuf:"bytes,1,opt,name=literal,proto3" json:"literal,omitempty"`
+	Literal *data.LiteralProto `protobuf:"bytes,1,opt,name=literal,proto3" json:"literal,omitempty"`
 }
 
 func (x *ComputeConstantResponse) Reset() {
@@ -2787,7 +2788,7 @@ func (*ComputeConstantResponse) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{30}
 }
 
-func (x *ComputeConstantResponse) GetLiteral() *LiteralProto {
+func (x *ComputeConstantResponse) GetLiteral() *data.LiteralProto {
 	if x != nil {
 		return x.Literal
 	}
@@ -2799,7 +2800,7 @@ type DeconstructTupleRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	TupleHandle *GlobalDataHandle `protobuf:"bytes,2,opt,name=tuple_handle,json=tupleHandle,proto3" json:"tuple_handle,omitempty"`
+	TupleHandle *data.GlobalDataHandle `protobuf:"bytes,2,opt,name=tuple_handle,json=tupleHandle,proto3" json:"tuple_handle,omitempty"`
 }
 
 func (x *DeconstructTupleRequest) Reset() {
@@ -2834,7 +2835,7 @@ func (*DeconstructTupleRequest) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{31}
 }
 
-func (x *DeconstructTupleRequest) GetTupleHandle() *GlobalDataHandle {
+func (x *DeconstructTupleRequest) GetTupleHandle() *data.GlobalDataHandle {
 	if x != nil {
 		return x.TupleHandle
 	}
@@ -2846,7 +2847,7 @@ type DeconstructTupleResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ElementHandles []*GlobalDataHandle `protobuf:"bytes,1,rep,name=element_handles,json=elementHandles,proto3" json:"element_handles,omitempty"`
+	ElementHandles []*data.GlobalDataHandle `protobuf:"bytes,1,rep,name=element_handles,json=elementHandles,proto3" json:"element_handles,omitempty"`
 }
 
 func (x *DeconstructTupleResponse) Reset() {
@@ -2881,7 +2882,7 @@ func (*DeconstructTupleResponse) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{32}
 }
 
-func (x *DeconstructTupleResponse) GetElementHandles() []*GlobalDataHandle {
+func (x *DeconstructTupleResponse) GetElementHandles() []*data.GlobalDataHandle {
 	if x != nil {
 		return x.ElementHandles
 	}
@@ -2898,7 +2899,7 @@ type LoadDataRequest struct {
 	// Describes the field to load within the ColumnIO tablet.
 	ColumnioField string `protobuf:"bytes,2,opt,name=columnio_field,json=columnioField,proto3" json:"columnio_field,omitempty"`
 	// Individual element shape, excluding rows.
-	ElementShape *ShapeProto `protobuf:"bytes,3,opt,name=element_shape,json=elementShape,proto3" json:"element_shape,omitempty"`
+	ElementShape *data.ShapeProto `protobuf:"bytes,3,opt,name=element_shape,json=elementShape,proto3" json:"element_shape,omitempty"`
 	// Warning: ColumnIO does not support random-access, so use offset with
 	// caution in performance-critical scenarios.
 	Offset int64 `protobuf:"varint,4,opt,name=offset,proto3" json:"offset,omitempty"`
@@ -2955,7 +2956,7 @@ func (x *LoadDataRequest) GetColumnioField() string {
 	return ""
 }
 
-func (x *LoadDataRequest) GetElementShape() *ShapeProto {
+func (x *LoadDataRequest) GetElementShape() *data.ShapeProto {
 	if x != nil {
 		return x.ElementShape
 	}
@@ -2988,11 +2989,11 @@ type LoadDataResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Data          *GlobalDataHandle `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
-	DataShape     *ShapeProto       `protobuf:"bytes,2,opt,name=data_shape,json=dataShape,proto3" json:"data_shape,omitempty"`
-	AvailableRows int64             `protobuf:"varint,3,opt,name=available_rows,json=availableRows,proto3" json:"available_rows,omitempty"`
-	RowsLoaded    int64             `protobuf:"varint,4,opt,name=rows_loaded,json=rowsLoaded,proto3" json:"rows_loaded,omitempty"`
-	Nanoseconds   int64             `protobuf:"varint,5,opt,name=nanoseconds,proto3" json:"nanoseconds,omitempty"`
+	Data          *data.GlobalDataHandle `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+	DataShape     *data.ShapeProto       `protobuf:"bytes,2,opt,name=data_shape,json=dataShape,proto3" json:"data_shape,omitempty"`
+	AvailableRows int64                  `protobuf:"varint,3,opt,name=available_rows,json=availableRows,proto3" json:"available_rows,omitempty"`
+	RowsLoaded    int64                  `protobuf:"varint,4,opt,name=rows_loaded,json=rowsLoaded,proto3" json:"rows_loaded,omitempty"`
+	Nanoseconds   int64                  `protobuf:"varint,5,opt,name=nanoseconds,proto3" json:"nanoseconds,omitempty"`
 }
 
 func (x *LoadDataResponse) Reset() {
@@ -3027,14 +3028,14 @@ func (*LoadDataResponse) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{34}
 }
 
-func (x *LoadDataResponse) GetData() *GlobalDataHandle {
+func (x *LoadDataResponse) GetData() *data.GlobalDataHandle {
 	if x != nil {
 		return x.Data
 	}
 	return nil
 }
 
-func (x *LoadDataResponse) GetDataShape() *ShapeProto {
+func (x *LoadDataResponse) GetDataShape() *data.ShapeProto {
 	if x != nil {
 		return x.DataShape
 	}
@@ -3067,7 +3068,7 @@ type GetShapeRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Data *GlobalDataHandle `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+	Data *data.GlobalDataHandle `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
 }
 
 func (x *GetShapeRequest) Reset() {
@@ -3102,7 +3103,7 @@ func (*GetShapeRequest) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{35}
 }
 
-func (x *GetShapeRequest) GetData() *GlobalDataHandle {
+func (x *GetShapeRequest) GetData() *data.GlobalDataHandle {
 	if x != nil {
 		return x.Data
 	}
@@ -3114,7 +3115,7 @@ type GetShapeResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Shape *ShapeProto `protobuf:"bytes,1,opt,name=shape,proto3" json:"shape,omitempty"`
+	Shape *data.ShapeProto `protobuf:"bytes,1,opt,name=shape,proto3" json:"shape,omitempty"`
 }
 
 func (x *GetShapeResponse) Reset() {
@@ -3149,7 +3150,7 @@ func (*GetShapeResponse) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{36}
 }
 
-func (x *GetShapeResponse) GetShape() *ShapeProto {
+func (x *GetShapeResponse) GetShape() *data.ShapeProto {
 	if x != nil {
 		return x.Shape
 	}
@@ -3161,7 +3162,7 @@ type UnpackRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Data *GlobalDataHandle `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+	Data *data.GlobalDataHandle `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
 }
 
 func (x *UnpackRequest) Reset() {
@@ -3196,7 +3197,7 @@ func (*UnpackRequest) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{37}
 }
 
-func (x *UnpackRequest) GetData() *GlobalDataHandle {
+func (x *UnpackRequest) GetData() *data.GlobalDataHandle {
 	if x != nil {
 		return x.Data
 	}
@@ -3208,7 +3209,7 @@ type UnpackResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	TiedData []*GlobalDataHandle `protobuf:"bytes,1,rep,name=tied_data,json=tiedData,proto3" json:"tied_data,omitempty"`
+	TiedData []*data.GlobalDataHandle `protobuf:"bytes,1,rep,name=tied_data,json=tiedData,proto3" json:"tied_data,omitempty"`
 }
 
 func (x *UnpackResponse) Reset() {
@@ -3243,7 +3244,7 @@ func (*UnpackResponse) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_xla_proto_rawDescGZIP(), []int{38}
 }
 
-func (x *UnpackResponse) GetTiedData() []*GlobalDataHandle {
+func (x *UnpackResponse) GetTiedData() []*data.GlobalDataHandle {
 	if x != nil {
 		return x.TiedData
 	}
@@ -4007,18 +4008,18 @@ var file_tensorflow_compiler_xla_xla_proto_goTypes = []interface{}{
 	(*UnpackRequest)(nil),                // 39: xla.UnpackRequest
 	(*UnpackResponse)(nil),               // 40: xla.UnpackResponse
 	nil,                                  // 41: xla.DebugOptions.XlaBackendExtraOptionsEntry
-	(*ShapeProto)(nil),                   // 42: xla.ShapeProto
-	(*DeviceHandle)(nil),                 // 43: xla.DeviceHandle
-	(*DeviceAssignmentProto)(nil),        // 44: xla.DeviceAssignmentProto
-	(*GlobalDataHandle)(nil),             // 45: xla.GlobalDataHandle
-	(*LiteralProto)(nil),                 // 46: xla.LiteralProto
+	(*data.ShapeProto)(nil),              // 42: xla.ShapeProto
+	(*data.DeviceHandle)(nil),            // 43: xla.DeviceHandle
+	(*data.DeviceAssignmentProto)(nil),   // 44: xla.DeviceAssignmentProto
+	(*data.GlobalDataHandle)(nil),        // 45: xla.GlobalDataHandle
+	(*data.LiteralProto)(nil),            // 46: xla.LiteralProto
 	(*service.HloModuleProto)(nil),       // 47: xla.HloModuleProto
-	(*ComputationStats)(nil),             // 48: xla.ComputationStats
-	(ChannelHandle_ChannelType)(0),       // 49: xla.ChannelHandle.ChannelType
-	(*ChannelHandle)(nil),                // 50: xla.ChannelHandle
-	(*ExecutionHandle)(nil),              // 51: xla.ExecutionHandle
-	(*ExecutionProfile)(nil),             // 52: xla.ExecutionProfile
-	(*LayoutProto)(nil),                  // 53: xla.LayoutProto
+	(*data.ComputationStats)(nil),        // 48: xla.ComputationStats
+	(data.ChannelHandle_ChannelType)(0),  // 49: xla.ChannelHandle.ChannelType
+	(*data.ChannelHandle)(nil),           // 50: xla.ChannelHandle
+	(*data.ExecutionHandle)(nil),         // 51: xla.ExecutionHandle
+	(*data.ExecutionProfile)(nil),        // 52: xla.ExecutionProfile
+	(*data.LayoutProto)(nil),             // 53: xla.LayoutProto
 }
 var file_tensorflow_compiler_xla_xla_proto_depIdxs = []int32{
 	0,  // 0: xla.DebugOptions.xla_gpu_shape_checks:type_name -> xla.DebugOptions.ShapeChecks
@@ -4087,7 +4088,6 @@ func file_tensorflow_compiler_xla_xla_proto_init() {
 	if File_tensorflow_compiler_xla_xla_proto != nil {
 		return
 	}
-	file_tensorflow_compiler_xla_xla_data_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_tensorflow_compiler_xla_xla_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DebugOptions); i {

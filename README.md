@@ -32,6 +32,7 @@ Just:
 - git
 - make
 - docker
+- go
 
 When preparing for a new TensorFlow version, follow these steps:
 

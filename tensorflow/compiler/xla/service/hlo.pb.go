@@ -35,7 +35,7 @@
 package service
 
 import (
-	xla "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla"
+	data "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/data"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -360,12 +360,12 @@ type HloInstructionProto struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Name     string          `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Opcode   string          `protobuf:"bytes,2,opt,name=opcode,proto3" json:"opcode,omitempty"`
-	Shape    *xla.ShapeProto `protobuf:"bytes,3,opt,name=shape,proto3" json:"shape,omitempty"`
-	Metadata *xla.OpMetadata `protobuf:"bytes,7,opt,name=metadata,proto3" json:"metadata,omitempty"`
+	Name     string           `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Opcode   string           `protobuf:"bytes,2,opt,name=opcode,proto3" json:"opcode,omitempty"`
+	Shape    *data.ShapeProto `protobuf:"bytes,3,opt,name=shape,proto3" json:"shape,omitempty"`
+	Metadata *data.OpMetadata `protobuf:"bytes,7,opt,name=metadata,proto3" json:"metadata,omitempty"`
 	// Literal, only present for kConstant.
-	Literal *xla.LiteralProto `protobuf:"bytes,8,opt,name=literal,proto3" json:"literal,omitempty"`
+	Literal *data.LiteralProto `protobuf:"bytes,8,opt,name=literal,proto3" json:"literal,omitempty"`
 	// Parameter number is only present for kParameter.
 	ParameterNumber int64 `protobuf:"varint,9,opt,name=parameter_number,json=parameterNumber,proto3" json:"parameter_number,omitempty"`
 	// Fusion state, only present for kFusion.
@@ -376,9 +376,9 @@ type HloInstructionProto struct {
 	// broadcasting, including Reshape, Reduce, ReduceWindow, and Reverse.
 	Dimensions []int64 `protobuf:"varint,14,rep,packed,name=dimensions,proto3" json:"dimensions,omitempty"`
 	// Describes the window in a windowed operation such as convolution.
-	Window *xla.Window `protobuf:"bytes,15,opt,name=window,proto3" json:"window,omitempty"`
+	Window *data.Window `protobuf:"bytes,15,opt,name=window,proto3" json:"window,omitempty"`
 	// Describes the dimension numbers used for a convolution.
-	ConvolutionDimensionNumbers *xla.ConvolutionDimensionNumbers `protobuf:"bytes,16,opt,name=convolution_dimension_numbers,json=convolutionDimensionNumbers,proto3" json:"convolution_dimension_numbers,omitempty"`
+	ConvolutionDimensionNumbers *data.ConvolutionDimensionNumbers `protobuf:"bytes,16,opt,name=convolution_dimension_numbers,json=convolutionDimensionNumbers,proto3" json:"convolution_dimension_numbers,omitempty"`
 	// The number of feature groups. Used for a convolution. Must be a divisor of
 	// the input feature dimension and output feature dimension. If not specified,
 	// it will use a default value of 1.
@@ -393,12 +393,12 @@ type HloInstructionProto struct {
 	DynamicSliceSizes []int64 `protobuf:"varint,20,rep,packed,name=dynamic_slice_sizes,json=dynamicSliceSizes,proto3" json:"dynamic_slice_sizes,omitempty"`
 	// The padding configuration that describes the edge padding and interior
 	// padding of this pad instruction. Only set for pad instructions.
-	PaddingConfig *xla.PaddingConfig `protobuf:"bytes,21,opt,name=padding_config,json=paddingConfig,proto3" json:"padding_config,omitempty"`
+	PaddingConfig *data.PaddingConfig `protobuf:"bytes,21,opt,name=padding_config,json=paddingConfig,proto3" json:"padding_config,omitempty"`
 	// Outfeed configuration information, only present for kOutfeed.
 	OutfeedConfig []byte `protobuf:"bytes,22,opt,name=outfeed_config,json=outfeedConfig,proto3" json:"outfeed_config,omitempty"`
 	// The distribution requested for random number generation.
 	// Only present for kRng.
-	Distribution xla.RandomDistribution `protobuf:"varint,23,opt,name=distribution,proto3,enum=xla.RandomDistribution" json:"distribution,omitempty"`
+	Distribution data.RandomDistribution `protobuf:"varint,23,opt,name=distribution,proto3,enum=xla.RandomDistribution" json:"distribution,omitempty"`
 	// A small float number added to the variance to avoid divide-by-zero error.
 	// Only present for kBatchNormTraining.
 	Epsilon float32 `protobuf:"fixed32,24,opt,name=epsilon,proto3" json:"epsilon,omitempty"`
@@ -415,31 +415,31 @@ type HloInstructionProto struct {
 	// kCustomCall.
 	CustomCallTarget string `protobuf:"bytes,28,opt,name=custom_call_target,json=customCallTarget,proto3" json:"custom_call_target,omitempty"`
 	// Shape of outfeed request.
-	OutfeedShape *xla.ShapeProto `protobuf:"bytes,29,opt,name=outfeed_shape,json=outfeedShape,proto3" json:"outfeed_shape,omitempty"`
+	OutfeedShape *data.ShapeProto `protobuf:"bytes,29,opt,name=outfeed_shape,json=outfeedShape,proto3" json:"outfeed_shape,omitempty"`
 	// Describes the dimension numbers used for a dot operation
-	DotDimensionNumbers *xla.DotDimensionNumbers `protobuf:"bytes,30,opt,name=dot_dimension_numbers,json=dotDimensionNumbers,proto3" json:"dot_dimension_numbers,omitempty"`
+	DotDimensionNumbers *data.DotDimensionNumbers `protobuf:"bytes,30,opt,name=dot_dimension_numbers,json=dotDimensionNumbers,proto3" json:"dot_dimension_numbers,omitempty"`
 	// FFT type (FFT, IFFT, etc).
-	FftType xla.FftType `protobuf:"varint,31,opt,name=fft_type,json=fftType,proto3,enum=xla.FftType" json:"fft_type,omitempty"`
+	FftType data.FftType `protobuf:"varint,31,opt,name=fft_type,json=fftType,proto3,enum=xla.FftType" json:"fft_type,omitempty"`
 	// FFT length.
 	FftLength []int64 `protobuf:"varint,32,rep,packed,name=fft_length,json=fftLength,proto3" json:"fft_length,omitempty"`
 	// Comparison direction only used for kCompare.
 	ComparisonDirection string `protobuf:"bytes,63,opt,name=comparison_direction,json=comparisonDirection,proto3" json:"comparison_direction,omitempty"`
 	// Gather dimension numbers.
-	GatherDimensionNumbers *xla.GatherDimensionNumbers `protobuf:"bytes,33,opt,name=gather_dimension_numbers,json=gatherDimensionNumbers,proto3" json:"gather_dimension_numbers,omitempty"`
-	GatherSliceSizes       []int64                     `protobuf:"varint,34,rep,packed,name=gather_slice_sizes,json=gatherSliceSizes,proto3" json:"gather_slice_sizes,omitempty"`
+	GatherDimensionNumbers *data.GatherDimensionNumbers `protobuf:"bytes,33,opt,name=gather_dimension_numbers,json=gatherDimensionNumbers,proto3" json:"gather_dimension_numbers,omitempty"`
+	GatherSliceSizes       []int64                      `protobuf:"varint,34,rep,packed,name=gather_slice_sizes,json=gatherSliceSizes,proto3" json:"gather_slice_sizes,omitempty"`
 	// Compute Host.
 	ChannelName    string `protobuf:"bytes,41,opt,name=channel_name,json=channelName,proto3" json:"channel_name,omitempty"`
 	CostEstimateNs int64  `protobuf:"varint,42,opt,name=cost_estimate_ns,json=costEstimateNs,proto3" json:"cost_estimate_ns,omitempty"`
 	// The id of this instruction.
-	Id                    int64           `protobuf:"varint,35,opt,name=id,proto3" json:"id,omitempty"`
-	OperandIds            []int64         `protobuf:"varint,36,rep,packed,name=operand_ids,json=operandIds,proto3" json:"operand_ids,omitempty"`
-	ControlPredecessorIds []int64         `protobuf:"varint,37,rep,packed,name=control_predecessor_ids,json=controlPredecessorIds,proto3" json:"control_predecessor_ids,omitempty"`
-	CalledComputationIds  []int64         `protobuf:"varint,38,rep,packed,name=called_computation_ids,json=calledComputationIds,proto3" json:"called_computation_ids,omitempty"`
-	Sharding              *xla.OpSharding `protobuf:"bytes,40,opt,name=sharding,proto3" json:"sharding,omitempty"`
+	Id                    int64            `protobuf:"varint,35,opt,name=id,proto3" json:"id,omitempty"`
+	OperandIds            []int64          `protobuf:"varint,36,rep,packed,name=operand_ids,json=operandIds,proto3" json:"operand_ids,omitempty"`
+	ControlPredecessorIds []int64          `protobuf:"varint,37,rep,packed,name=control_predecessor_ids,json=controlPredecessorIds,proto3" json:"control_predecessor_ids,omitempty"`
+	CalledComputationIds  []int64          `protobuf:"varint,38,rep,packed,name=called_computation_ids,json=calledComputationIds,proto3" json:"called_computation_ids,omitempty"`
+	Sharding              *data.OpSharding `protobuf:"bytes,40,opt,name=sharding,proto3" json:"sharding,omitempty"`
 	// Backend configuration for the instruction. Has backend-specific meaning.
 	BackendConfig []byte `protobuf:"bytes,43,opt,name=backend_config,json=backendConfig,proto3" json:"backend_config,omitempty"`
 	// Cross replica op fields.
-	ReplicaGroups []*xla.ReplicaGroup `protobuf:"bytes,49,rep,name=replica_groups,json=replicaGroups,proto3" json:"replica_groups,omitempty"`
+	ReplicaGroups []*data.ReplicaGroup `protobuf:"bytes,49,rep,name=replica_groups,json=replicaGroups,proto3" json:"replica_groups,omitempty"`
 	// Deprecated, but keeping it for backward compatibility. Use channel_id.
 	// Non-positive all_reduce_id is equivalent to no all_reduce_id.
 	//
@@ -453,27 +453,27 @@ type HloInstructionProto struct {
 	// partners.
 	IsHostTransfer bool `protobuf:"varint,47,opt,name=is_host_transfer,json=isHostTransfer,proto3" json:"is_host_transfer,omitempty"`
 	// Whether this Sort instruction should be stable.
-	IsStable                bool                         `protobuf:"varint,60,opt,name=is_stable,json=isStable,proto3" json:"is_stable,omitempty"`
-	ScatterDimensionNumbers *xla.ScatterDimensionNumbers `protobuf:"bytes,48,opt,name=scatter_dimension_numbers,json=scatterDimensionNumbers,proto3" json:"scatter_dimension_numbers,omitempty"`
+	IsStable                bool                          `protobuf:"varint,60,opt,name=is_stable,json=isStable,proto3" json:"is_stable,omitempty"`
+	ScatterDimensionNumbers *data.ScatterDimensionNumbers `protobuf:"bytes,48,opt,name=scatter_dimension_numbers,json=scatterDimensionNumbers,proto3" json:"scatter_dimension_numbers,omitempty"`
 	// Precision configuration for the instruction. Has backend-specific meaning.
-	PrecisionConfig *xla.PrecisionConfig `protobuf:"bytes,51,opt,name=precision_config,json=precisionConfig,proto3" json:"precision_config,omitempty"`
+	PrecisionConfig *data.PrecisionConfig `protobuf:"bytes,51,opt,name=precision_config,json=precisionConfig,proto3" json:"precision_config,omitempty"`
 	// Collective permute field.
-	SourceTargetPairs []*xla.SourceTarget `protobuf:"bytes,52,rep,name=source_target_pairs,json=sourceTargetPairs,proto3" json:"source_target_pairs,omitempty"`
+	SourceTargetPairs []*data.SourceTarget `protobuf:"bytes,52,rep,name=source_target_pairs,json=sourceTargetPairs,proto3" json:"source_target_pairs,omitempty"`
 	// Sharding for kDomain instructions.
-	DomainEntrySharding *xla.OpSharding `protobuf:"bytes,54,opt,name=domain_entry_sharding,json=domainEntrySharding,proto3" json:"domain_entry_sharding,omitempty"`
-	DomainExitSharding  *xla.OpSharding `protobuf:"bytes,55,opt,name=domain_exit_sharding,json=domainExitSharding,proto3" json:"domain_exit_sharding,omitempty"`
+	DomainEntrySharding *data.OpSharding `protobuf:"bytes,54,opt,name=domain_entry_sharding,json=domainEntrySharding,proto3" json:"domain_entry_sharding,omitempty"`
+	DomainExitSharding  *data.OpSharding `protobuf:"bytes,55,opt,name=domain_exit_sharding,json=domainExitSharding,proto3" json:"domain_exit_sharding,omitempty"`
 	// For custom call this indicates that the layouts are constrained. If
 	// constrain_layout is true then the 'shape' field must contain a layout, and
 	// 'operand_shapes_with_layout' must contain a shape with layout for each
 	// operand.
-	ConstrainLayout         bool              `protobuf:"varint,56,opt,name=constrain_layout,json=constrainLayout,proto3" json:"constrain_layout,omitempty"`
-	OperandShapesWithLayout []*xla.ShapeProto `protobuf:"bytes,57,rep,name=operand_shapes_with_layout,json=operandShapesWithLayout,proto3" json:"operand_shapes_with_layout,omitempty"`
+	ConstrainLayout         bool               `protobuf:"varint,56,opt,name=constrain_layout,json=constrainLayout,proto3" json:"constrain_layout,omitempty"`
+	OperandShapesWithLayout []*data.ShapeProto `protobuf:"bytes,57,rep,name=operand_shapes_with_layout,json=operandShapesWithLayout,proto3" json:"operand_shapes_with_layout,omitempty"`
 	// Options for TriangularSolve
-	TriangularSolveOptions *xla.TriangularSolveOptions `protobuf:"bytes,59,opt,name=triangular_solve_options,json=triangularSolveOptions,proto3" json:"triangular_solve_options,omitempty"`
+	TriangularSolveOptions *data.TriangularSolveOptions `protobuf:"bytes,59,opt,name=triangular_solve_options,json=triangularSolveOptions,proto3" json:"triangular_solve_options,omitempty"`
 	// Options for Cholesky
-	CholeskyOptions *xla.CholeskyOptions `protobuf:"bytes,62,opt,name=cholesky_options,json=choleskyOptions,proto3" json:"cholesky_options,omitempty"`
+	CholeskyOptions *data.CholeskyOptions `protobuf:"bytes,62,opt,name=cholesky_options,json=choleskyOptions,proto3" json:"cholesky_options,omitempty"`
 	// Describes how parameters behave with regards to replicas.
-	ParameterReplication *xla.ParameterReplication `protobuf:"bytes,61,opt,name=parameter_replication,json=parameterReplication,proto3" json:"parameter_replication,omitempty"`
+	ParameterReplication *data.ParameterReplication `protobuf:"bytes,61,opt,name=parameter_replication,json=parameterReplication,proto3" json:"parameter_replication,omitempty"`
 	// If set, the given instruction is run in parallel on e.g. multiple CPU
 	// cores.  The outermost dimension gets split up into
 	// outer_dimension_partitions[0] pieces, the next-outermost dim gets split
@@ -487,7 +487,7 @@ type HloInstructionProto struct {
 	CustomCallHasSideEffect bool `protobuf:"varint,65,opt,name=custom_call_has_side_effect,json=customCallHasSideEffect,proto3" json:"custom_call_has_side_effect,omitempty"`
 	// A list of CustomCallOutputOperandAliasing pairs that specifies aliasing
 	// buffers between output and operands for kCustomCall.
-	CustomCallOutputOperandAliasing []*xla.CustomCallOutputOperandAliasing `protobuf:"bytes,74,rep,name=custom_call_output_operand_aliasing,json=customCallOutputOperandAliasing,proto3" json:"custom_call_output_operand_aliasing,omitempty"`
+	CustomCallOutputOperandAliasing []*data.CustomCallOutputOperandAliasing `protobuf:"bytes,74,rep,name=custom_call_output_operand_aliasing,json=customCallOutputOperandAliasing,proto3" json:"custom_call_output_operand_aliasing,omitempty"`
 	// Specifies the desired schedule for the custom-call. The field is only
 	// present for custom-call.
 	CustomCallSchedule CustomCallSchedule `protobuf:"varint,76,opt,name=custom_call_schedule,json=customCallSchedule,proto3,enum=xla.CustomCallSchedule" json:"custom_call_schedule,omitempty"`
@@ -497,18 +497,18 @@ type HloInstructionProto struct {
 	// caller.
 	IndicesAreSorted bool `protobuf:"varint,67,opt,name=indices_are_sorted,json=indicesAreSorted,proto3" json:"indices_are_sorted,omitempty"`
 	// Frontend attributes to pass to the XLA backend.
-	FrontendAttributes *xla.FrontendAttributes `protobuf:"bytes,68,opt,name=frontend_attributes,json=frontendAttributes,proto3" json:"frontend_attributes,omitempty"`
+	FrontendAttributes *data.FrontendAttributes `protobuf:"bytes,68,opt,name=frontend_attributes,json=frontendAttributes,proto3" json:"frontend_attributes,omitempty"`
 	// Specifies if all elements updated are guaranteed to be unique by
 	// the caller.
 	UniqueIndices bool `protobuf:"varint,69,opt,name=unique_indices,json=uniqueIndices,proto3" json:"unique_indices,omitempty"`
 	// RNG algorithm used by kRngBitGenerator.
-	RngAlgorithm xla.RandomAlgorithm `protobuf:"varint,70,opt,name=rng_algorithm,json=rngAlgorithm,proto3,enum=xla.RandomAlgorithm" json:"rng_algorithm,omitempty"`
+	RngAlgorithm data.RandomAlgorithm `protobuf:"varint,70,opt,name=rng_algorithm,json=rngAlgorithm,proto3,enum=xla.RandomAlgorithm" json:"rng_algorithm,omitempty"`
 	// The comparison type used for kCompare.
 	ComparisonType string `protobuf:"bytes,72,opt,name=comparison_type,json=comparisonType,proto3" json:"comparison_type,omitempty"`
 	// Specifies if this is a cross-program-prefetch, used by kCopyStart.
 	IsCrossProgramPrefetch bool `protobuf:"varint,73,opt,name=is_cross_program_prefetch,json=isCrossProgramPrefetch,proto3" json:"is_cross_program_prefetch,omitempty"`
 	// If a convolution is dynamic, a dynamic padding type will be specified.
-	PaddingType xla.PaddingType `protobuf:"varint,75,opt,name=padding_type,json=paddingType,proto3,enum=xla.PaddingType" json:"padding_type,omitempty"`
+	PaddingType data.PaddingType `protobuf:"varint,75,opt,name=padding_type,json=paddingType,proto3,enum=xla.PaddingType" json:"padding_type,omitempty"`
 	// The API version used by the custom call function. This field is only
 	// present for custom-call.
 	// TODO(b/189822916): Remove this field when all clients are migrated to the
@@ -570,21 +570,21 @@ func (x *HloInstructionProto) GetOpcode() string {
 	return ""
 }
 
-func (x *HloInstructionProto) GetShape() *xla.ShapeProto {
+func (x *HloInstructionProto) GetShape() *data.ShapeProto {
 	if x != nil {
 		return x.Shape
 	}
 	return nil
 }
 
-func (x *HloInstructionProto) GetMetadata() *xla.OpMetadata {
+func (x *HloInstructionProto) GetMetadata() *data.OpMetadata {
 	if x != nil {
 		return x.Metadata
 	}
 	return nil
 }
 
-func (x *HloInstructionProto) GetLiteral() *xla.LiteralProto {
+func (x *HloInstructionProto) GetLiteral() *data.LiteralProto {
 	if x != nil {
 		return x.Literal
 	}
@@ -619,14 +619,14 @@ func (x *HloInstructionProto) GetDimensions() []int64 {
 	return nil
 }
 
-func (x *HloInstructionProto) GetWindow() *xla.Window {
+func (x *HloInstructionProto) GetWindow() *data.Window {
 	if x != nil {
 		return x.Window
 	}
 	return nil
 }
 
-func (x *HloInstructionProto) GetConvolutionDimensionNumbers() *xla.ConvolutionDimensionNumbers {
+func (x *HloInstructionProto) GetConvolutionDimensionNumbers() *data.ConvolutionDimensionNumbers {
 	if x != nil {
 		return x.ConvolutionDimensionNumbers
 	}
@@ -675,7 +675,7 @@ func (x *HloInstructionProto) GetDynamicSliceSizes() []int64 {
 	return nil
 }
 
-func (x *HloInstructionProto) GetPaddingConfig() *xla.PaddingConfig {
+func (x *HloInstructionProto) GetPaddingConfig() *data.PaddingConfig {
 	if x != nil {
 		return x.PaddingConfig
 	}
@@ -689,11 +689,11 @@ func (x *HloInstructionProto) GetOutfeedConfig() []byte {
 	return nil
 }
 
-func (x *HloInstructionProto) GetDistribution() xla.RandomDistribution {
+func (x *HloInstructionProto) GetDistribution() data.RandomDistribution {
 	if x != nil {
 		return x.Distribution
 	}
-	return xla.RandomDistribution(0)
+	return data.RandomDistribution(0)
 }
 
 func (x *HloInstructionProto) GetEpsilon() float32 {
@@ -731,25 +731,25 @@ func (x *HloInstructionProto) GetCustomCallTarget() string {
 	return ""
 }
 
-func (x *HloInstructionProto) GetOutfeedShape() *xla.ShapeProto {
+func (x *HloInstructionProto) GetOutfeedShape() *data.ShapeProto {
 	if x != nil {
 		return x.OutfeedShape
 	}
 	return nil
 }
 
-func (x *HloInstructionProto) GetDotDimensionNumbers() *xla.DotDimensionNumbers {
+func (x *HloInstructionProto) GetDotDimensionNumbers() *data.DotDimensionNumbers {
 	if x != nil {
 		return x.DotDimensionNumbers
 	}
 	return nil
 }
 
-func (x *HloInstructionProto) GetFftType() xla.FftType {
+func (x *HloInstructionProto) GetFftType() data.FftType {
 	if x != nil {
 		return x.FftType
 	}
-	return xla.FftType(0)
+	return data.FftType(0)
 }
 
 func (x *HloInstructionProto) GetFftLength() []int64 {
@@ -766,7 +766,7 @@ func (x *HloInstructionProto) GetComparisonDirection() string {
 	return ""
 }
 
-func (x *HloInstructionProto) GetGatherDimensionNumbers() *xla.GatherDimensionNumbers {
+func (x *HloInstructionProto) GetGatherDimensionNumbers() *data.GatherDimensionNumbers {
 	if x != nil {
 		return x.GatherDimensionNumbers
 	}
@@ -822,7 +822,7 @@ func (x *HloInstructionProto) GetCalledComputationIds() []int64 {
 	return nil
 }
 
-func (x *HloInstructionProto) GetSharding() *xla.OpSharding {
+func (x *HloInstructionProto) GetSharding() *data.OpSharding {
 	if x != nil {
 		return x.Sharding
 	}
@@ -836,7 +836,7 @@ func (x *HloInstructionProto) GetBackendConfig() []byte {
 	return nil
 }
 
-func (x *HloInstructionProto) GetReplicaGroups() []*xla.ReplicaGroup {
+func (x *HloInstructionProto) GetReplicaGroups() []*data.ReplicaGroup {
 	if x != nil {
 		return x.ReplicaGroups
 	}
@@ -872,35 +872,35 @@ func (x *HloInstructionProto) GetIsStable() bool {
 	return false
 }
 
-func (x *HloInstructionProto) GetScatterDimensionNumbers() *xla.ScatterDimensionNumbers {
+func (x *HloInstructionProto) GetScatterDimensionNumbers() *data.ScatterDimensionNumbers {
 	if x != nil {
 		return x.ScatterDimensionNumbers
 	}
 	return nil
 }
 
-func (x *HloInstructionProto) GetPrecisionConfig() *xla.PrecisionConfig {
+func (x *HloInstructionProto) GetPrecisionConfig() *data.PrecisionConfig {
 	if x != nil {
 		return x.PrecisionConfig
 	}
 	return nil
 }
 
-func (x *HloInstructionProto) GetSourceTargetPairs() []*xla.SourceTarget {
+func (x *HloInstructionProto) GetSourceTargetPairs() []*data.SourceTarget {
 	if x != nil {
 		return x.SourceTargetPairs
 	}
 	return nil
 }
 
-func (x *HloInstructionProto) GetDomainEntrySharding() *xla.OpSharding {
+func (x *HloInstructionProto) GetDomainEntrySharding() *data.OpSharding {
 	if x != nil {
 		return x.DomainEntrySharding
 	}
 	return nil
 }
 
-func (x *HloInstructionProto) GetDomainExitSharding() *xla.OpSharding {
+func (x *HloInstructionProto) GetDomainExitSharding() *data.OpSharding {
 	if x != nil {
 		return x.DomainExitSharding
 	}
@@ -914,28 +914,28 @@ func (x *HloInstructionProto) GetConstrainLayout() bool {
 	return false
 }
 
-func (x *HloInstructionProto) GetOperandShapesWithLayout() []*xla.ShapeProto {
+func (x *HloInstructionProto) GetOperandShapesWithLayout() []*data.ShapeProto {
 	if x != nil {
 		return x.OperandShapesWithLayout
 	}
 	return nil
 }
 
-func (x *HloInstructionProto) GetTriangularSolveOptions() *xla.TriangularSolveOptions {
+func (x *HloInstructionProto) GetTriangularSolveOptions() *data.TriangularSolveOptions {
 	if x != nil {
 		return x.TriangularSolveOptions
 	}
 	return nil
 }
 
-func (x *HloInstructionProto) GetCholeskyOptions() *xla.CholeskyOptions {
+func (x *HloInstructionProto) GetCholeskyOptions() *data.CholeskyOptions {
 	if x != nil {
 		return x.CholeskyOptions
 	}
 	return nil
 }
 
-func (x *HloInstructionProto) GetParameterReplication() *xla.ParameterReplication {
+func (x *HloInstructionProto) GetParameterReplication() *data.ParameterReplication {
 	if x != nil {
 		return x.ParameterReplication
 	}
@@ -956,7 +956,7 @@ func (x *HloInstructionProto) GetCustomCallHasSideEffect() bool {
 	return false
 }
 
-func (x *HloInstructionProto) GetCustomCallOutputOperandAliasing() []*xla.CustomCallOutputOperandAliasing {
+func (x *HloInstructionProto) GetCustomCallOutputOperandAliasing() []*data.CustomCallOutputOperandAliasing {
 	if x != nil {
 		return x.CustomCallOutputOperandAliasing
 	}
@@ -984,7 +984,7 @@ func (x *HloInstructionProto) GetIndicesAreSorted() bool {
 	return false
 }
 
-func (x *HloInstructionProto) GetFrontendAttributes() *xla.FrontendAttributes {
+func (x *HloInstructionProto) GetFrontendAttributes() *data.FrontendAttributes {
 	if x != nil {
 		return x.FrontendAttributes
 	}
@@ -998,11 +998,11 @@ func (x *HloInstructionProto) GetUniqueIndices() bool {
 	return false
 }
 
-func (x *HloInstructionProto) GetRngAlgorithm() xla.RandomAlgorithm {
+func (x *HloInstructionProto) GetRngAlgorithm() data.RandomAlgorithm {
 	if x != nil {
 		return x.RngAlgorithm
 	}
-	return xla.RandomAlgorithm(0)
+	return data.RandomAlgorithm(0)
 }
 
 func (x *HloInstructionProto) GetComparisonType() string {
@@ -1019,11 +1019,11 @@ func (x *HloInstructionProto) GetIsCrossProgramPrefetch() bool {
 	return false
 }
 
-func (x *HloInstructionProto) GetPaddingType() xla.PaddingType {
+func (x *HloInstructionProto) GetPaddingType() data.PaddingType {
 	if x != nil {
 		return x.PaddingType
 	}
-	return xla.PaddingType(0)
+	return data.PaddingType(0)
 }
 
 func (x *HloInstructionProto) GetCustomCallApiVersion() CustomCallApiVersion {
@@ -1056,8 +1056,8 @@ type HloComputationProto struct {
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	// The array of instructions is always in a valid dependency order, where
 	// operands appear before their users.
-	Instructions []*HloInstructionProto `protobuf:"bytes,2,rep,name=instructions,proto3" json:"instructions,omitempty"`
-	ProgramShape *xla.ProgramShapeProto `protobuf:"bytes,4,opt,name=program_shape,json=programShape,proto3" json:"program_shape,omitempty"`
+	Instructions []*HloInstructionProto  `protobuf:"bytes,2,rep,name=instructions,proto3" json:"instructions,omitempty"`
+	ProgramShape *data.ProgramShapeProto `protobuf:"bytes,4,opt,name=program_shape,json=programShape,proto3" json:"program_shape,omitempty"`
 	// The id of this computation.
 	Id int64 `protobuf:"varint,5,opt,name=id,proto3" json:"id,omitempty"`
 	// The id of the root of the computation.
@@ -1116,7 +1116,7 @@ func (x *HloComputationProto) GetInstructions() []*HloInstructionProto {
 	return nil
 }
 
-func (x *HloComputationProto) GetProgramShape() *xla.ProgramShapeProto {
+func (x *HloComputationProto) GetProgramShape() *data.ProgramShapeProto {
 	if x != nil {
 		return x.ProgramShape
 	}
@@ -1363,7 +1363,7 @@ type HloModuleProto struct {
 	// callees appear before their callers.
 	Computations []*HloComputationProto `protobuf:"bytes,3,rep,name=computations,proto3" json:"computations,omitempty"`
 	// The host program shape (with layout) of the entry computation.
-	HostProgramShape *xla.ProgramShapeProto `protobuf:"bytes,4,opt,name=host_program_shape,json=hostProgramShape,proto3" json:"host_program_shape,omitempty"`
+	HostProgramShape *data.ProgramShapeProto `protobuf:"bytes,4,opt,name=host_program_shape,json=hostProgramShape,proto3" json:"host_program_shape,omitempty"`
 	// The id of this module.
 	Id int64 `protobuf:"varint,5,opt,name=id,proto3" json:"id,omitempty"`
 	// The schedule for this module.
@@ -1373,13 +1373,13 @@ type HloModuleProto struct {
 	DynamicParameterBinding *DynamicParameterBindingProto `protobuf:"bytes,9,opt,name=dynamic_parameter_binding,json=dynamicParameterBinding,proto3" json:"dynamic_parameter_binding,omitempty"`
 	CrossProgramPrefetches  []*CrossProgramPrefetch       `protobuf:"bytes,10,rep,name=cross_program_prefetches,json=crossProgramPrefetches,proto3" json:"cross_program_prefetches,omitempty"`
 	// True if the module contains dynamic computation.
-	IsDynamic               bool              `protobuf:"varint,11,opt,name=is_dynamic,json=isDynamic,proto3" json:"is_dynamic,omitempty"`
-	SpmdOutputSharding      *xla.OpSharding   `protobuf:"bytes,12,opt,name=spmd_output_sharding,json=spmdOutputSharding,proto3" json:"spmd_output_sharding,omitempty"`
-	SpmdParametersShardings []*xla.OpSharding `protobuf:"bytes,14,rep,name=spmd_parameters_shardings,json=spmdParametersShardings,proto3" json:"spmd_parameters_shardings,omitempty"`
+	IsDynamic               bool               `protobuf:"varint,11,opt,name=is_dynamic,json=isDynamic,proto3" json:"is_dynamic,omitempty"`
+	SpmdOutputSharding      *data.OpSharding   `protobuf:"bytes,12,opt,name=spmd_output_sharding,json=spmdOutputSharding,proto3" json:"spmd_output_sharding,omitempty"`
+	SpmdParametersShardings []*data.OpSharding `protobuf:"bytes,14,rep,name=spmd_parameters_shardings,json=spmdParametersShardings,proto3" json:"spmd_parameters_shardings,omitempty"`
 	// Profile information for the HLO module.
 	ProfileInfo []*HloModuleProto_ProfileInfo `protobuf:"bytes,13,rep,name=profile_info,json=profileInfo,proto3" json:"profile_info,omitempty"`
 	// DeviceAssignment object information.
-	DeviceAssignment *xla.DeviceAssignmentProto `protobuf:"bytes,15,opt,name=device_assignment,json=deviceAssignment,proto3" json:"device_assignment,omitempty"`
+	DeviceAssignment *data.DeviceAssignmentProto `protobuf:"bytes,15,opt,name=device_assignment,json=deviceAssignment,proto3" json:"device_assignment,omitempty"`
 }
 
 func (x *HloModuleProto) Reset() {
@@ -1442,7 +1442,7 @@ func (x *HloModuleProto) GetComputations() []*HloComputationProto {
 	return nil
 }
 
-func (x *HloModuleProto) GetHostProgramShape() *xla.ProgramShapeProto {
+func (x *HloModuleProto) GetHostProgramShape() *data.ProgramShapeProto {
 	if x != nil {
 		return x.HostProgramShape
 	}
@@ -1491,14 +1491,14 @@ func (x *HloModuleProto) GetIsDynamic() bool {
 	return false
 }
 
-func (x *HloModuleProto) GetSpmdOutputSharding() *xla.OpSharding {
+func (x *HloModuleProto) GetSpmdOutputSharding() *data.OpSharding {
 	if x != nil {
 		return x.SpmdOutputSharding
 	}
 	return nil
 }
 
-func (x *HloModuleProto) GetSpmdParametersShardings() []*xla.OpSharding {
+func (x *HloModuleProto) GetSpmdParametersShardings() []*data.OpSharding {
 	if x != nil {
 		return x.SpmdParametersShardings
 	}
@@ -1512,7 +1512,7 @@ func (x *HloModuleProto) GetProfileInfo() []*HloModuleProto_ProfileInfo {
 	return nil
 }
 
-func (x *HloModuleProto) GetDeviceAssignment() *xla.DeviceAssignmentProto {
+func (x *HloModuleProto) GetDeviceAssignment() *data.DeviceAssignmentProto {
 	if x != nil {
 		return x.DeviceAssignment
 	}
@@ -1980,9 +1980,9 @@ type HloSnapshot struct {
 	// The hlo graph.
 	Hlo *HloProto `protobuf:"bytes,1,opt,name=hlo,proto3" json:"hlo,omitempty"`
 	// The arguments passed to the graph.
-	Arguments []*xla.LiteralProto `protobuf:"bytes,2,rep,name=arguments,proto3" json:"arguments,omitempty"`
+	Arguments []*data.LiteralProto `protobuf:"bytes,2,rep,name=arguments,proto3" json:"arguments,omitempty"`
 	// The result of the graph.
-	Result *xla.LiteralProto `protobuf:"bytes,3,opt,name=result,proto3" json:"result,omitempty"`
+	Result *data.LiteralProto `protobuf:"bytes,3,opt,name=result,proto3" json:"result,omitempty"`
 	// The name of the platform used to run the graph.
 	ExecutionPlatform string `protobuf:"bytes,4,opt,name=execution_platform,json=executionPlatform,proto3" json:"execution_platform,omitempty"`
 }
@@ -2026,14 +2026,14 @@ func (x *HloSnapshot) GetHlo() *HloProto {
 	return nil
 }
 
-func (x *HloSnapshot) GetArguments() []*xla.LiteralProto {
+func (x *HloSnapshot) GetArguments() []*data.LiteralProto {
 	if x != nil {
 		return x.Arguments
 	}
 	return nil
 }
 
-func (x *HloSnapshot) GetResult() *xla.LiteralProto {
+func (x *HloSnapshot) GetResult() *data.LiteralProto {
 	if x != nil {
 		return x.Result
 	}
@@ -2708,9 +2708,9 @@ type HloModuleProto_ProfileInfo struct {
 	// Speedup of tuned config compared to default config.
 	RelativeSpeedup float64 `protobuf:"fixed64,2,opt,name=relative_speedup,json=relativeSpeedup,proto3" json:"relative_speedup,omitempty"`
 	// The source of the optimization profile that this module contains.
-	ProfileSource xla.ProfileSource `protobuf:"varint,3,opt,name=profile_source,json=profileSource,proto3,enum=xla.ProfileSource" json:"profile_source,omitempty"`
+	ProfileSource data.ProfileSource `protobuf:"varint,3,opt,name=profile_source,json=profileSource,proto3,enum=xla.ProfileSource" json:"profile_source,omitempty"`
 	// The compilation event that triggered the use of the profile.
-	CompilationEvent xla.CompilationEvent `protobuf:"varint,4,opt,name=compilation_event,json=compilationEvent,proto3,enum=xla.CompilationEvent" json:"compilation_event,omitempty"`
+	CompilationEvent data.CompilationEvent `protobuf:"varint,4,opt,name=compilation_event,json=compilationEvent,proto3,enum=xla.CompilationEvent" json:"compilation_event,omitempty"`
 }
 
 func (x *HloModuleProto_ProfileInfo) Reset() {
@@ -2759,18 +2759,18 @@ func (x *HloModuleProto_ProfileInfo) GetRelativeSpeedup() float64 {
 	return 0
 }
 
-func (x *HloModuleProto_ProfileInfo) GetProfileSource() xla.ProfileSource {
+func (x *HloModuleProto_ProfileInfo) GetProfileSource() data.ProfileSource {
 	if x != nil {
 		return x.ProfileSource
 	}
-	return xla.ProfileSource(0)
+	return data.ProfileSource(0)
 }
 
-func (x *HloModuleProto_ProfileInfo) GetCompilationEvent() xla.CompilationEvent {
+func (x *HloModuleProto_ProfileInfo) GetCompilationEvent() data.CompilationEvent {
 	if x != nil {
 		return x.CompilationEvent
 	}
-	return xla.CompilationEvent(0)
+	return data.CompilationEvent(0)
 }
 
 // Location represents an instruction and its shape index, which uniquely
@@ -3927,32 +3927,32 @@ var file_tensorflow_compiler_xla_service_hlo_proto_goTypes = []interface{}{
 	(*BufferAssignmentProto_BufferAlias)(nil),                 // 32: xla.BufferAssignmentProto.BufferAlias
 	(*EntryFunctionAttributes_ShapeIndex)(nil),                // 33: xla.EntryFunctionAttributes.ShapeIndex
 	(*EntryFunctionAttributes_BufferParameterAttributes)(nil), // 34: xla.EntryFunctionAttributes.BufferParameterAttributes
-	(*xla.ShapeProto)(nil),                                    // 35: xla.ShapeProto
-	(*xla.OpMetadata)(nil),                                    // 36: xla.OpMetadata
-	(*xla.LiteralProto)(nil),                                  // 37: xla.LiteralProto
-	(*xla.Window)(nil),                                        // 38: xla.Window
-	(*xla.ConvolutionDimensionNumbers)(nil),                   // 39: xla.ConvolutionDimensionNumbers
-	(*xla.PaddingConfig)(nil),                                 // 40: xla.PaddingConfig
-	(xla.RandomDistribution)(0),                               // 41: xla.RandomDistribution
-	(*xla.DotDimensionNumbers)(nil),                           // 42: xla.DotDimensionNumbers
-	(xla.FftType)(0),                                          // 43: xla.FftType
-	(*xla.GatherDimensionNumbers)(nil),                        // 44: xla.GatherDimensionNumbers
-	(*xla.OpSharding)(nil),                                    // 45: xla.OpSharding
-	(*xla.ReplicaGroup)(nil),                                  // 46: xla.ReplicaGroup
-	(*xla.ScatterDimensionNumbers)(nil),                       // 47: xla.ScatterDimensionNumbers
-	(*xla.PrecisionConfig)(nil),                               // 48: xla.PrecisionConfig
-	(*xla.SourceTarget)(nil),                                  // 49: xla.SourceTarget
-	(*xla.TriangularSolveOptions)(nil),                        // 50: xla.TriangularSolveOptions
-	(*xla.CholeskyOptions)(nil),                               // 51: xla.CholeskyOptions
-	(*xla.ParameterReplication)(nil),                          // 52: xla.ParameterReplication
-	(*xla.CustomCallOutputOperandAliasing)(nil),               // 53: xla.CustomCallOutputOperandAliasing
-	(*xla.FrontendAttributes)(nil),                            // 54: xla.FrontendAttributes
-	(xla.RandomAlgorithm)(0),                                  // 55: xla.RandomAlgorithm
-	(xla.PaddingType)(0),                                      // 56: xla.PaddingType
-	(*xla.ProgramShapeProto)(nil),                             // 57: xla.ProgramShapeProto
-	(*xla.DeviceAssignmentProto)(nil),                         // 58: xla.DeviceAssignmentProto
-	(xla.ProfileSource)(0),                                    // 59: xla.ProfileSource
-	(xla.CompilationEvent)(0),                                 // 60: xla.CompilationEvent
+	(*data.ShapeProto)(nil),                                   // 35: xla.ShapeProto
+	(*data.OpMetadata)(nil),                                   // 36: xla.OpMetadata
+	(*data.LiteralProto)(nil),                                 // 37: xla.LiteralProto
+	(*data.Window)(nil),                                       // 38: xla.Window
+	(*data.ConvolutionDimensionNumbers)(nil),                  // 39: xla.ConvolutionDimensionNumbers
+	(*data.PaddingConfig)(nil),                                // 40: xla.PaddingConfig
+	(data.RandomDistribution)(0),                              // 41: xla.RandomDistribution
+	(*data.DotDimensionNumbers)(nil),                          // 42: xla.DotDimensionNumbers
+	(data.FftType)(0),                                         // 43: xla.FftType
+	(*data.GatherDimensionNumbers)(nil),                       // 44: xla.GatherDimensionNumbers
+	(*data.OpSharding)(nil),                                   // 45: xla.OpSharding
+	(*data.ReplicaGroup)(nil),                                 // 46: xla.ReplicaGroup
+	(*data.ScatterDimensionNumbers)(nil),                      // 47: xla.ScatterDimensionNumbers
+	(*data.PrecisionConfig)(nil),                              // 48: xla.PrecisionConfig
+	(*data.SourceTarget)(nil),                                 // 49: xla.SourceTarget
+	(*data.TriangularSolveOptions)(nil),                       // 50: xla.TriangularSolveOptions
+	(*data.CholeskyOptions)(nil),                              // 51: xla.CholeskyOptions
+	(*data.ParameterReplication)(nil),                         // 52: xla.ParameterReplication
+	(*data.CustomCallOutputOperandAliasing)(nil),              // 53: xla.CustomCallOutputOperandAliasing
+	(*data.FrontendAttributes)(nil),                           // 54: xla.FrontendAttributes
+	(data.RandomAlgorithm)(0),                                 // 55: xla.RandomAlgorithm
+	(data.PaddingType)(0),                                     // 56: xla.PaddingType
+	(*data.ProgramShapeProto)(nil),                            // 57: xla.ProgramShapeProto
+	(*data.DeviceAssignmentProto)(nil),                        // 58: xla.DeviceAssignmentProto
+	(data.ProfileSource)(0),                                   // 59: xla.ProfileSource
+	(data.CompilationEvent)(0),                                // 60: xla.CompilationEvent
 }
 var file_tensorflow_compiler_xla_service_hlo_proto_depIdxs = []int32{
 	35, // 0: xla.HloInstructionProto.shape:type_name -> xla.ShapeProto

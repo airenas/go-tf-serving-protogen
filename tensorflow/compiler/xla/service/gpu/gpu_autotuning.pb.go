@@ -10,7 +10,7 @@
 package gpu
 
 import (
-	xla "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla"
+	data "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/data"
 	service "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/service"
 	protobuf "github.com/airenas/go-tf-serving-protogen/tensorflow/core/protobuf"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -32,7 +32,7 @@ type ConvInstructionLog struct {
 	unknownFields protoimpl.UnknownFields
 
 	Instruction      *service.HloInstructionProto `protobuf:"bytes,1,opt,name=instruction,proto3" json:"instruction,omitempty"`
-	OperandShapes    []*xla.ShapeProto            `protobuf:"bytes,2,rep,name=operand_shapes,json=operandShapes,proto3" json:"operand_shapes,omitempty"`
+	OperandShapes    []*data.ShapeProto           `protobuf:"bytes,2,rep,name=operand_shapes,json=operandShapes,proto3" json:"operand_shapes,omitempty"`
 	ResultAddress    uint64                       `protobuf:"varint,3,opt,name=result_address,json=resultAddress,proto3" json:"result_address,omitempty"`
 	OperandAddresses []uint64                     `protobuf:"varint,4,rep,packed,name=operand_addresses,json=operandAddresses,proto3" json:"operand_addresses,omitempty"`
 }
@@ -76,7 +76,7 @@ func (x *ConvInstructionLog) GetInstruction() *service.HloInstructionProto {
 	return nil
 }
 
-func (x *ConvInstructionLog) GetOperandShapes() []*xla.ShapeProto {
+func (x *ConvInstructionLog) GetOperandShapes() []*data.ShapeProto {
 	if x != nil {
 		return x.OperandShapes
 	}
@@ -364,7 +364,7 @@ var file_tensorflow_compiler_xla_service_gpu_gpu_autotuning_proto_goTypes = []in
 	(*AlgorithmDenylistEntry)(nil),      // 2: xla.gpu.AlgorithmDenylistEntry
 	(*AlgorithmDenylist)(nil),           // 3: xla.gpu.AlgorithmDenylist
 	(*service.HloInstructionProto)(nil), // 4: xla.HloInstructionProto
-	(*xla.ShapeProto)(nil),              // 5: xla.ShapeProto
+	(*data.ShapeProto)(nil),             // 5: xla.ShapeProto
 	(*protobuf.ComputeCapability)(nil),  // 6: tensorflow.ComputeCapability
 	(*protobuf.CudnnVersion)(nil),       // 7: tensorflow.CudnnVersion
 }

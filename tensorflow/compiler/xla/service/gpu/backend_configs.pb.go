@@ -7,7 +7,7 @@
 package gpu
 
 import (
-	xla "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla"
+	data "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/data"
 	stream_executor "github.com/airenas/go-tf-serving-protogen/tensorflow/stream_executor"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -164,8 +164,8 @@ type GemmBackendConfig struct {
 	AlphaReal           float64                       `protobuf:"fixed64,2,opt,name=alpha_real,json=alphaReal,proto3" json:"alpha_real,omitempty"`
 	AlphaImag           float64                       `protobuf:"fixed64,9,opt,name=alpha_imag,json=alphaImag,proto3" json:"alpha_imag,omitempty"`
 	Beta                float64                       `protobuf:"fixed64,3,opt,name=beta,proto3" json:"beta,omitempty"`
-	DotDimensionNumbers *xla.DotDimensionNumbers      `protobuf:"bytes,7,opt,name=dot_dimension_numbers,json=dotDimensionNumbers,proto3" json:"dot_dimension_numbers,omitempty"`
-	PrecisionConfig     *xla.PrecisionConfig          `protobuf:"bytes,12,opt,name=precision_config,json=precisionConfig,proto3" json:"precision_config,omitempty"`
+	DotDimensionNumbers *data.DotDimensionNumbers     `protobuf:"bytes,7,opt,name=dot_dimension_numbers,json=dotDimensionNumbers,proto3" json:"dot_dimension_numbers,omitempty"`
+	PrecisionConfig     *data.PrecisionConfig         `protobuf:"bytes,12,opt,name=precision_config,json=precisionConfig,proto3" json:"precision_config,omitempty"`
 	Epilogue            GemmBackendConfig_Epilogue    `protobuf:"varint,13,opt,name=epilogue,proto3,enum=xla.gpu.GemmBackendConfig_Epilogue" json:"epilogue,omitempty"`
 }
 
@@ -236,14 +236,14 @@ func (x *GemmBackendConfig) GetBeta() float64 {
 	return 0
 }
 
-func (x *GemmBackendConfig) GetDotDimensionNumbers() *xla.DotDimensionNumbers {
+func (x *GemmBackendConfig) GetDotDimensionNumbers() *data.DotDimensionNumbers {
 	if x != nil {
 		return x.DotDimensionNumbers
 	}
 	return nil
 }
 
-func (x *GemmBackendConfig) GetPrecisionConfig() *xla.PrecisionConfig {
+func (x *GemmBackendConfig) GetPrecisionConfig() *data.PrecisionConfig {
 	if x != nil {
 		return x.PrecisionConfig
 	}
@@ -273,8 +273,8 @@ type BitcastBackendConfig struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SourceLayout *xla.LayoutProto `protobuf:"bytes,1,opt,name=source_layout,json=sourceLayout,proto3" json:"source_layout,omitempty"`
-	ResultLayout *xla.LayoutProto `protobuf:"bytes,2,opt,name=result_layout,json=resultLayout,proto3" json:"result_layout,omitempty"`
+	SourceLayout *data.LayoutProto `protobuf:"bytes,1,opt,name=source_layout,json=sourceLayout,proto3" json:"source_layout,omitempty"`
+	ResultLayout *data.LayoutProto `protobuf:"bytes,2,opt,name=result_layout,json=resultLayout,proto3" json:"result_layout,omitempty"`
 }
 
 func (x *BitcastBackendConfig) Reset() {
@@ -309,14 +309,14 @@ func (*BitcastBackendConfig) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_service_gpu_backend_configs_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *BitcastBackendConfig) GetSourceLayout() *xla.LayoutProto {
+func (x *BitcastBackendConfig) GetSourceLayout() *data.LayoutProto {
 	if x != nil {
 		return x.SourceLayout
 	}
 	return nil
 }
 
-func (x *BitcastBackendConfig) GetResultLayout() *xla.LayoutProto {
+func (x *BitcastBackendConfig) GetResultLayout() *data.LayoutProto {
 	if x != nil {
 		return x.ResultLayout
 	}
@@ -418,9 +418,9 @@ var file_tensorflow_compiler_xla_service_gpu_backend_configs_proto_goTypes = []i
 	(*GemmBackendConfig)(nil),              // 2: xla.gpu.GemmBackendConfig
 	(*BitcastBackendConfig)(nil),           // 3: xla.gpu.BitcastBackendConfig
 	(*stream_executor.AlgorithmProto)(nil), // 4: stream_executor.dnn.AlgorithmProto
-	(*xla.DotDimensionNumbers)(nil),        // 5: xla.DotDimensionNumbers
-	(*xla.PrecisionConfig)(nil),            // 6: xla.PrecisionConfig
-	(*xla.LayoutProto)(nil),                // 7: xla.LayoutProto
+	(*data.DotDimensionNumbers)(nil),       // 5: xla.DotDimensionNumbers
+	(*data.PrecisionConfig)(nil),           // 6: xla.PrecisionConfig
+	(*data.LayoutProto)(nil),               // 7: xla.LayoutProto
 }
 var file_tensorflow_compiler_xla_service_gpu_backend_configs_proto_depIdxs = []int32{
 	4, // 0: xla.gpu.CudnnConvBackendConfig.algorithm:type_name -> stream_executor.dnn.AlgorithmProto

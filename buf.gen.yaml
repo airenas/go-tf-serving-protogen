@@ -3,6 +3,10 @@ managed:
   enabled: true
   go_package_prefix:
     default: github.com/airenas/go-tf-serving-protogen
+  override:
+    GO_PACKAGE:
+      # https://stackoverflow.com/questions/76050040/import-cycle-in-tensorflow-protobufs
+      tensorflow/compiler/xla/xla_data.proto: 'github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/data'  
 plugins:
 - plugin: buf.build/protocolbuffers/go
   out: ./

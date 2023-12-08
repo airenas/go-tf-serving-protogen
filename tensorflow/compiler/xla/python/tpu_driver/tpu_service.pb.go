@@ -22,7 +22,7 @@
 package tpu_driver
 
 import (
-	xla "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla"
+	data "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/data"
 	service "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/service"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -166,7 +166,7 @@ func (x *AllocateRequest) GetNumBytes() int64 {
 	return 0
 }
 
-func (x *AllocateRequest) GetShape() *xla.ShapeProto {
+func (x *AllocateRequest) GetShape() *data.ShapeProto {
 	if x, ok := x.GetSize().(*AllocateRequest_Shape); ok {
 		return x.Shape
 	}
@@ -182,7 +182,7 @@ type AllocateRequest_NumBytes struct {
 }
 
 type AllocateRequest_Shape struct {
-	Shape *xla.ShapeProto `protobuf:"bytes,4,opt,name=shape,oneof"`
+	Shape *data.ShapeProto `protobuf:"bytes,4,opt,name=shape,oneof"`
 }
 
 func (*AllocateRequest_NumBytes) isAllocateRequest_Size() {}
@@ -563,7 +563,7 @@ type CompiledProgramMetadata struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ProgramShape *xla.ProgramShapeProto `protobuf:"bytes,1,req,name=program_shape,json=programShape" json:"program_shape,omitempty"`
+	ProgramShape *data.ProgramShapeProto `protobuf:"bytes,1,req,name=program_shape,json=programShape" json:"program_shape,omitempty"`
 }
 
 func (x *CompiledProgramMetadata) Reset() {
@@ -598,7 +598,7 @@ func (*CompiledProgramMetadata) Descriptor() ([]byte, []int) {
 	return file_tensorflow_compiler_xla_python_tpu_driver_tpu_service_proto_rawDescGZIP(), []int{9}
 }
 
-func (x *CompiledProgramMetadata) GetProgramShape() *xla.ProgramShapeProto {
+func (x *CompiledProgramMetadata) GetProgramShape() *data.ProgramShapeProto {
 	if x != nil {
 		return x.ProgramShape
 	}
@@ -759,10 +759,10 @@ type ExecuteRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	LoadedProgramHandle *int64                     `protobuf:"varint,1,req,name=loaded_program_handle,json=loadedProgramHandle" json:"loaded_program_handle,omitempty"`
-	InputHandle         []int64                    `protobuf:"varint,2,rep,name=input_handle,json=inputHandle" json:"input_handle,omitempty"`
-	OutputHandle        []int64                    `protobuf:"varint,3,rep,name=output_handle,json=outputHandle" json:"output_handle,omitempty"`
-	DeviceAssignment    *xla.DeviceAssignmentProto `protobuf:"bytes,4,opt,name=device_assignment,json=deviceAssignment" json:"device_assignment,omitempty"`
+	LoadedProgramHandle *int64                      `protobuf:"varint,1,req,name=loaded_program_handle,json=loadedProgramHandle" json:"loaded_program_handle,omitempty"`
+	InputHandle         []int64                     `protobuf:"varint,2,rep,name=input_handle,json=inputHandle" json:"input_handle,omitempty"`
+	OutputHandle        []int64                     `protobuf:"varint,3,rep,name=output_handle,json=outputHandle" json:"output_handle,omitempty"`
+	DeviceAssignment    *data.DeviceAssignmentProto `protobuf:"bytes,4,opt,name=device_assignment,json=deviceAssignment" json:"device_assignment,omitempty"`
 }
 
 func (x *ExecuteRequest) Reset() {
@@ -818,7 +818,7 @@ func (x *ExecuteRequest) GetOutputHandle() []int64 {
 	return nil
 }
 
-func (x *ExecuteRequest) GetDeviceAssignment() *xla.DeviceAssignmentProto {
+func (x *ExecuteRequest) GetDeviceAssignment() *data.DeviceAssignmentProto {
 	if x != nil {
 		return x.DeviceAssignment
 	}
@@ -1879,10 +1879,10 @@ var file_tensorflow_compiler_xla_python_tpu_driver_tpu_service_proto_goTypes = [
 	(*StreamRequest_Entry)(nil),               // 24: tpu_driver.StreamRequest.Entry
 	(*StreamResponse_Entry)(nil),              // 25: tpu_driver.StreamResponse.Entry
 	(MemoryRegion)(0),                         // 26: tpu_driver.MemoryRegion
-	(*xla.ShapeProto)(nil),                    // 27: xla.ShapeProto
+	(*data.ShapeProto)(nil),                   // 27: xla.ShapeProto
 	(*service.HloProto)(nil),                  // 28: xla.HloProto
-	(*xla.ProgramShapeProto)(nil),             // 29: xla.ProgramShapeProto
-	(*xla.DeviceAssignmentProto)(nil),         // 30: xla.DeviceAssignmentProto
+	(*data.ProgramShapeProto)(nil),            // 29: xla.ProgramShapeProto
+	(*data.DeviceAssignmentProto)(nil),        // 30: xla.DeviceAssignmentProto
 	(*SystemInfo)(nil),                        // 31: tpu_driver.SystemInfo
 }
 var file_tensorflow_compiler_xla_python_tpu_driver_tpu_service_proto_depIdxs = []int32{
