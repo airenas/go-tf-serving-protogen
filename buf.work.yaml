@@ -1,0 +1,4 @@
+version: v1
+directories:
+  - _tfcode/serving
+  - _tfcode/tensorflow
