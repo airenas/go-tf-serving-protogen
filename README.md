@@ -1,6 +1,6 @@
 # go-tf-serving-protogen
 
-Welcome to the `go-tf-serving-protobufs` repository, where we make TensorFlow Serving and Protobufs in Go a little less intimidating.
+Welcome to the `go-tf-serving-protobufs` repository, where I make TensorFlow Serving and Protobufs in Go a little less intimidating.
 
 ## Versioning
 
@@ -55,4 +55,4 @@ Explore the library usage by checking out the examples in the "examples" folder.
 
 ## Contributing
 
-We welcome contributions! If you encounter issues or have ideas for improvements, please feel free to open an issue or submit a pull request.
+I welcome contributions! If you encounter issues or have ideas for improvements, please feel free to open an issue or submit a pull request.
