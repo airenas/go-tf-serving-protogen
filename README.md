@@ -19,9 +19,9 @@ Here's a simple compatibility matrix to help you choose the right version based 
 ## Installation
 
 ```bash
-go get github.com/airenas/go-tf-serving-protogen
+go get github.com/airenas/go-tf-serving-protogen/v2
 ## or better 
-go get github.com/airenas/go-tf-serving-protogen@<tf-serving-version>
+go get github.com/airenas/go-tf-serving-protogen/v2@<tf-serving-version>
 ```
 
 ## Generating protoc code for new version
