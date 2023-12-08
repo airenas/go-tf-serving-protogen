@@ -491,17 +491,17 @@ type PodViewerTopology struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Number of cores in the x dimension of the rectangle/cube.
+	// Number of chips in the x dimension of the rectangle/cube.
 	XDimension int32 `protobuf:"varint,1,opt,name=x_dimension,json=xDimension,proto3" json:"x_dimension,omitempty"`
-	// Number of cores in the y dimension of the rectangle/cube.
+	// Number of chips in the y dimension of the rectangle/cube.
 	YDimension int32 `protobuf:"varint,2,opt,name=y_dimension,json=yDimension,proto3" json:"y_dimension,omitempty"`
-	// Number of cores in the z dimension of the cube.
+	// Number of chips in the z dimension of the cube.
 	ZDimension int32 `protobuf:"varint,3,opt,name=z_dimension,json=zDimension,proto3" json:"z_dimension,omitempty"`
-	// Number of cores in the x dimension of each host.
+	// Number of chips in the x dimension of each host.
 	HostXStride int32 `protobuf:"varint,4,opt,name=host_x_stride,json=hostXStride,proto3" json:"host_x_stride,omitempty"`
-	// Number of cores in the y dimension of each host.
+	// Number of chips in the y dimension of each host.
 	HostYStride int32 `protobuf:"varint,5,opt,name=host_y_stride,json=hostYStride,proto3" json:"host_y_stride,omitempty"`
-	// Number of cores in the z dimension of each host.
+	// Number of chips in the z dimension of each host.
 	HostZStride int32 `protobuf:"varint,6,opt,name=host_z_stride,json=hostZStride,proto3" json:"host_z_stride,omitempty"`
 	// Number of cores per chip.
 	NumCoresPerChip int32 `protobuf:"varint,7,opt,name=num_cores_per_chip,json=numCoresPerChip,proto3" json:"num_cores_per_chip,omitempty"`

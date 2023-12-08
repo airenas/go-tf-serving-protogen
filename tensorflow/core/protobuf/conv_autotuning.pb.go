@@ -10,7 +10,8 @@
 package protobuf
 
 import (
-	stream_executor "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/stream_executor"
+	_ "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/stream_executor"
+	protobuf "github.com/airenas/go-tf-serving-protogen/tensorflow/tsl/protobuf"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -31,22 +32,22 @@ type ConvolutionProto struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Kind     stream_executor.ConvolutionKind             `protobuf:"varint,1,opt,name=kind,proto3,enum=stream_executor.dnn.ConvolutionKind" json:"kind,omitempty"`
-	Input    *stream_executor.TensorDescriptorProto      `protobuf:"bytes,2,opt,name=input,proto3" json:"input,omitempty"`
-	Filter   *stream_executor.TensorDescriptorProto      `protobuf:"bytes,3,opt,name=filter,proto3" json:"filter,omitempty"`
-	Output   *stream_executor.TensorDescriptorProto      `protobuf:"bytes,4,opt,name=output,proto3" json:"output,omitempty"`
-	ConvDesc *stream_executor.ConvolutionDescriptorProto `protobuf:"bytes,5,opt,name=conv_desc,json=convDesc,proto3" json:"conv_desc,omitempty"`
+	Kind     protobuf.ConvolutionKind             `protobuf:"varint,1,opt,name=kind,proto3,enum=stream_executor.dnn.ConvolutionKind" json:"kind,omitempty"`
+	Input    *protobuf.TensorDescriptorProto      `protobuf:"bytes,2,opt,name=input,proto3" json:"input,omitempty"`
+	Filter   *protobuf.TensorDescriptorProto      `protobuf:"bytes,3,opt,name=filter,proto3" json:"filter,omitempty"`
+	Output   *protobuf.TensorDescriptorProto      `protobuf:"bytes,4,opt,name=output,proto3" json:"output,omitempty"`
+	ConvDesc *protobuf.ConvolutionDescriptorProto `protobuf:"bytes,5,opt,name=conv_desc,json=convDesc,proto3" json:"conv_desc,omitempty"`
 	// result = conv_scale * conv(...) + side_value_scale * side_value.
 	// side_value is an arbitrary buffer if activation is not none. Otherwise, it
 	// has to be the result buffer (using its old values).
-	ConvScale        float64                        `protobuf:"fixed64,6,opt,name=conv_scale,json=convScale,proto3" json:"conv_scale,omitempty"`
-	SideValueScale   float64                        `protobuf:"fixed64,7,opt,name=side_value_scale,json=sideValueScale,proto3" json:"side_value_scale,omitempty"`
-	Activation       stream_executor.ActivationMode `protobuf:"varint,8,opt,name=activation,proto3,enum=stream_executor.dnn.ActivationMode" json:"activation,omitempty"`
-	InputAddress     int64                          `protobuf:"varint,9,opt,name=input_address,json=inputAddress,proto3" json:"input_address,omitempty"`
-	FilterAddress    int64                          `protobuf:"varint,10,opt,name=filter_address,json=filterAddress,proto3" json:"filter_address,omitempty"`
-	OutputAddress    int64                          `protobuf:"varint,11,opt,name=output_address,json=outputAddress,proto3" json:"output_address,omitempty"`
-	BiasAddress      int64                          `protobuf:"varint,12,opt,name=bias_address,json=biasAddress,proto3" json:"bias_address,omitempty"`
-	SideInputAddress int64                          `protobuf:"varint,13,opt,name=side_input_address,json=sideInputAddress,proto3" json:"side_input_address,omitempty"`
+	ConvScale        float64                 `protobuf:"fixed64,6,opt,name=conv_scale,json=convScale,proto3" json:"conv_scale,omitempty"`
+	SideValueScale   float64                 `protobuf:"fixed64,7,opt,name=side_value_scale,json=sideValueScale,proto3" json:"side_value_scale,omitempty"`
+	Activation       protobuf.ActivationMode `protobuf:"varint,8,opt,name=activation,proto3,enum=stream_executor.dnn.ActivationMode" json:"activation,omitempty"`
+	InputAddress     int64                   `protobuf:"varint,9,opt,name=input_address,json=inputAddress,proto3" json:"input_address,omitempty"`
+	FilterAddress    int64                   `protobuf:"varint,10,opt,name=filter_address,json=filterAddress,proto3" json:"filter_address,omitempty"`
+	OutputAddress    int64                   `protobuf:"varint,11,opt,name=output_address,json=outputAddress,proto3" json:"output_address,omitempty"`
+	BiasAddress      int64                   `protobuf:"varint,12,opt,name=bias_address,json=biasAddress,proto3" json:"bias_address,omitempty"`
+	SideInputAddress int64                   `protobuf:"varint,13,opt,name=side_input_address,json=sideInputAddress,proto3" json:"side_input_address,omitempty"`
 }
 
 func (x *ConvolutionProto) Reset() {
@@ -81,35 +82,35 @@ func (*ConvolutionProto) Descriptor() ([]byte, []int) {
 	return file_tensorflow_core_protobuf_conv_autotuning_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *ConvolutionProto) GetKind() stream_executor.ConvolutionKind {
+func (x *ConvolutionProto) GetKind() protobuf.ConvolutionKind {
 	if x != nil {
 		return x.Kind
 	}
-	return stream_executor.ConvolutionKind(0)
+	return protobuf.ConvolutionKind(0)
 }
 
-func (x *ConvolutionProto) GetInput() *stream_executor.TensorDescriptorProto {
+func (x *ConvolutionProto) GetInput() *protobuf.TensorDescriptorProto {
 	if x != nil {
 		return x.Input
 	}
 	return nil
 }
 
-func (x *ConvolutionProto) GetFilter() *stream_executor.TensorDescriptorProto {
+func (x *ConvolutionProto) GetFilter() *protobuf.TensorDescriptorProto {
 	if x != nil {
 		return x.Filter
 	}
 	return nil
 }
 
-func (x *ConvolutionProto) GetOutput() *stream_executor.TensorDescriptorProto {
+func (x *ConvolutionProto) GetOutput() *protobuf.TensorDescriptorProto {
 	if x != nil {
 		return x.Output
 	}
 	return nil
 }
 
-func (x *ConvolutionProto) GetConvDesc() *stream_executor.ConvolutionDescriptorProto {
+func (x *ConvolutionProto) GetConvDesc() *protobuf.ConvolutionDescriptorProto {
 	if x != nil {
 		return x.ConvDesc
 	}
@@ -130,11 +131,11 @@ func (x *ConvolutionProto) GetSideValueScale() float64 {
 	return 0
 }
 
-func (x *ConvolutionProto) GetActivation() stream_executor.ActivationMode {
+func (x *ConvolutionProto) GetActivation() protobuf.ActivationMode {
 	if x != nil {
 		return x.Activation
 	}
-	return stream_executor.ActivationMode(0)
+	return protobuf.ActivationMode(0)
 }
 
 func (x *ConvolutionProto) GetInputAddress() int64 {
@@ -177,21 +178,21 @@ type MatmulProto struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	AbDtype     stream_executor.DataType       `protobuf:"varint,1,opt,name=ab_dtype,json=abDtype,proto3,enum=stream_executor.dnn.DataType" json:"ab_dtype,omitempty"`
-	CDtype      stream_executor.DataType       `protobuf:"varint,2,opt,name=c_dtype,json=cDtype,proto3,enum=stream_executor.dnn.DataType" json:"c_dtype,omitempty"`
-	TransA      bool                           `protobuf:"varint,3,opt,name=trans_a,json=transA,proto3" json:"trans_a,omitempty"`
-	TransB      bool                           `protobuf:"varint,4,opt,name=trans_b,json=transB,proto3" json:"trans_b,omitempty"`
-	M           uint64                         `protobuf:"varint,5,opt,name=m,proto3" json:"m,omitempty"`
-	N           uint64                         `protobuf:"varint,6,opt,name=n,proto3" json:"n,omitempty"`
-	K           uint64                         `protobuf:"varint,7,opt,name=k,proto3" json:"k,omitempty"`
-	Lda         int64                          `protobuf:"varint,8,opt,name=lda,proto3" json:"lda,omitempty"`
-	Ldb         int64                          `protobuf:"varint,9,opt,name=ldb,proto3" json:"ldb,omitempty"`
-	Ldc         int64                          `protobuf:"varint,10,opt,name=ldc,proto3" json:"ldc,omitempty"`
-	Activation  stream_executor.ActivationMode `protobuf:"varint,11,opt,name=activation,proto3,enum=stream_executor.dnn.ActivationMode" json:"activation,omitempty"`
-	AAddress    int64                          `protobuf:"varint,12,opt,name=a_address,json=aAddress,proto3" json:"a_address,omitempty"`
-	BAddress    int64                          `protobuf:"varint,13,opt,name=b_address,json=bAddress,proto3" json:"b_address,omitempty"`
-	CAddress    int64                          `protobuf:"varint,14,opt,name=c_address,json=cAddress,proto3" json:"c_address,omitempty"`
-	BiasAddress int64                          `protobuf:"varint,15,opt,name=bias_address,json=biasAddress,proto3" json:"bias_address,omitempty"`
+	AbDtype     protobuf.DataType       `protobuf:"varint,1,opt,name=ab_dtype,json=abDtype,proto3,enum=stream_executor.dnn.DataType" json:"ab_dtype,omitempty"`
+	CDtype      protobuf.DataType       `protobuf:"varint,2,opt,name=c_dtype,json=cDtype,proto3,enum=stream_executor.dnn.DataType" json:"c_dtype,omitempty"`
+	TransA      bool                    `protobuf:"varint,3,opt,name=trans_a,json=transA,proto3" json:"trans_a,omitempty"`
+	TransB      bool                    `protobuf:"varint,4,opt,name=trans_b,json=transB,proto3" json:"trans_b,omitempty"`
+	M           uint64                  `protobuf:"varint,5,opt,name=m,proto3" json:"m,omitempty"`
+	N           uint64                  `protobuf:"varint,6,opt,name=n,proto3" json:"n,omitempty"`
+	K           uint64                  `protobuf:"varint,7,opt,name=k,proto3" json:"k,omitempty"`
+	Lda         int64                   `protobuf:"varint,8,opt,name=lda,proto3" json:"lda,omitempty"`
+	Ldb         int64                   `protobuf:"varint,9,opt,name=ldb,proto3" json:"ldb,omitempty"`
+	Ldc         int64                   `protobuf:"varint,10,opt,name=ldc,proto3" json:"ldc,omitempty"`
+	Activation  protobuf.ActivationMode `protobuf:"varint,11,opt,name=activation,proto3,enum=stream_executor.dnn.ActivationMode" json:"activation,omitempty"`
+	AAddress    int64                   `protobuf:"varint,12,opt,name=a_address,json=aAddress,proto3" json:"a_address,omitempty"`
+	BAddress    int64                   `protobuf:"varint,13,opt,name=b_address,json=bAddress,proto3" json:"b_address,omitempty"`
+	CAddress    int64                   `protobuf:"varint,14,opt,name=c_address,json=cAddress,proto3" json:"c_address,omitempty"`
+	BiasAddress int64                   `protobuf:"varint,15,opt,name=bias_address,json=biasAddress,proto3" json:"bias_address,omitempty"`
 }
 
 func (x *MatmulProto) Reset() {
@@ -226,18 +227,18 @@ func (*MatmulProto) Descriptor() ([]byte, []int) {
 	return file_tensorflow_core_protobuf_conv_autotuning_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *MatmulProto) GetAbDtype() stream_executor.DataType {
+func (x *MatmulProto) GetAbDtype() protobuf.DataType {
 	if x != nil {
 		return x.AbDtype
 	}
-	return stream_executor.DataType(0)
+	return protobuf.DataType(0)
 }
 
-func (x *MatmulProto) GetCDtype() stream_executor.DataType {
+func (x *MatmulProto) GetCDtype() protobuf.DataType {
 	if x != nil {
 		return x.CDtype
 	}
-	return stream_executor.DataType(0)
+	return protobuf.DataType(0)
 }
 
 func (x *MatmulProto) GetTransA() bool {
@@ -296,11 +297,11 @@ func (x *MatmulProto) GetLdc() int64 {
 	return 0
 }
 
-func (x *MatmulProto) GetActivation() stream_executor.ActivationMode {
+func (x *MatmulProto) GetActivation() protobuf.ActivationMode {
 	if x != nil {
 		return x.Activation
 	}
-	return stream_executor.ActivationMode(0)
+	return protobuf.ActivationMode(0)
 }
 
 func (x *MatmulProto) GetAAddress() int64 {
@@ -442,13 +443,13 @@ func file_tensorflow_core_protobuf_conv_autotuning_proto_rawDescGZIP() []byte {
 
 var file_tensorflow_core_protobuf_conv_autotuning_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_tensorflow_core_protobuf_conv_autotuning_proto_goTypes = []interface{}{
-	(*ConvolutionProto)(nil),                           // 0: tensorflow.ConvolutionProto
-	(*MatmulProto)(nil),                                // 1: tensorflow.MatmulProto
-	(stream_executor.ConvolutionKind)(0),               // 2: stream_executor.dnn.ConvolutionKind
-	(*stream_executor.TensorDescriptorProto)(nil),      // 3: stream_executor.dnn.TensorDescriptorProto
-	(*stream_executor.ConvolutionDescriptorProto)(nil), // 4: stream_executor.dnn.ConvolutionDescriptorProto
-	(stream_executor.ActivationMode)(0),                // 5: stream_executor.dnn.ActivationMode
-	(stream_executor.DataType)(0),                      // 6: stream_executor.dnn.DataType
+	(*ConvolutionProto)(nil),                    // 0: tensorflow.ConvolutionProto
+	(*MatmulProto)(nil),                         // 1: tensorflow.MatmulProto
+	(protobuf.ConvolutionKind)(0),               // 2: stream_executor.dnn.ConvolutionKind
+	(*protobuf.TensorDescriptorProto)(nil),      // 3: stream_executor.dnn.TensorDescriptorProto
+	(*protobuf.ConvolutionDescriptorProto)(nil), // 4: stream_executor.dnn.ConvolutionDescriptorProto
+	(protobuf.ActivationMode)(0),                // 5: stream_executor.dnn.ActivationMode
+	(protobuf.DataType)(0),                      // 6: stream_executor.dnn.DataType
 }
 var file_tensorflow_core_protobuf_conv_autotuning_proto_depIdxs = []int32{
 	2, // 0: tensorflow.ConvolutionProto.kind:type_name -> stream_executor.dnn.ConvolutionKind

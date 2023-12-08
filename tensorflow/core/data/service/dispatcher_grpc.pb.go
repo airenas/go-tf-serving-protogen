@@ -33,6 +33,9 @@ const (
 	DispatcherService_GetWorkers_FullMethodName             = "/tensorflow.data.DispatcherService/GetWorkers"
 	DispatcherService_GetDataServiceMetadata_FullMethodName = "/tensorflow.data.DispatcherService/GetDataServiceMetadata"
 	DispatcherService_GetDataServiceConfig_FullMethodName   = "/tensorflow.data.DispatcherService/GetDataServiceConfig"
+	DispatcherService_Snapshot_FullMethodName               = "/tensorflow.data.DispatcherService/Snapshot"
+	DispatcherService_GetSnapshotSplit_FullMethodName       = "/tensorflow.data.DispatcherService/GetSnapshotSplit"
+	DispatcherService_GetSnapshotStreams_FullMethodName     = "/tensorflow.data.DispatcherService/GetSnapshotStreams"
 )
 
 // DispatcherServiceClient is the client API for DispatcherService service.
@@ -74,6 +77,15 @@ type DispatcherServiceClient interface {
 	GetDataServiceMetadata(ctx context.Context, in *GetDataServiceMetadataRequest, opts ...grpc.CallOption) (*GetDataServiceMetadataResponse, error)
 	// Returns the config of a data service cluster.
 	GetDataServiceConfig(ctx context.Context, in *GetDataServiceConfigRequest, opts ...grpc.CallOption) (*GetDataServiceConfigResponse, error)
+	// Initiates the process of materializing a dataset's output to disk.
+	Snapshot(ctx context.Context, in *SnapshotRequest, opts ...grpc.CallOption) (*SnapshotResponse, error)
+	// Gets the next split for the given stream of the given snapshot. Returns an
+	// error if there has been some miscommunication between the worker and
+	// dispatcher regarding stream assignment and the worker should stop (though
+	// due to stream leases this case should never happen).
+	GetSnapshotSplit(ctx context.Context, in *GetSnapshotSplitRequest, opts ...grpc.CallOption) (*GetSnapshotSplitResponse, error)
+	// Returns information about all streams for the given snapshot.
+	GetSnapshotStreams(ctx context.Context, in *GetSnapshotStreamsRequest, opts ...grpc.CallOption) (*GetSnapshotStreamsResponse, error)
 }
 
 type dispatcherServiceClient struct {
@@ -210,6 +222,33 @@ func (c *dispatcherServiceClient) GetDataServiceConfig(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *dispatcherServiceClient) Snapshot(ctx context.Context, in *SnapshotRequest, opts ...grpc.CallOption) (*SnapshotResponse, error) {
+	out := new(SnapshotResponse)
+	err := c.cc.Invoke(ctx, DispatcherService_Snapshot_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dispatcherServiceClient) GetSnapshotSplit(ctx context.Context, in *GetSnapshotSplitRequest, opts ...grpc.CallOption) (*GetSnapshotSplitResponse, error) {
+	out := new(GetSnapshotSplitResponse)
+	err := c.cc.Invoke(ctx, DispatcherService_GetSnapshotSplit_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dispatcherServiceClient) GetSnapshotStreams(ctx context.Context, in *GetSnapshotStreamsRequest, opts ...grpc.CallOption) (*GetSnapshotStreamsResponse, error) {
+	out := new(GetSnapshotStreamsResponse)
+	err := c.cc.Invoke(ctx, DispatcherService_GetSnapshotStreams_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DispatcherServiceServer is the server API for DispatcherService service.
 // All implementations must embed UnimplementedDispatcherServiceServer
 // for forward compatibility
@@ -249,6 +288,15 @@ type DispatcherServiceServer interface {
 	GetDataServiceMetadata(context.Context, *GetDataServiceMetadataRequest) (*GetDataServiceMetadataResponse, error)
 	// Returns the config of a data service cluster.
 	GetDataServiceConfig(context.Context, *GetDataServiceConfigRequest) (*GetDataServiceConfigResponse, error)
+	// Initiates the process of materializing a dataset's output to disk.
+	Snapshot(context.Context, *SnapshotRequest) (*SnapshotResponse, error)
+	// Gets the next split for the given stream of the given snapshot. Returns an
+	// error if there has been some miscommunication between the worker and
+	// dispatcher regarding stream assignment and the worker should stop (though
+	// due to stream leases this case should never happen).
+	GetSnapshotSplit(context.Context, *GetSnapshotSplitRequest) (*GetSnapshotSplitResponse, error)
+	// Returns information about all streams for the given snapshot.
+	GetSnapshotStreams(context.Context, *GetSnapshotStreamsRequest) (*GetSnapshotStreamsResponse, error)
 	mustEmbedUnimplementedDispatcherServiceServer()
 }
 
@@ -297,6 +345,15 @@ func (UnimplementedDispatcherServiceServer) GetDataServiceMetadata(context.Conte
 }
 func (UnimplementedDispatcherServiceServer) GetDataServiceConfig(context.Context, *GetDataServiceConfigRequest) (*GetDataServiceConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataServiceConfig not implemented")
+}
+func (UnimplementedDispatcherServiceServer) Snapshot(context.Context, *SnapshotRequest) (*SnapshotResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Snapshot not implemented")
+}
+func (UnimplementedDispatcherServiceServer) GetSnapshotSplit(context.Context, *GetSnapshotSplitRequest) (*GetSnapshotSplitResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSnapshotSplit not implemented")
+}
+func (UnimplementedDispatcherServiceServer) GetSnapshotStreams(context.Context, *GetSnapshotStreamsRequest) (*GetSnapshotStreamsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSnapshotStreams not implemented")
 }
 func (UnimplementedDispatcherServiceServer) mustEmbedUnimplementedDispatcherServiceServer() {}
 
@@ -563,6 +620,60 @@ func _DispatcherService_GetDataServiceConfig_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DispatcherService_Snapshot_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SnapshotRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherServiceServer).Snapshot(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherService_Snapshot_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherServiceServer).Snapshot(ctx, req.(*SnapshotRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DispatcherService_GetSnapshotSplit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSnapshotSplitRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherServiceServer).GetSnapshotSplit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherService_GetSnapshotSplit_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherServiceServer).GetSnapshotSplit(ctx, req.(*GetSnapshotSplitRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DispatcherService_GetSnapshotStreams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSnapshotStreamsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherServiceServer).GetSnapshotStreams(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherService_GetSnapshotStreams_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherServiceServer).GetSnapshotStreams(ctx, req.(*GetSnapshotStreamsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DispatcherService_ServiceDesc is the grpc.ServiceDesc for DispatcherService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -625,6 +736,18 @@ var DispatcherService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDataServiceConfig",
 			Handler:    _DispatcherService_GetDataServiceConfig_Handler,
+		},
+		{
+			MethodName: "Snapshot",
+			Handler:    _DispatcherService_Snapshot_Handler,
+		},
+		{
+			MethodName: "GetSnapshotSplit",
+			Handler:    _DispatcherService_GetSnapshotSplit_Handler,
+		},
+		{
+			MethodName: "GetSnapshotStreams",
+			Handler:    _DispatcherService_GetSnapshotStreams_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

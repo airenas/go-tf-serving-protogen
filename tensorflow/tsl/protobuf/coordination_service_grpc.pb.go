@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             (unknown)
-// source: tensorflow/core/protobuf/coordination_service.proto
+// source: tensorflow/tsl/protobuf/coordination_service.proto
 
 package protobuf
 
@@ -757,5 +757,5 @@ var CoordinationService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "tensorflow/core/protobuf/coordination_service.proto",
+	Metadata: "tensorflow/tsl/protobuf/coordination_service.proto",
 }

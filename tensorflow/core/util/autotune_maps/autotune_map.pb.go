@@ -27,7 +27,8 @@
 package autotune_maps
 
 import (
-	stream_executor "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/stream_executor"
+	_ "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/stream_executor"
+	protobuf "github.com/airenas/go-tf-serving-protogen/tensorflow/tsl/protobuf"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -149,8 +150,8 @@ type ConvMapProto_Entry struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Key   *ConvParametersProto                  `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
-	Value *stream_executor.AlgorithmConfigProto `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	Key   *ConvParametersProto           `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value *protobuf.AlgorithmConfigProto `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
 }
 
 func (x *ConvMapProto_Entry) Reset() {
@@ -192,7 +193,7 @@ func (x *ConvMapProto_Entry) GetKey() *ConvParametersProto {
 	return nil
 }
 
-func (x *ConvMapProto_Entry) GetValue() *stream_executor.AlgorithmConfigProto {
+func (x *ConvMapProto_Entry) GetValue() *protobuf.AlgorithmConfigProto {
 	if x != nil {
 		return x.Value
 	}
@@ -263,11 +264,11 @@ func file_tensorflow_core_util_autotune_maps_autotune_map_proto_rawDescGZIP() []
 
 var file_tensorflow_core_util_autotune_maps_autotune_map_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_tensorflow_core_util_autotune_maps_autotune_map_proto_goTypes = []interface{}{
-	(*ConvMapProto)(nil),                         // 0: tensorflow.ConvMapProto
-	(*AutotuneMapsProto)(nil),                    // 1: tensorflow.AutotuneMapsProto
-	(*ConvMapProto_Entry)(nil),                   // 2: tensorflow.ConvMapProto.Entry
-	(*ConvParametersProto)(nil),                  // 3: tensorflow.ConvParametersProto
-	(*stream_executor.AlgorithmConfigProto)(nil), // 4: stream_executor.dnn.AlgorithmConfigProto
+	(*ConvMapProto)(nil),                  // 0: tensorflow.ConvMapProto
+	(*AutotuneMapsProto)(nil),             // 1: tensorflow.AutotuneMapsProto
+	(*ConvMapProto_Entry)(nil),            // 2: tensorflow.ConvMapProto.Entry
+	(*ConvParametersProto)(nil),           // 3: tensorflow.ConvParametersProto
+	(*protobuf.AlgorithmConfigProto)(nil), // 4: stream_executor.dnn.AlgorithmConfigProto
 }
 var file_tensorflow_core_util_autotune_maps_autotune_map_proto_depIdxs = []int32{
 	2, // 0: tensorflow.ConvMapProto.kv_pairs:type_name -> tensorflow.ConvMapProto.Entry

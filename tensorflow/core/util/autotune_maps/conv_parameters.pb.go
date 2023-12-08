@@ -29,8 +29,9 @@
 package autotune_maps
 
 import (
-	stream_executor "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/stream_executor"
+	_ "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/stream_executor"
 	framework "github.com/airenas/go-tf-serving-protogen/tensorflow/core/framework"
+	protobuf "github.com/airenas/go-tf-serving-protogen/tensorflow/tsl/protobuf"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -213,19 +214,19 @@ type MatmulParametersProto struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	AbDtype          framework.DataType             `protobuf:"varint,1,opt,name=ab_dtype,json=abDtype,proto3,enum=tensorflow.DataType" json:"ab_dtype,omitempty"`
-	CDtype           framework.DataType             `protobuf:"varint,2,opt,name=c_dtype,json=cDtype,proto3,enum=tensorflow.DataType" json:"c_dtype,omitempty"`
-	TransA           bool                           `protobuf:"varint,3,opt,name=trans_a,json=transA,proto3" json:"trans_a,omitempty"`
-	TransB           bool                           `protobuf:"varint,4,opt,name=trans_b,json=transB,proto3" json:"trans_b,omitempty"`
-	M                uint64                         `protobuf:"varint,5,opt,name=m,proto3" json:"m,omitempty"`
-	N                uint64                         `protobuf:"varint,6,opt,name=n,proto3" json:"n,omitempty"`
-	K                uint64                         `protobuf:"varint,7,opt,name=k,proto3" json:"k,omitempty"`
-	Lda              int64                          `protobuf:"varint,8,opt,name=lda,proto3" json:"lda,omitempty"`
-	Ldb              int64                          `protobuf:"varint,9,opt,name=ldb,proto3" json:"ldb,omitempty"`
-	Ldc              int64                          `protobuf:"varint,10,opt,name=ldc,proto3" json:"ldc,omitempty"`
-	ActivationMode   stream_executor.ActivationMode `protobuf:"varint,11,opt,name=activation_mode,json=activationMode,proto3,enum=stream_executor.dnn.ActivationMode" json:"activation_mode,omitempty"`
-	DeviceIdentifier string                         `protobuf:"bytes,12,opt,name=device_identifier,json=deviceIdentifier,proto3" json:"device_identifier,omitempty"`
-	Version          int32                          `protobuf:"varint,14,opt,name=version,proto3" json:"version,omitempty"`
+	AbDtype          framework.DataType      `protobuf:"varint,1,opt,name=ab_dtype,json=abDtype,proto3,enum=tensorflow.DataType" json:"ab_dtype,omitempty"`
+	CDtype           framework.DataType      `protobuf:"varint,2,opt,name=c_dtype,json=cDtype,proto3,enum=tensorflow.DataType" json:"c_dtype,omitempty"`
+	TransA           bool                    `protobuf:"varint,3,opt,name=trans_a,json=transA,proto3" json:"trans_a,omitempty"`
+	TransB           bool                    `protobuf:"varint,4,opt,name=trans_b,json=transB,proto3" json:"trans_b,omitempty"`
+	M                uint64                  `protobuf:"varint,5,opt,name=m,proto3" json:"m,omitempty"`
+	N                uint64                  `protobuf:"varint,6,opt,name=n,proto3" json:"n,omitempty"`
+	K                uint64                  `protobuf:"varint,7,opt,name=k,proto3" json:"k,omitempty"`
+	Lda              int64                   `protobuf:"varint,8,opt,name=lda,proto3" json:"lda,omitempty"`
+	Ldb              int64                   `protobuf:"varint,9,opt,name=ldb,proto3" json:"ldb,omitempty"`
+	Ldc              int64                   `protobuf:"varint,10,opt,name=ldc,proto3" json:"ldc,omitempty"`
+	ActivationMode   protobuf.ActivationMode `protobuf:"varint,11,opt,name=activation_mode,json=activationMode,proto3,enum=stream_executor.dnn.ActivationMode" json:"activation_mode,omitempty"`
+	DeviceIdentifier string                  `protobuf:"bytes,12,opt,name=device_identifier,json=deviceIdentifier,proto3" json:"device_identifier,omitempty"`
+	Version          int32                   `protobuf:"varint,14,opt,name=version,proto3" json:"version,omitempty"`
 }
 
 func (x *MatmulParametersProto) Reset() {
@@ -330,11 +331,11 @@ func (x *MatmulParametersProto) GetLdc() int64 {
 	return 0
 }
 
-func (x *MatmulParametersProto) GetActivationMode() stream_executor.ActivationMode {
+func (x *MatmulParametersProto) GetActivationMode() protobuf.ActivationMode {
 	if x != nil {
 		return x.ActivationMode
 	}
-	return stream_executor.ActivationMode(0)
+	return protobuf.ActivationMode(0)
 }
 
 func (x *MatmulParametersProto) GetDeviceIdentifier() string {
@@ -367,10 +368,10 @@ type ConvParametersProto_Fusion struct {
 	// of some fields (like padding) are different. So we add this field to
 	// distinguish them.
 	// TODO(b/177365158) Remove this field once these two operations are merged.
-	IsContrib      bool                           `protobuf:"varint,1,opt,name=is_contrib,json=isContrib,proto3" json:"is_contrib,omitempty"`
-	ActivationMode stream_executor.ActivationMode `protobuf:"varint,2,opt,name=activation_mode,json=activationMode,proto3,enum=stream_executor.dnn.ActivationMode" json:"activation_mode,omitempty"`
-	ConvScale      float64                        `protobuf:"fixed64,3,opt,name=conv_scale,json=convScale,proto3" json:"conv_scale,omitempty"`
-	SideInputScale float64                        `protobuf:"fixed64,4,opt,name=side_input_scale,json=sideInputScale,proto3" json:"side_input_scale,omitempty"`
+	IsContrib      bool                    `protobuf:"varint,1,opt,name=is_contrib,json=isContrib,proto3" json:"is_contrib,omitempty"`
+	ActivationMode protobuf.ActivationMode `protobuf:"varint,2,opt,name=activation_mode,json=activationMode,proto3,enum=stream_executor.dnn.ActivationMode" json:"activation_mode,omitempty"`
+	ConvScale      float64                 `protobuf:"fixed64,3,opt,name=conv_scale,json=convScale,proto3" json:"conv_scale,omitempty"`
+	SideInputScale float64                 `protobuf:"fixed64,4,opt,name=side_input_scale,json=sideInputScale,proto3" json:"side_input_scale,omitempty"`
 }
 
 func (x *ConvParametersProto_Fusion) Reset() {
@@ -412,11 +413,11 @@ func (x *ConvParametersProto_Fusion) GetIsContrib() bool {
 	return false
 }
 
-func (x *ConvParametersProto_Fusion) GetActivationMode() stream_executor.ActivationMode {
+func (x *ConvParametersProto_Fusion) GetActivationMode() protobuf.ActivationMode {
 	if x != nil {
 		return x.ActivationMode
 	}
-	return stream_executor.ActivationMode(0)
+	return protobuf.ActivationMode(0)
 }
 
 func (x *ConvParametersProto_Fusion) GetConvScale() float64 {
@@ -542,11 +543,11 @@ func file_tensorflow_core_util_autotune_maps_conv_parameters_proto_rawDescGZIP()
 
 var file_tensorflow_core_util_autotune_maps_conv_parameters_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_tensorflow_core_util_autotune_maps_conv_parameters_proto_goTypes = []interface{}{
-	(*ConvParametersProto)(nil),         // 0: tensorflow.ConvParametersProto
-	(*MatmulParametersProto)(nil),       // 1: tensorflow.MatmulParametersProto
-	(*ConvParametersProto_Fusion)(nil),  // 2: tensorflow.ConvParametersProto.Fusion
-	(framework.DataType)(0),             // 3: tensorflow.DataType
-	(stream_executor.ActivationMode)(0), // 4: stream_executor.dnn.ActivationMode
+	(*ConvParametersProto)(nil),        // 0: tensorflow.ConvParametersProto
+	(*MatmulParametersProto)(nil),      // 1: tensorflow.MatmulParametersProto
+	(*ConvParametersProto_Fusion)(nil), // 2: tensorflow.ConvParametersProto.Fusion
+	(framework.DataType)(0),            // 3: tensorflow.DataType
+	(protobuf.ActivationMode)(0),       // 4: stream_executor.dnn.ActivationMode
 }
 var file_tensorflow_core_util_autotune_maps_conv_parameters_proto_depIdxs = []int32{
 	3, // 0: tensorflow.ConvParametersProto.dtype:type_name -> tensorflow.DataType

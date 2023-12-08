@@ -28,7 +28,7 @@ type OpCostMapProto struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Maps an op_key to a cost measured in microseconds.
+	// Maps an op_key to a cost measured in nanoseconds.
 	OpCostMap map[int64]uint64 `protobuf:"bytes,1,rep,name=op_cost_map,json=opCostMap,proto3" json:"op_cost_map,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
 }
 

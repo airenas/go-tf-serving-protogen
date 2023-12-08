@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	WorkerService_ProcessTask_FullMethodName    = "/tensorflow.data.WorkerService/ProcessTask"
-	WorkerService_GetElement_FullMethodName     = "/tensorflow.data.WorkerService/GetElement"
-	WorkerService_GetWorkerTasks_FullMethodName = "/tensorflow.data.WorkerService/GetWorkerTasks"
+	WorkerService_ProcessTask_FullMethodName               = "/tensorflow.data.WorkerService/ProcessTask"
+	WorkerService_GetElement_FullMethodName                = "/tensorflow.data.WorkerService/GetElement"
+	WorkerService_GetWorkerTasks_FullMethodName            = "/tensorflow.data.WorkerService/GetWorkerTasks"
+	WorkerService_GetSnapshotTaskProgresses_FullMethodName = "/tensorflow.data.WorkerService/GetSnapshotTaskProgresses"
 )
 
 // WorkerServiceClient is the client API for WorkerService service.
@@ -34,6 +35,9 @@ type WorkerServiceClient interface {
 	GetElement(ctx context.Context, in *GetElementRequest, opts ...grpc.CallOption) (*GetElementResponse, error)
 	// Gets the tasks currently being executed by the worker.
 	GetWorkerTasks(ctx context.Context, in *GetWorkerTasksRequest, opts ...grpc.CallOption) (*GetWorkerTasksResponse, error)
+	// Gets the progresses of the snapshot tasks currently being executed by the
+	// worker.
+	GetSnapshotTaskProgresses(ctx context.Context, in *GetSnapshotTaskProgressesRequest, opts ...grpc.CallOption) (*GetSnapshotTaskProgressesResponse, error)
 }
 
 type workerServiceClient struct {
@@ -71,6 +75,15 @@ func (c *workerServiceClient) GetWorkerTasks(ctx context.Context, in *GetWorkerT
 	return out, nil
 }
 
+func (c *workerServiceClient) GetSnapshotTaskProgresses(ctx context.Context, in *GetSnapshotTaskProgressesRequest, opts ...grpc.CallOption) (*GetSnapshotTaskProgressesResponse, error) {
+	out := new(GetSnapshotTaskProgressesResponse)
+	err := c.cc.Invoke(ctx, WorkerService_GetSnapshotTaskProgresses_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WorkerServiceServer is the server API for WorkerService service.
 // All implementations must embed UnimplementedWorkerServiceServer
 // for forward compatibility
@@ -81,6 +94,9 @@ type WorkerServiceServer interface {
 	GetElement(context.Context, *GetElementRequest) (*GetElementResponse, error)
 	// Gets the tasks currently being executed by the worker.
 	GetWorkerTasks(context.Context, *GetWorkerTasksRequest) (*GetWorkerTasksResponse, error)
+	// Gets the progresses of the snapshot tasks currently being executed by the
+	// worker.
+	GetSnapshotTaskProgresses(context.Context, *GetSnapshotTaskProgressesRequest) (*GetSnapshotTaskProgressesResponse, error)
 	mustEmbedUnimplementedWorkerServiceServer()
 }
 
@@ -96,6 +112,9 @@ func (UnimplementedWorkerServiceServer) GetElement(context.Context, *GetElementR
 }
 func (UnimplementedWorkerServiceServer) GetWorkerTasks(context.Context, *GetWorkerTasksRequest) (*GetWorkerTasksResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetWorkerTasks not implemented")
+}
+func (UnimplementedWorkerServiceServer) GetSnapshotTaskProgresses(context.Context, *GetSnapshotTaskProgressesRequest) (*GetSnapshotTaskProgressesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSnapshotTaskProgresses not implemented")
 }
 func (UnimplementedWorkerServiceServer) mustEmbedUnimplementedWorkerServiceServer() {}
 
@@ -164,6 +183,24 @@ func _WorkerService_GetWorkerTasks_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkerService_GetSnapshotTaskProgresses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSnapshotTaskProgressesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkerServiceServer).GetSnapshotTaskProgresses(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkerService_GetSnapshotTaskProgresses_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkerServiceServer).GetSnapshotTaskProgresses(ctx, req.(*GetSnapshotTaskProgressesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WorkerService_ServiceDesc is the grpc.ServiceDesc for WorkerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -182,6 +219,10 @@ var WorkerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetWorkerTasks",
 			Handler:    _WorkerService_GetWorkerTasks_Handler,
+		},
+		{
+			MethodName: "GetSnapshotTaskProgresses",
+			Handler:    _WorkerService_GetSnapshotTaskProgresses_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             (unknown)
-// source: tensorflow/core/profiler/profiler_analysis.proto
+// source: tensorflow/tsl/profiler/protobuf/profiler_analysis.proto
 
-package profiler
+package protobuf
 
 import (
 	context "context"
@@ -189,5 +189,5 @@ var ProfileAnalysis_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "tensorflow/core/profiler/profiler_analysis.proto",
+	Metadata: "tensorflow/tsl/profiler/protobuf/profiler_analysis.proto",
 }
