@@ -26,6 +26,7 @@ const (
 	CoordinationService_ResetTask_FullMethodName            = "/tensorflow.CoordinationService/ResetTask"
 	CoordinationService_ReportErrorToTask_FullMethodName    = "/tensorflow.CoordinationService/ReportErrorToTask"
 	CoordinationService_ReportErrorToService_FullMethodName = "/tensorflow.CoordinationService/ReportErrorToService"
+	CoordinationService_GetTaskState_FullMethodName         = "/tensorflow.CoordinationService/GetTaskState"
 	CoordinationService_InsertKeyValue_FullMethodName       = "/tensorflow.CoordinationService/InsertKeyValue"
 	CoordinationService_GetKeyValue_FullMethodName          = "/tensorflow.CoordinationService/GetKeyValue"
 	CoordinationService_TryGetKeyValue_FullMethodName       = "/tensorflow.CoordinationService/TryGetKeyValue"
@@ -66,6 +67,10 @@ type CoordinationServiceClient interface {
 	// Report task error to coordination service. RPC sets the service-side task
 	// state to error, and propagate the error to other tasks in the cluster.
 	ReportErrorToService(ctx context.Context, in *ReportErrorToServiceRequest, opts ...grpc.CallOption) (*ReportErrorToServiceResponse, error)
+	// Get the state of a remote task. Specifically, RPC returns a
+	// CoordinatedTaskState, and if the task is in an error status, returns a
+	// non-OK error code, non-empty error message and error payload.
+	GetTaskState(ctx context.Context, in *GetTaskStateRequest, opts ...grpc.CallOption) (*GetTaskStateResponse, error)
 	// Insert configuration key-value that will be accessible to all cluster
 	// tasks. The key can be formatted as Unix file path with hierarchy. The
 	// coordination service key-value store should only be used for cluster
@@ -190,6 +195,15 @@ func (c *coordinationServiceClient) ReportErrorToService(ctx context.Context, in
 	return out, nil
 }
 
+func (c *coordinationServiceClient) GetTaskState(ctx context.Context, in *GetTaskStateRequest, opts ...grpc.CallOption) (*GetTaskStateResponse, error) {
+	out := new(GetTaskStateResponse)
+	err := c.cc.Invoke(ctx, CoordinationService_GetTaskState_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *coordinationServiceClient) InsertKeyValue(ctx context.Context, in *InsertKeyValueRequest, opts ...grpc.CallOption) (*InsertKeyValueResponse, error) {
 	out := new(InsertKeyValueResponse)
 	err := c.cc.Invoke(ctx, CoordinationService_InsertKeyValue_FullMethodName, in, out, opts...)
@@ -284,6 +298,10 @@ type CoordinationServiceServer interface {
 	// Report task error to coordination service. RPC sets the service-side task
 	// state to error, and propagate the error to other tasks in the cluster.
 	ReportErrorToService(context.Context, *ReportErrorToServiceRequest) (*ReportErrorToServiceResponse, error)
+	// Get the state of a remote task. Specifically, RPC returns a
+	// CoordinatedTaskState, and if the task is in an error status, returns a
+	// non-OK error code, non-empty error message and error payload.
+	GetTaskState(context.Context, *GetTaskStateRequest) (*GetTaskStateResponse, error)
 	// Insert configuration key-value that will be accessible to all cluster
 	// tasks. The key can be formatted as Unix file path with hierarchy. The
 	// coordination service key-value store should only be used for cluster
@@ -362,6 +380,9 @@ func (UnimplementedCoordinationServiceServer) ReportErrorToTask(context.Context,
 }
 func (UnimplementedCoordinationServiceServer) ReportErrorToService(context.Context, *ReportErrorToServiceRequest) (*ReportErrorToServiceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReportErrorToService not implemented")
+}
+func (UnimplementedCoordinationServiceServer) GetTaskState(context.Context, *GetTaskStateRequest) (*GetTaskStateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTaskState not implemented")
 }
 func (UnimplementedCoordinationServiceServer) InsertKeyValue(context.Context, *InsertKeyValueRequest) (*InsertKeyValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InsertKeyValue not implemented")
@@ -519,6 +540,24 @@ func _CoordinationService_ReportErrorToService_Handler(srv interface{}, ctx cont
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoordinationServiceServer).ReportErrorToService(ctx, req.(*ReportErrorToServiceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoordinationService_GetTaskState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTaskStateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoordinationServiceServer).GetTaskState(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CoordinationService_GetTaskState_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoordinationServiceServer).GetTaskState(ctx, req.(*GetTaskStateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -683,6 +722,10 @@ var CoordinationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReportErrorToService",
 			Handler:    _CoordinationService_ReportErrorToService_Handler,
+		},
+		{
+			MethodName: "GetTaskState",
+			Handler:    _CoordinationService_GetTaskState_Handler,
 		},
 		{
 			MethodName: "InsertKeyValue",

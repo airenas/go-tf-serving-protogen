@@ -23,6 +23,7 @@ package protobuf
 
 import (
 	framework "github.com/airenas/go-tf-serving-protogen/tensorflow/core/framework"
+	protobuf "github.com/airenas/go-tf-serving-protogen/tensorflow/tsl/protobuf"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
@@ -967,8 +968,8 @@ type RunGraphResponse struct {
 	// optionally the server may return an OK status for the RPC and
 	// fill the true status into the fields below, to allow for messages
 	// that are too long to fit in metadata.
-	StatusCode         Code   `protobuf:"varint,5,opt,name=status_code,json=statusCode,proto3,enum=tensorflow.error.Code" json:"status_code,omitempty"`
-	StatusErrorMessage string `protobuf:"bytes,6,opt,name=status_error_message,json=statusErrorMessage,proto3" json:"status_error_message,omitempty"`
+	StatusCode         protobuf.Code `protobuf:"varint,5,opt,name=status_code,json=statusCode,proto3,enum=tensorflow.error.Code" json:"status_code,omitempty"`
+	StatusErrorMessage string        `protobuf:"bytes,6,opt,name=status_error_message,json=statusErrorMessage,proto3" json:"status_error_message,omitempty"`
 }
 
 func (x *RunGraphResponse) Reset() {
@@ -1031,11 +1032,11 @@ func (x *RunGraphResponse) GetPartitionGraph() []*framework.GraphDef {
 	return nil
 }
 
-func (x *RunGraphResponse) GetStatusCode() Code {
+func (x *RunGraphResponse) GetStatusCode() protobuf.Code {
 	if x != nil {
 		return x.StatusCode
 	}
-	return Code_OK
+	return protobuf.Code(0)
 }
 
 func (x *RunGraphResponse) GetStatusErrorMessage() string {
@@ -3004,7 +3005,7 @@ var file_tensorflow_core_protobuf_worker_proto_goTypes = []interface{}{
 	(*NamedTensorProto)(nil),            // 42: tensorflow.NamedTensorProto
 	(*framework.StepStats)(nil),         // 43: tensorflow.StepStats
 	(*framework.CostGraphDef)(nil),      // 44: tensorflow.CostGraphDef
-	(Code)(0),                           // 45: tensorflow.error.Code
+	(protobuf.Code)(0),                  // 45: tensorflow.error.Code
 	(*framework.DeviceLocality)(nil),    // 46: tensorflow.DeviceLocality
 	(*anypb.Any)(nil),                   // 47: google.protobuf.Any
 	(*framework.TensorProto)(nil),       // 48: tensorflow.TensorProto

@@ -188,9 +188,12 @@ type TPUEmbeddingConfiguration struct {
 	// configuration parameters (e.g., sharding strategy and TPU worker task
 	// count). The same profile data directory can be shared amongst several
 	// models to reuse embedding lookup statistics.
-	ProfileDataDirectory string                                         `protobuf:"bytes,9,opt,name=profile_data_directory,json=profileDataDirectory,proto3" json:"profile_data_directory,omitempty"`
-	FeatureDescriptor    []*TPUEmbeddingConfiguration_FeatureDescriptor `protobuf:"bytes,10,rep,name=feature_descriptor,json=featureDescriptor,proto3" json:"feature_descriptor,omitempty"`
-	SpmdSharding         *TPUEmbeddingConfiguration_SpmdSharding        `protobuf:"bytes,11,opt,name=spmd_sharding,json=spmdSharding,proto3" json:"spmd_sharding,omitempty"`
+	ProfileDataDirectory string `protobuf:"bytes,9,opt,name=profile_data_directory,json=profileDataDirectory,proto3" json:"profile_data_directory,omitempty"`
+	// If the feature_descriptor field is populated, the model should NOT populate
+	// TableDescriptor.num_features and batch_size_per_tensor_core. These two
+	// fields will be auto-populated by the TPUEmbedding rewrite passes.
+	FeatureDescriptor []*TPUEmbeddingConfiguration_FeatureDescriptor `protobuf:"bytes,10,rep,name=feature_descriptor,json=featureDescriptor,proto3" json:"feature_descriptor,omitempty"`
+	SpmdSharding      *TPUEmbeddingConfiguration_SpmdSharding        `protobuf:"bytes,11,opt,name=spmd_sharding,json=spmdSharding,proto3" json:"spmd_sharding,omitempty"`
 }
 
 func (x *TPUEmbeddingConfiguration) Reset() {

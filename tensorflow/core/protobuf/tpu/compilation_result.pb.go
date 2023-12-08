@@ -8,7 +8,8 @@ package tpu
 
 import (
 	service "github.com/airenas/go-tf-serving-protogen/tensorflow/compiler/xla/service"
-	protobuf "github.com/airenas/go-tf-serving-protogen/tensorflow/core/protobuf"
+	_ "github.com/airenas/go-tf-serving-protogen/tensorflow/core/protobuf"
+	protobuf "github.com/airenas/go-tf-serving-protogen/tensorflow/tsl/protobuf"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"

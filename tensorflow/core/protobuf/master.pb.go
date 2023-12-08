@@ -23,6 +23,7 @@ package protobuf
 
 import (
 	framework "github.com/airenas/go-tf-serving-protogen/tensorflow/core/framework"
+	protobuf "github.com/airenas/go-tf-serving-protogen/tensorflow/tsl/protobuf"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -419,8 +420,8 @@ type RunStepResponse struct {
 	// optionally the server may return an OK status for the RPC and
 	// fill the true status into the fields below, to allow for messages
 	// that are too long to fit in metadata.
-	StatusCode         Code   `protobuf:"varint,3,opt,name=status_code,json=statusCode,proto3,enum=tensorflow.error.Code" json:"status_code,omitempty"`
-	StatusErrorMessage string `protobuf:"bytes,4,opt,name=status_error_message,json=statusErrorMessage,proto3" json:"status_error_message,omitempty"`
+	StatusCode         protobuf.Code `protobuf:"varint,3,opt,name=status_code,json=statusCode,proto3,enum=tensorflow.error.Code" json:"status_code,omitempty"`
+	StatusErrorMessage string        `protobuf:"bytes,4,opt,name=status_error_message,json=statusErrorMessage,proto3" json:"status_error_message,omitempty"`
 }
 
 func (x *RunStepResponse) Reset() {
@@ -469,11 +470,11 @@ func (x *RunStepResponse) GetMetadata() *RunMetadata {
 	return nil
 }
 
-func (x *RunStepResponse) GetStatusCode() Code {
+func (x *RunStepResponse) GetStatusCode() protobuf.Code {
 	if x != nil {
 		return x.StatusCode
 	}
-	return Code_OK
+	return protobuf.Code(0)
 }
 
 func (x *RunStepResponse) GetStatusErrorMessage() string {
@@ -1509,7 +1510,7 @@ var file_tensorflow_core_protobuf_master_proto_goTypes = []interface{}{
 	(*NamedTensorProto)(nil),           // 22: tensorflow.NamedTensorProto
 	(*RunOptions)(nil),                 // 23: tensorflow.RunOptions
 	(*RunMetadata)(nil),                // 24: tensorflow.RunMetadata
-	(Code)(0),                          // 25: tensorflow.error.Code
+	(protobuf.Code)(0),                 // 25: tensorflow.error.Code
 	(*framework.DeviceAttributes)(nil), // 26: tensorflow.DeviceAttributes
 	(*CallableOptions)(nil),            // 27: tensorflow.CallableOptions
 	(*framework.TensorProto)(nil),      // 28: tensorflow.TensorProto
