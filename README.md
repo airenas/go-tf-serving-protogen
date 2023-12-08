@@ -1,6 +1,6 @@
 # go-tf-serving-protogen
 
-Welcome to the `go-tf-serving-protobufs` repository, where I make TensorFlow Serving and Protobufs in Go a little less intimidating.
+Welcome to the `go-tf-serving-protogen` repository, where I make TensorFlow Serving and Protobufs in Go a little less intimidating.
 
 ## Versioning
 
@@ -19,9 +19,9 @@ Here's a simple compatibility matrix to help you choose the right version based 
 ## Installation
 
 ```bash
-go get github.com/yourusername/go-tf-serving-protobufs
+go get github.com/airenas/go-tf-serving-protogen
 ## or better 
-go get github.com/yourusername/go-tf-serving-protobufs@<tf-serving-version>
+go get github.com/airenas/go-tf-serving-protogen@<tf-serving-version>
 ```
 
 ## Generating protoc code for new version
